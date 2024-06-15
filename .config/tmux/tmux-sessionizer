@@ -13,7 +13,7 @@ history_map=($(cat ~/.tmux-repo.history | awk '{print $1}'))
 
 to_find_path=$(echo $(sed "s|~|$HOME|g" ~/.tmux-repo | tr -s '\n' ' '))
 
-search_paths=$(find $to_find_path -mindepth 1 -maxdepth 2 -type d -exec [ -e '{}/.git' ] ';' -prune -print)
+search_paths=$(find $to_find_path -mindepth 0 -maxdepth 2 -type d -exec [ -e '{}/.git' ] ';' -prune -print)
 
 filtered_search_paths=()
 
