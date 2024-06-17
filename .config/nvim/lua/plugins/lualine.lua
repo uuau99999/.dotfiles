@@ -61,10 +61,6 @@ local colors = {
   grey = "#303030",
 }
 
-local function customFilenameColor()
-  return { fg = vim.bo.modified and colors.red or colors.cyan }
-end
-
 -- local custom_gruvbox = require("lualine.themes.tokyonight")
 
 -- local bubbles_theme = {
@@ -85,27 +81,36 @@ end
 --   },
 -- }
 
-local lualine_nightfly = require("lualine.themes.nightfly")
+-- local lualine_nightfly = require("lualine.themes.nightfly")
 -- new colors for theme
-local new_colors = {
-  blue = "#65D1FF",
-  green = "#3EFFDC",
-  violet = "#FF61EF",
-  yellow = "#FFDA7B",
-  black = "#000000",
-}
+-- local new_colors = {
+--   blue = "#65D1FF",
+--   green = "#3EFFDC",
+--   violet = "#FF61EF",
+--   yellow = "#FFDA7B",
+--   black = "#000000",
+-- }
 
 -- change nightlfy theme colors
-lualine_nightfly.normal.a.bg = new_colors.blue
-lualine_nightfly.insert.a.bg = new_colors.green
-lualine_nightfly.visual.a.bg = new_colors.violet
-lualine_nightfly.command = {
-  a = {
-    gui = "bold",
-    bg = new_colors.yellow,
-    fg = new_colors.black, -- black
-  },
-}
+-- lualine_nightfly.normal.a.bg = new_colors.blue
+-- lualine_nightfly.insert.a.bg = new_colors.green
+-- lualine_nightfly.visual.a.bg = new_colors.violet
+-- lualine_nightfly.command = {
+--   a = {
+--     gui = "bold",
+--     bg = new_colors.yellow,
+--     fg = new_colors.black, -- black
+--   },
+-- }
+
+local macchiato = require("catppuccin.palettes").get_palette("macchiato")
+local function customFilenameColor()
+  return { fg = vim.bo.modified and macchiato.red or macchiato.teal }
+end
+
+local catppuccin = require("lualine.themes.catppuccin")
+
+catppuccin.normal.c.bg = macchiato.base
 
 return {
   "nvim-lualine/lualine.nvim",
@@ -113,9 +118,9 @@ return {
     require("lualine").setup({
       options = {
         -- theme = lualine_nightfly,
-        theme = "ayu_mirage",
-        -- component_separators = "",
-        -- section_separators = { left = "", right = "" },
+        -- theme = "ayu_mirage",
+        -- theme = "catppuccin",
+        theme = catppuccin,
       },
       sections = {
         lualine_a = { { "mode", separator = { left = "", right = "" } } },
@@ -123,7 +128,7 @@ return {
           { "branch" },
           {
             findCodebaseDir,
-            color = { fg = colors.black, bg = colors.orange },
+            color = { fg = macchiato.crust, bg = macchiato.green },
             icon = "",
             separator = { left = "", right = "" },
           },
@@ -132,10 +137,24 @@ return {
           { getFileRelativePath, color = customFilenameColor },
         },
         lualine_x = {
-          { "diagnostics", separator = { right = "" } },
-          "diff",
+          {
+            "diagnostics",
+            separator = { right = "" },
+            sections = { "error", "warn", "info", "hint" },
+            colored = true,
+            color = { bg = macchiato.surface0 },
+          },
+          {
+            "diff",
+          },
         },
-        lualine_y = { "filetype" },
+        lualine_y = {
+          {
+            "filetype",
+            color = { bg = macchiato.base },
+            separator = { left = "" },
+          },
+        },
         lualine_z = {
           { "progress", separator = { left = "" } },
           { "%l/%L" },

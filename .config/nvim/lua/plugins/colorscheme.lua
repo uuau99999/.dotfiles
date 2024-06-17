@@ -42,7 +42,7 @@ return {
 
     opts = function()
       require("catppuccin").setup({
-        flavour = "mocha",
+        flavour = "macchiato",
         custom_highlights = function(colors)
           return {
             Comment = { fg = colors.flamingo },
@@ -84,7 +84,7 @@ return {
           gitsigns = true,
           nvimtree = true,
           treesitter = true,
-          notify = false,
+          notify = true,
           mini = {
             enabled = true,
             indentscope_color = "",
