@@ -148,3 +148,6 @@ nmap("<Tab>", require("mini.files").open, "Open mini-files")
 --leap
 vim.keymap.set("n", "s", "<Plug>(leap)", { desc = "Leap from window" })
 keymap.set("n", "S", '"_S')
+
+--floaterm
+keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")
