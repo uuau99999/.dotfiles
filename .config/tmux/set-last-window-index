@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+touch ~/.last_tmux_window_index
+echo "$(tmux display-message -p '#{window_index}')" >~/.last_tmux_window_index

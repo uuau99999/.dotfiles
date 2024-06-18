@@ -1,0 +1,4 @@
+
+#!/usr/bin/env bash
+
+~/.config/tmux/set-last-window-index && tmux neww ~/.config/tmux/tmux-clear
