@@ -102,8 +102,23 @@ return {
         },
         -- linehl = true,
       })
-      vim.keymap.set("n", "<leader>gd", ":Gitsigns preview_hunk<CR>", {
+      vim.keymap.set("n", "<leader>hd", ":Gitsigns preview_hunk<CR>", {
         desc = "Check current chunk diff",
+      })
+      vim.keymap.set("n", "<leader>hn", ":Gitsigns next_hunk<CR>", {
+        desc = "Goto next chunk",
+      })
+      vim.keymap.set("n", "<leader>hN", ":Gitsigns prev_hunk<CR>", {
+        desc = "Goto prev chunk",
+      })
+      vim.keymap.set("n", "<leader>hu", ":Gitsigns undo_stage_hunk<CR>", {
+        desc = "UnStage chunk",
+      })
+      vim.keymap.set("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", {
+        desc = "Stage chunk",
+      })
+      vim.keymap.set("n", "<leader>hx", ":Gitsigns reset_hunk<CR>", {
+        desc = "Reset chunk",
       })
     end,
   },
