@@ -29,7 +29,7 @@ return {
         virtual_text = true,
         update_in_insert = false,
       },
-      inlay_hints = { enabled = true },
+      inlay_hints = { enabled = false },
       servers = {
         tsserver = {
           keys = {
@@ -39,7 +39,7 @@ return {
                 vim.lsp.buf.code_action({
                   apply = true,
                   context = {
-                    only = { "source.organizeImports.ts" },
+                    only = { "source.organizeImports" },
                     diagnostics = {},
                   },
                 })
@@ -52,7 +52,7 @@ return {
                 vim.lsp.buf.code_action({
                   apply = true,
                   context = {
-                    only = { "source.removeUnused.ts" },
+                    only = { "source.fixAll" },
                     diagnostics = {},
                   },
                 })
@@ -60,7 +60,7 @@ return {
               desc = "Remove Unused Imports",
             },
           },
-          javascript = {
+          typescript = {
             inlayHints = {
               includeInlayParameterNameHints = "all",
               includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -80,7 +80,7 @@ return {
                 vim.lsp.buf.code_action({
                   apply = true,
                   context = {
-                    only = { "source.organizeImports.ts" },
+                    only = { "source.organizeImports" },
                     diagnostics = {},
                   },
                 })
@@ -93,7 +93,7 @@ return {
                 vim.lsp.buf.code_action({
                   apply = true,
                   context = {
-                    only = { "source.removeUnused.ts" },
+                    only = { "source.fixAll" },
                     diagnostics = {},
                   },
                 })
