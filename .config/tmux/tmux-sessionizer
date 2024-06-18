@@ -23,11 +23,14 @@ for path in $search_paths; do
 	fi
 done
 
+current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo $current_dir
 selected=$(
 	{
 		cat ~/.tmux-repo.history | sort -k 2 -r | awk '{print $1}'
 		echo ${filtered_search_paths[@]} | tr ' ' '\n'
-	} | fzf
+	} | fzf --preview "$current_dir/tmux-preview {}"
 )
 
 if [[ -z $selected ]]; then

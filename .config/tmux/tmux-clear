@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-toClearSession=$(tmux ls | awk '{print substr($1, 1, length($1)-1)}' | fzf -m)
+toClearSession=$(tmux ls | sed "s/:.*$//" | fzf -m --preview 'tmux capture-pane -ep -t {}')
 
 if [[ -z $toClearSession ]]; then
 	exit 0
