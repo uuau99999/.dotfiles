@@ -5,6 +5,8 @@ if [[ ! -f ~/.tmux-repo ]]; then
 	exit 0
 fi
 
+tmux rename-window tmux-sessionizer
+
 if [[ ! -f ~/.tmux-repo.history ]]; then
 	touch ~/.tmux-repo.history
 fi
@@ -25,7 +27,6 @@ done
 
 current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo $current_dir
 selected=$(
 	{
 		cat ~/.tmux-repo.history | sort -k 2 -r | awk '{print $1}'

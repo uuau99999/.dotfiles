@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-toClearSession=$(tmux ls | sed "s/:.*$//" | fzf -m --preview 'tmux capture-pane -ep -t {}')
+tmux rename-window tmux-clear
+
+current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+toClearSession=$(tmux ls | sed "s/:.*$//" | fzf -m --preview "$current_dir/tmux-preview {}")
 
 if [[ -z $toClearSession ]]; then
 	exit 0

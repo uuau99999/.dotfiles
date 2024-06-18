@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-[ "$(tmux ls | sed "s/:.*$//" | grep $(basename $1))" != "" ] && [ "$(tmux display-message -p '#S')" != "$(basename $1 | sed 's/^\./_/')" ] && basename $1 | sed "s/^\./_/" | xargs -I{} tmux capture-pane -ep -t {}
+[ "$(tmux ls | sed "s/:.*$//" | grep "^$(basename $1)$")" != "" ] && [ "$(tmux display-message -p '#S')" != "$(basename $1 | sed 's/^\./_/')" ] && basename $1 | sed "s/^\./_/" | xargs -I{} tmux capture-pane -ep -t {}
