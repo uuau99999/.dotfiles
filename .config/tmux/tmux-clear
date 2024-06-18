@@ -4,7 +4,7 @@ tmux rename-window tmux-clear
 
 current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-toClearSession=$(tmux ls | sed "s/:.*$//" | fzf -m --preview "$current_dir/tmux-preview {}")
+toClearSession=$(tmux ls | sed "s/:.*$//" | fzf -m --preview "~/.config/tmux/tmux-preview {}")
 
 if [[ -z $toClearSession ]]; then
 	exit 0
