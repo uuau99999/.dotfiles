@@ -57,7 +57,7 @@ tmux switch-client -t $selected_name
 
 nowtime=$(date +%s)
 
-if grep -q "$selected" ~/.tmux-repo.history; then
+if grep "$selected\s" ~/.tmux-repo.history; then
 	awk '{ time=$2; if($1==selected) time=nowtime;  print $1,time}' selected="$selected" nowtime="$nowtime" ~/.tmux-repo.history >/tmp/new-tmux-repo.history
 	echo "$(cat /tmp/new-tmux-repo.history)" >~/.tmux-repo.history
 else
