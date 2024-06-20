@@ -14,11 +14,11 @@ config.font = wezterm.font({
 	family = "FiraCode Nerd Font",
 	weight = "Regular",
 	style = "Normal",
-	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
+	-- harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 })
 config.font_size = 22
-config.window_background_opacity = 0.6
-config.macos_window_background_blur = 15
+config.window_background_opacity = 0.8
+config.macos_window_background_blur = 30
 config.window_decorations = "RESIZE"
 config.window_padding = {
 	left = 0,
