@@ -9,15 +9,36 @@ local config = wezterm.config_builder()
 -- For example, changing the color scheme:
 -- config.color_scheme = "Nightfly (Gogh)"
 -- config.color_scheme = "Sonokai (Gogh)"
-config.color_scheme = "Oxocarbon Dark (Gogh)"
-config.font = wezterm.font("FiraCode Nerd Font")
-config.font_size = 18
-config.window_background_opacity = 0.9
-config.macos_window_background_blur = 10
+config.color_scheme = "Catppuccin Macchiato (Gogh)"
+config.font = wezterm.font({
+	family = "FiraCode Nerd Font",
+	weight = "Regular",
+	style = "Normal",
+	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
+})
+config.font_size = 22
+config.window_background_opacity = 0.6
+config.macos_window_background_blur = 15
 config.window_decorations = "RESIZE"
-config.colors = {
-	-- cursor_bg = "#a5e179",
+config.window_padding = {
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
 }
+
+config.native_macos_fullscreen_mode = true
+config.keys = {
+	{
+		key = "n",
+		mods = "SHIFT|CTRL",
+		action = wezterm.action.ToggleFullScreen,
+	},
+}
+
+-- config.colors = {
+-- 	cursor_bg = "#a5e179",
+-- }
 
 -- and finally, return the configuration to wezterm
 return config
