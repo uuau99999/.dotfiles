@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-[ ! -z $TMUX ] &&
-	[ ! -z $(pgrep tmux) ] &&
-	[ "$(tmux ls | sed "s/:.*$//" | grep "^$(basename $1)$")" != "" ] &&
+[[ ! -z $TMUX ]] &&
+	[[ ! -z $(pgrep tmux) ]] &&
+	[[ "$(tmux ls | sed "s/:.*$//" | grep "^$(basename $1)$")" != "" ]] &&
 	(
 		basename $1 |
 			sed "s/^\./_/" |
