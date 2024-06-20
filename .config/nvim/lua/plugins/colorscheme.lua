@@ -14,7 +14,7 @@ return {
       vim.g.sonokai_transparent_background = "1"
       vim.g.sonokai_enable_italic = "1"
       vim.g.sonokai_style = "maia"
-      vim.cmd.colorscheme("sonokai")
+      -- vim.cmd.colorscheme("sonokai")
     end,
   },
   {
@@ -39,16 +39,16 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-
-    opts = function()
+    config = function()
       require("catppuccin").setup({
         flavour = "macchiato",
+        transparent_background = true,
         custom_highlights = function(colors)
           return {
             Comment = { fg = colors.flamingo },
             TabLineSel = { bg = colors.pink },
             CmpBorder = { fg = colors.surface2 },
-            Pmenu = { bg = colors.none },
+            -- Pmenu = { bg = colors.none },
           }
         end,
         highlight_overrides = {
@@ -84,6 +84,7 @@ return {
           gitsigns = true,
           nvimtree = true,
           treesitter = true,
+          treesitter_context = false,
           notify = true,
           mini = {
             enabled = true,
@@ -112,6 +113,7 @@ return {
           },
         },
       })
+      -- vim.cmd.colorscheme("catppuccin")
     end,
   },
 }
