@@ -36,8 +36,7 @@ fi
 
 if [[ ! -d $selected ]]; then
 	echo "$selected not found"
-	awk '{ if($1!=selected) print }' selected="$selected" ~/.tmux-repo.history >/tmp/new-tmux-repo.history
-	echo "$(cat /tmp/new-tmux-repo.history)" >~/.tmux-repo.history
+	echo $(awk '{ if($1!=selected) print }' selected="$selected" ~/.tmux-repo.history) >~/.tmux-repo.history
 	exit 0
 fi
 
@@ -53,13 +52,14 @@ if ! tmux has-session -t=$selected_name 2>/dev/null; then
 	tmux new-session -ds $selected_name -c $selected
 fi
 
-tmux switch-client -t $selected_name
+tmux list-sessions -F '#{session_attached}' | grep -q 1 && tmux switch-client -t $selected_name || tmux attach-session -t $selected_name
 
 nowtime=$(date +%s)
 
-if grep "$selected\s" ~/.tmux-repo.history; then
-	awk '{ time=$2; if($1==selected) time=nowtime;  print $1,time}' selected="$selected" nowtime="$nowtime" ~/.tmux-repo.history >/tmp/new-tmux-repo.history
-	echo "$(cat /tmp/new-tmux-repo.history)" >~/.tmux-repo.history
+if
+	grep "$selected\s" -q ~/.tmux-repo.history
+then
+	echo "$(awk '{ time=$2; if($1==selected) {time=nowtime;  print $1,time} else print $1,time }' selected="$selected" nowtime="$nowtime" ~/.tmux-repo.history)" >~/.tmux-repo.history
 else
 	echo "$selected $nowtime" >>~/.tmux-repo.history
 fi
