@@ -7,4 +7,4 @@
 		basename $1 |
 			sed "s/^\./_/" |
 			([ "$(tmux display-message -p '#S')" != "$(basename $1 | sed 's/^\./_/')" ] && xargs -I{} tmux capture-pane -ep -t {} || xargs -I{} tmux capture-pane -ep -t {}:0)
-	) || [ $(which eza) ] && (eza -A -l --header --icons --git --git-ignore --color always --no-permissions --no-user --no-filesize $1) || ls -a
+	) || ([ $(which eza) ] && (eza -A -l --header --icons --git --git-ignore --color always --no-permissions --no-user --no-filesize $1) || ls -a)
