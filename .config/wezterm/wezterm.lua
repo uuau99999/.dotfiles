@@ -36,9 +36,9 @@ config.keys = {
 	},
 }
 
--- config.colors = {
--- 	cursor_bg = "#a5e179",
--- }
+config.colors = {
+	cursor_bg = "#f4dbd6",
+}
 
 -- and finally, return the configuration to wezterm
 return config
