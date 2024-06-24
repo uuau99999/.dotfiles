@@ -17,3 +17,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt.formatoptions:remove("o")
   end,
 })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "yaml" },
+  callback = function()
+    vim.b.autoformat = false
+  end,
+})
