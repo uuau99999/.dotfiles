@@ -143,7 +143,7 @@ nmap("<leader>e", function()
 end, "Toggle Nvim tree")
 
 --mini-files keymap
-nmap("<Tab>", require("mini.files").open, "Open mini-files")
+nmap("<leader>o", require("mini.files").open, "Open mini-files")
 
 --leap
 vim.keymap.set("n", "s", "<Plug>(leap)", { desc = "Leap from window" })
