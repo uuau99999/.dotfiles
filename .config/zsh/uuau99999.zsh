@@ -17,7 +17,7 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-ll_shell="eza -A --color=always --long --git --icons=always --smart-group --no-permissions --no-user --no-filesize --no-time"
+ll_shell="eza -A --color=always --long --git --icons=always --smart-group --no-permissions --no-user --no-time"
 
 export FZF_CTRL_T_OPTS="--preview '[ -f {} ] && bat -n --color=always --line-range :500 {} || $ll_shell {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
