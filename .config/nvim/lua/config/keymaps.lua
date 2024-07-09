@@ -126,6 +126,7 @@ end, "Git pull")
 nmap("<leader>gP", function()
   vim.cmd.Git({ "push" })
 end, "Git push")
+keymap.set("n", "<leader>gr", "<cmd>Gitsigns refresh<cr>")
 
 --neogit keymap
 nmap("<leader>gg", function()
