@@ -26,7 +26,7 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 keymap.set("n", "x", '"_x')
 -- keymap.set("n"w, "s", '"_s')
--- keymap.set("n", "S", '"_S')
+keymap.set("n", "S", '"_S')
 
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
@@ -37,6 +37,7 @@ keymap.set("n", "vw", "viw")
 -- keymap.set("n", "cc", '"_cc')
 keymap.set("n", "c", '"_c')
 keymap.set("n", "cw", '"_ciw')
+keymap.set("n", "C", '"_C')
 -- keymap.set("n", "yy", "yy")
 -- keymap.set("n", "y", "yi")
 
