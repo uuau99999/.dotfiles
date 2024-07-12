@@ -42,7 +42,7 @@ keymap.set("n", "C", '"_C')
 -- keymap.set("n", "y", "yi")
 
 -- Disable macro
--- keymap.set("n", "q", "<nop>")
+keymap.set("n", "q", "<nop>")
 
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
@@ -153,3 +153,6 @@ keymap.set("n", "S", '"_S')
 
 --floaterm
 keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")
+
+-- ast_grep
+keymap.set("n", "<leader>as", "<cmd>Telescope ast_grep<cr>")

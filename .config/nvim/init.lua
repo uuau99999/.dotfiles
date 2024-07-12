@@ -4,6 +4,7 @@ require("config.lazy")
 require("telescope").load_extension("harpoon")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("file_browser")
+require("telescope").load_extension("ast_grep")
 
 local fzy = require("telescope.algos.fzy")
 local sorters = require("telescope.sorters")
