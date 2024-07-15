@@ -28,35 +28,49 @@ config.window_padding = {
 }
 
 config.native_macos_fullscreen_mode = true
-config.keys = {
-	{
-		key = "n",
-		mods = "SHIFT|CTRL",
-		action = wezterm.action.ToggleFullScreen,
-	},
-}
 
 config.colors = {
 	cursor_bg = "#f4dbd6",
 }
 
--- This enable maximize window on startup
-wezterm.on("gui-startup", function(cmd)
+local function resetWindowSize(cmd)
 	-- Pick the active screen to maximize into, there are also other options, see the docs.
 	local active = wezterm.gui.screens().active
 
 	-- Set the window coords on spawn.
-	local window = wezterm.mux.spawn_window(cmd or {
-		x = active.x,
-		y = active.y,
-		width = active.width,
-		height = active.height,
-	})
+	local window = wezterm.mux.all_windows()[1]
+		or wezterm.mux.spawn_window(cmd or {
+			x = active.x,
+			y = active.y,
+			width = active.width,
+			height = active.height,
+		})
 
 	-- You probably don't need both, but you can also set the positions after spawn.
 	window:gui_window():set_position(active.x, active.y)
 	window:gui_window():set_inner_size(active.width, active.height)
+end
+
+-- This enable maximize window on startup
+wezterm.on("gui-startup", resetWindowSize)
+
+wezterm.on("maximize-window", function()
+	resetWindowSize()
 end)
+
+-- set keybindings
+config.keys = {
+	-- {
+	-- 	key = "n",
+	-- 	mods = "SHIFT|CTRL",
+	-- 	action = wezterm.action.ToggleFullScreen,
+	-- },
+	{
+		key = "n",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.EmitEvent("maximize-window"),
+	},
+}
 
 -- and finally, return the configuration to wezterm
 return config
