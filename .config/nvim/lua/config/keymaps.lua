@@ -156,3 +156,11 @@ keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")
 
 -- ast_grep
 keymap.set("n", "<leader>as", "<cmd>Telescope ast_grep<cr>")
+
+-- github copilot
+vim.keymap.set("i", "<C-G>", 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true
+vim.keymap.set("n", "<leader>n", "<cmd>CopilotChat<cr>", { desc = "Open Copilot chat" })
