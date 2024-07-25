@@ -40,6 +40,7 @@ return {
       -- })
       opts.sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        -- { name = "supermaven" },
         { name = "luasnip" },
       }, {
         { name = "buffer" },
@@ -71,10 +72,11 @@ return {
         format = require("lspkind").cmp_format({
           preset = "codicons",
           mode = "symbol_text",
-          before = function(entry, vim_item)
-            vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
-            return vim_item
-          end,
+          -- symbol_map = { Supermaven = "", CmpItemKindModule = "" },
+          -- before = function(entry, vim_item)
+          --   vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+          --   return vim_item
+          -- end,
         }),
       }
     end,

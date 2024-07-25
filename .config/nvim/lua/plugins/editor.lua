@@ -69,6 +69,7 @@ return {
   },
   {
     "github/copilot.vim",
+    enabled = false,
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -89,5 +90,19 @@ return {
       },
     },
     -- See Commands section for default commands if you want to lazy load on them
+  },
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({
+        keymaps = {
+          accept_suggestion = "<c-g>",
+        },
+        color = {
+          suggestion_color = "gray",
+          cterm = 244,
+        },
+      })
+    end,
   },
 }
