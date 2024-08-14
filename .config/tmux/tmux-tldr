@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 
 selected=$(tldr --list | fzf)
+
+if [[ -z $selected ]]; then
+	exit 0
+fi
+
 tmux neww bash -c "tldr $selected | less"
