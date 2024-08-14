@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+selected=$(tldr --list | fzf)
+tmux neww bash -c "tldr $selected | less"
