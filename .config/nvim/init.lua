@@ -59,6 +59,15 @@ require("telescope").setup({
     },
   },
 })
+local lspconfig = require("lspconfig")
+lspconfig.volar.setup({
+  filetypes = { "vue" },
+  init_options = {
+    vue = {
+      hybridMode = false,
+    },
+  },
+})
 
 vim.cmd.colorscheme("catppuccin")
 -- vim.cmd.colorscheme("nightfly")
