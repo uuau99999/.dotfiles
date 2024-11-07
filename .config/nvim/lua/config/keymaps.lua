@@ -158,6 +158,12 @@ keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")
 -- ast_grep
 keymap.set("n", "<leader>as", "<cmd>Telescope ast_grep<cr>")
 
+-- diffview
+keymap.set("n", "<leader>dv", "<cmd>DiffviewOpen<cr>", { desc = "Open diffview" })
+keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" })
+keymap.set("n", "<leader>dg", "<cmd>DiffviewFileHistory<cr>", { desc = "Open git history" })
+keymap.set("n", "<leader>df", "<cmd>DiffviewFileHistory --follow %<cr>", { desc = "File history" })
+
 -- github copilot
 -- vim.keymap.set("i", "<C-G>", 'copilot#Accept("\\<CR>")', {
 --   expr = true,
