@@ -48,19 +48,19 @@ end
 --     or "lm: " .. lastModifyAuthor .. (mtimeDiffByDays == 0 and "" or "," .. mtimeDiffByDays .. "d")
 -- end
 
-local colors = {
-  blue = "#80a0ff",
-  cyan = "#79dac8",
-  black = "#080808",
-  white = "#c6c6c6",
-  red = "#ff5189",
-  violet = "#d183e8",
-  green = "#98be65",
-  lightgreen = "#90EE90",
-  orange = "#ff9164",
-  grey = "#303030",
-}
-
+-- local colors = {
+--   blue = "#80a0ff",
+--   cyan = "#79dac8",
+--   black = "#080808",
+--   white = "#c6c6c6",
+--   red = "#ff5189",
+--   violet = "#d183e8",
+--   green = "#98be65",
+--   lightgreen = "#90EE90",
+--   orange = "#ff9164",
+--   grey = "#303030",
+-- }
+--
 -- local custom_gruvbox = require("lualine.themes.tokyonight")
 
 -- local bubbles_theme = {
@@ -105,7 +105,7 @@ local colors = {
 
 local macchiato = require("catppuccin.palettes").get_palette("macchiato")
 local function customFilenameColor()
-  return { fg = vim.bo.modified and macchiato.red or macchiato.teal }
+  return { fg = vim.bo.modified and macchiato.red or macchiato.text }
 end
 
 local catppuccin = require("lualine.themes.catppuccin")
@@ -125,10 +125,11 @@ return {
       sections = {
         lualine_a = { { "mode", separator = { left = "", right = "" } } },
         lualine_b = {
-          { "branch" },
+          { "branch", separator = { left = "", right = "" }, color = { fg = macchiato.overlay2 } },
           {
             findCodebaseDir,
-            color = { fg = macchiato.crust, bg = macchiato.green },
+            -- color = { fg = macchiato.crust, bg = macchiato.green },
+            color = { fg = macchiato.pink },
             icon = "",
             separator = { left = "", right = "" },
           },
@@ -146,6 +147,9 @@ return {
           },
           {
             "diff",
+            colored = true,
+            symbols = { added = " ", modified = " ", removed = " " },
+            source = nil,
           },
         },
         lualine_y = {
