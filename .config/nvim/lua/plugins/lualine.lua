@@ -125,14 +125,13 @@ return {
       sections = {
         lualine_a = { { "mode", separator = { left = "", right = "" } } },
         lualine_b = {
-          { "branch", separator = { left = "", right = "" }, color = { fg = macchiato.overlay2 } },
           {
             findCodebaseDir,
-            -- color = { fg = macchiato.crust, bg = macchiato.green },
-            color = { fg = macchiato.pink },
+            color = { fg = macchiato.base, bg = macchiato.peach },
             icon = "",
             separator = { left = "", right = "" },
           },
+          { "branch", separator = { left = "", right = "" }, color = { fg = macchiato.base, bg = macchiato.green } },
         },
         lualine_c = {
           { getFileRelativePath, color = customFilenameColor },
