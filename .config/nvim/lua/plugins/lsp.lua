@@ -93,7 +93,8 @@ return {
           },
           init_options = {
             vue = {
-              hybridMode = false,
+              -- hybridMode = false,
+              hybridMode = true,
             },
           },
         },

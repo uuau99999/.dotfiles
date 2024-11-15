@@ -3,6 +3,7 @@ return {
   event = "VeryLazy",
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
+  tag = "v0.0.8",
   opts = {
     -- add any opts here
   },
