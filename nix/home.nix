@@ -1,0 +1,47 @@
+# home.nix
+# home-manager switch 
+
+{ config, pkgs, env, ... }:
+
+let 
+  user = env.user;
+in
+
+{
+  home.username = "${user}";
+  home.homeDirectory = "/Users/${user}";
+  home.stateVersion = "23.05"; # Please read the comment before changing.
+  # Makes sense for user specific applications that shouldn't be available system-wide
+  home.packages = with pkgs; [];
+
+  home.file = {
+    ".config/starship.toml".source = ../.config/starship.toml;
+    ".config/yazi/yazi.toml".source = ../.config/yazi/yazi.toml;
+    ".config/yazi/theme.toml".source = ../.config/yazi/theme.toml;
+    ".config/kitty".source = ../.config/kitty;
+    ".config/wezterm".source = ../.config/wezterm;
+  };
+
+  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+  # plain files is through 'home.file'.
+
+  home.sessionVariables = {
+  };
+  home.sessionPath = [
+    "/run/current-system/sw/bin"
+      "$HOME/.nix-profile/bin"
+  ];
+  programs.home-manager.enable = true;
+  programs.starship.enable = true;
+  programs.yazi.enable = true;
+  programs.eza.enable = true;
+  programs.bat.enable = true;
+  programs.ripgrep.enable = true;
+  programs.fd.enable = true;
+
+  imports = [
+    ./apps/zsh.nix
+    ./apps/nvim.nix
+    ./apps/tmux.nix
+  ];
+}
