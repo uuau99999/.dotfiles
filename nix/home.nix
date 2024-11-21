@@ -16,6 +16,7 @@ in
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     gcc
+    tmux
   ];
 
   home.file = {
