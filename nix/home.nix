@@ -17,7 +17,10 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     gcc
     tmux
+    python3
+    neofetch
     rustup
+    pkg-config
   ];
 
   home.file = {
