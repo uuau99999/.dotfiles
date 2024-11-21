@@ -5,11 +5,12 @@
 
 let 
   user = env.user;
+  homeDirectory = env.home;
 in
 
 {
   home.username = "${user}";
-  home.homeDirectory = "/Users/${user}";
+  home.homeDirectory = "${homeDirectory}";
   home.stateVersion = "23.05"; # Please read the comment before changing.
   # Makes sense for user specific applications that shouldn't be available system-wide
   home.packages = with pkgs; [];
