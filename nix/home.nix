@@ -15,6 +15,7 @@ in
   # Makes sense for user specific applications that shouldn't be available system-wide
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    gcc
   ];
 
   home.file = {
