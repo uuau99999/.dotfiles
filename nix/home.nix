@@ -17,6 +17,7 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
     gcc
     tmux
+    rustup
   ];
 
   home.file = {
