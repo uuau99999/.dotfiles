@@ -21,6 +21,7 @@ in
     neofetch
     rustup
     pkg-config
+    openssl
   ];
 
   home.file = {
