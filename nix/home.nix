@@ -13,7 +13,9 @@ in
   home.homeDirectory = "${homeDirectory}";
   home.stateVersion = "23.05"; # Please read the comment before changing.
   # Makes sense for user specific applications that shouldn't be available system-wide
-  home.packages = with pkgs; [];
+  home.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+  ];
 
   home.file = {
     ".config/starship.toml".source = ../.config/starship.toml;
