@@ -22,6 +22,7 @@ in
     rustup
     pkg-config
     openssl
+    nodejs_18
   ];
 
   home.file = {
@@ -53,5 +54,6 @@ in
     ./apps/zsh.nix
     ./apps/nvim.nix
     ./apps/tmux.nix
+    ./apps/git.nix
   ];
 }
