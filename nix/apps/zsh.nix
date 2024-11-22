@@ -11,7 +11,7 @@
     autosuggestion.enable = true;
     initExtra = ''
       # load local zshrc
-      # [ -s "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+      [ -s "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
       
       # Add any additional configurations here
       export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
