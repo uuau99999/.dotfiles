@@ -78,6 +78,10 @@
             rm -f -- "$tmp"
     }
 
+    # nvim lazy lock
+    [[ ! -f ~/.config/nvim/lazy-lock.json ]] && ln -s ~/.dotfiles/.config/nvim/lazy-lock.json ~/.config/nvim/lazy-lock.json 
+    [[ ! -f ~/.config/nvim/lazyvim.json ]] && ln -s ~/.dotfiles/.config/nvim/lazyvim.json ~/.config/nvim/lazyvim.json 
+
     '';
     shellAliases = {
       d = "nr dev";
@@ -93,6 +97,7 @@
       ktmux = "pkill -f tmux";
       ltmux = "tmux ls";
       tma = "tmux a";
+      gup = "git pull --rebase";
     };
   };
 
