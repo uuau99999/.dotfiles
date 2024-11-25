@@ -11,6 +11,7 @@
       rebase.autosquash = true;
       rebase.autostash = true;
       core.ignorecase = "false";
+      core.editor = "vim";
     };
   };
 }
