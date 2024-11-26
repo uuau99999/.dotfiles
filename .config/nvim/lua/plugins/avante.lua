@@ -3,7 +3,8 @@ return {
   event = "VeryLazy",
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
-  tag = "v0.0.8",
+  -- tag = "v0.0.8",
+  -- tag = "v0.0.10",
   opts = {
     -- add any opts here
   },
@@ -62,7 +63,7 @@ return {
               },
               body = {
                 model = opts.model,
-                messages = require("avante.providers").copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+                messages = require("avante.providers").copilot.parse_messages(code_opts), -- you can make your own message, but this is very advanced
                 temperature = 0,
                 max_tokens = 4096,
                 stream = true, -- this will be set by default.
