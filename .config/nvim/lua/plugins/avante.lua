@@ -47,12 +47,12 @@ return {
   config = function()
     require("avante_lib").load()
     require("avante").setup({
-      provider = "deepseek",
+      provider = "openrouter",
       vendors = {
-        deepseek = {
-          endpoint = "https://api.deepseek.com/chat/completions",
-          model = "deepseek-coder",
-          api_key_name = "DEEPSEEK_API_KEY",
+        openrouter = {
+          endpoint = "https://openrouter.ai/api/v1/chat/completions",
+          model = "google/gemini-flash-1.5",
+          api_key_name = "OPENROUTER_API_KEY",
           parse_curl_args = function(opts, code_opts)
             return {
               url = opts.endpoint,
