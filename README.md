@@ -40,7 +40,3 @@
    ```bash
    nix run nix-darwin -- switch --flake ~/.dotfiles/nix/#dev --impure
    ```
-
-```
-
-```
