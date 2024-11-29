@@ -28,4 +28,8 @@ in
     "kitty"
     "wezterm"
   ];
+
+  homebrew.brews = [
+    "koekeishiya/formulae/yabai"
+  ];
 }
