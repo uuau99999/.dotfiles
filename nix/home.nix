@@ -25,6 +25,7 @@ in
     pkg-config
     openssl
     nodejs_18
+    glow
   ];
 
   home.file = {

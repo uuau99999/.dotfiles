@@ -1,33 +1,46 @@
-## Hoyup .dotfiles
+# Hoyup .dotfiles
 
-#### Usage
+## Table of Contents
 
-     1. install stow
-     2. cd ~/ && git clone https://github.com/uuau99999/.dotfiles
-     3. cd ~/.dotfiles
-     4. stow .
+- [Installation](#installation)
+- [tmux Configuration](#tmux-configuration)
+- [Nix Configuration](#nix-configuration)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
 
-#### tmux conf setup
+## Installation
 
-     1. cd ~/.dotfiles/.config/tmux
-     2. ./prepare.sh
-     3. enter tmux and enter `prefix + I` to install plugins, then run `prefix + r` to reload
+1. Install Stow: (Instructions for your system here)
+2. Clone the repository: `git clone https://github.com/uuau99999/.dotfiles`
+3. Navigate to the repository: `cd ~/.dotfiles`
+4. Stow the dotfiles: `stow .`
 
-#### nix setup
+## tmux Configuration
 
-1.  install nix
-2.  cp ~/.dotfiles/nix/nix-config-template.toml ~/.dotfiles/nix/nix-config.toml
-3.  upate config in ~/.dotfiles/nix/nix-config.toml
-4.
+1. Navigate to the tmux configuration directory: `cd ~/.dotfiles/.config/tmux`
+2. Run the preparation script: `./prepare.sh`
+3. Open tmux and install plugins: `prefix + I`
+4. Reload tmux: `prefix + r`
 
-1) linux or wsl, run
+## Nix Configuration
 
-```bash
-  nix run home-manager -- switch --flake ~/.dotfiles/nix/#dev --impure
+1. Install Nix: (Instructions for your system here)
+2. Copy the configuration template: `cp ~/.dotfiles/nix/nix-config-template.toml ~/.dotfiles/nix/nix-config.toml`
+3. Update the configuration file: `~/.dotfiles/nix/nix-config.toml`
+4. use nix to switch to the dev environment
+
+   > Linux/WSL, run
+
+   ```bash
+   nix run home-manager -- switch --flake ~/.dotfiles/nix/#dev --impure
+   ```
+
+   > macOS, run
+
+   ```bash
+   nix run nix-darwin -- switch --flake ~/.dotfiles/nix/#dev --impure
+   ```
+
 ```
 
-2. macOS, run
-
-```bash
-  nix run nix-darwin -- switch --flake ~/.dotfiles/nix/#dev --impure
 ```
