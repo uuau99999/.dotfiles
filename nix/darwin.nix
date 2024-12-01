@@ -30,6 +30,7 @@ in
   ];
 
   homebrew.brews = [
+    "sqlite3"
     "koekeishiya/formulae/yabai"
   ];
 }
