@@ -67,6 +67,7 @@ yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^TencentMeeting$" manage=off
 yabai -m rule --add app="^企业微信$" manage=off
 yabai -m rule --add app="^Activity Monitor$" manage=off
+yabai -m rule --add app="^Preview$" manage=off
 
 echo "yabai configuration loaded.."
       '';
