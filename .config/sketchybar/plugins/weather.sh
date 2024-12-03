@@ -12,7 +12,7 @@ LOCATION_ESCAPED="${LOCATION// /+}+${REGION// /+}"
 WEATHER_JSON=$(curl -s "https://wttr.in/$LOCATION_ESCAPED?0pq&format=j1&lang=$LANG")
 
 # Fallback if empty
-if [ -z $WEATHER_JSON ]; then
+if [[ -z $WEATHER_JSON ]]; then
   sketchybar --set $NAME label="$LOCATION"
   return
 fi

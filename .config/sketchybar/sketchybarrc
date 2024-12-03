@@ -2,6 +2,7 @@
 
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 source "$CONFIG_DIR/icons.sh"  # Loads all defined icons
+source "$CONFIG_DIR/vars.sh"   # Loads all defined variables
 
 ITEM_DIR="$CONFIG_DIR/items"     # Directory where the items are configured
 PLUGIN_DIR="$CONFIG_DIR/plugins" # Directory where all the plugin scripts are stored
@@ -81,7 +82,6 @@ source "$ITEM_DIR/front_app.sh"
 #source "$ITEM_DIR/yabai.sh"
 
 # Center
-# source "$ITEM_DIR/spotify.sh"
 # source "$ITEM_DIR/media.sh"
 
 # Right
@@ -90,12 +90,13 @@ source "$ITEM_DIR/input_source.sh"
 source "$ITEM_DIR/battery.sh"
 #source "$ITEM_DIR/brew.sh"
 #source "$ITEM_DIR/github.sh"
-source "$ITEM_DIR/wifi.sh"
+# source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/volume.sh"
-source "$ITEM_DIR/svim.sh"
+# source "$ITEM_DIR/svim.sh"
 
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/weather.sh"
+source "$ITEM_DIR/spotify.sh"
 
 sketchybar --hotload on
 
