@@ -13,15 +13,25 @@ update() {
   if [ "$APP" == "Spotify" ] | [ "$APP" == "QQMusic" ] | [ "$APP" == "Music" ]; then
     IS_WHITELISTED=1
   fi
+  MEDIA="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
+  COVER=$(osascript -e 'tell application "Spotify" to get artwork url of current track')
+  # if [ ! -z $COVER ]; then
+  curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
+  # fi
 
-  if [ "$PLAYING" -eq 0 ] && [ "$IS_WHITELISTED" -eq 0 ]; then
-    MEDIA="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
-    COVER=$(osascript -e 'tell application "Spotify" to get artwork url of current track')
-    curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
-    sketchybar --set "$NAME" label="$MEDIA" drawing=on \
-      --set spotify.cover background.image="/tmp/cover.jpg" \
-      drawing=on \
-      background.color=0x00000000
+  if
+    [ $PLAYING -eq 1 ] &
+    [ $IS_WHITELISTED -eq 1 ] &
+    [ ! -z $MEDIA ] &
+  then
+    sketchybar --set "$NAME" label="$MEDIA" drawing=on
+    sketchybar --set spotify.cover drawing=off
+    if [ ! -z $COVER ]; then
+      # curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
+      sketchybar --set spotify.cover background.image="/tmp/cover.jpg" \
+        drawing=on \
+        background.color=0x00000000
+    fi
   else
     sketchybar --set "$NAME" drawing=off --set spotify.cover drawing=off
   fi
