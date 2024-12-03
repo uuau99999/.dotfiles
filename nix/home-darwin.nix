@@ -5,9 +5,11 @@
   ];
   home.file = {
     ".hammerspoon".source = ../.hammerspoon;
+    ".config/sketchybar".source = ../.config/sketchybar;
   };
   imports = [
     ./apps/yabai.nix
+    ./apps/aerospace.nix
     # ./apps/skhd.nix
   ];
 }

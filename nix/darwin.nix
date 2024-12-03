@@ -27,6 +27,7 @@ in
     # "hammerspoon"
     "kitty"
     "wezterm"
+    "nikitabobko/tap/aerospace"
   ];
 
   homebrew.brews = [
