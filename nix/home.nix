@@ -28,6 +28,8 @@ in
     glow
   ];
 
+  fonts.fontconfig.enable = true;
+
   home.file = {
     ".config/starship.toml".source = ../.config/starship.toml;
     ".config/yazi/yazi.toml".source = ../.config/yazi/yazi.toml;

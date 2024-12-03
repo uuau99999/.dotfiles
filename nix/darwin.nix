@@ -17,11 +17,15 @@ in
     dock.mru-spaces = false;
     finder.AppleShowAllExtensions = true;
     finder.FXPreferredViewStyle = "clmv";
+    NSGlobalDomain._HIHideMenuBar = true;
   };
 
   # homebrew
   homebrew.enable = true;
   homebrew.casks = [
+    "sf-symbols"
+    "font-sf-mono"
+    "font-sf-pro"
     "wireshark"
     "google-chrome"
     # "hammerspoon"
@@ -33,5 +37,6 @@ in
   homebrew.brews = [
     "sqlite3"
     "koekeishiya/formulae/yabai"
+    "FelixKratz/formulae/sketchybar"
   ];
 }
