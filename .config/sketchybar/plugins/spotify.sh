@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
 
+source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+
 update() {
-  # STATE="$(echo "$INFO" | jq -r '.state')"
+  STATE="$(echo "$INFO" | jq -r '.state')"
   APP="$(echo "$INFO" | jq -r '.app')"
 
   PLAYING=0
-  if [ "$(echo "$INFO" | jq -r '.["Player State"]')" = "Playing" ]; then
+  if [[ "$(echo "$INFO" | jq -r '.["Player State"]')" -eq "Playing" ]]; then
     PLAYING=1
   fi
 
   IS_WHITELISTED=0
-  if [ "$APP" == "Spotify" ] | [ "$APP" == "QQMusic" ] | [ "$APP" == "Music" ]; then
+  if [ "$APP" = "Spotify" ] || [ "$APP" = "QQMusic" ] || [ "$APP" = "Music" ]; then
     IS_WHITELISTED=1
+  fi
+  if [ "$STATE" = "playing" ]; then
+    sketchybar --set spotify.play icon=$SPOTIFY_PALUSE
+  else
+    sketchybar --set spotify.play icon=$SPOTIFY_PLAY
   fi
   MEDIA="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
   COVER=$(osascript -e 'tell application "Spotify" to get artwork url of current track')
@@ -20,12 +27,10 @@ update() {
   # fi
 
   if
-    [ $PLAYING -eq 1 ] &
-    [ $IS_WHITELISTED -eq 1 ] &
-    [ ! -z $MEDIA ] &
+    [[ $PLAYING -eq 1 && "$IS_WHITELISTED" -eq 1 && ! -z $MEDIA ]]
   then
     sketchybar --set "$NAME" label="$MEDIA" drawing=on
-    sketchybar --set spotify.cover drawing=off
+    # sketchybar --set spotify.cover drawing=off
     if [ ! -z $COVER ]; then
       # curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
       sketchybar --set spotify.cover background.image="/tmp/cover.jpg" \

@@ -16,7 +16,7 @@ spotify_next=(
 )
 
 spotify_play=(
-  icon=􀊔
+  icon=$SPOTIFY_PLAY
   click_script="osascript -e 'tell application \"Spotify\" to playpause'; "
 )
 
