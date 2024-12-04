@@ -27,7 +27,7 @@ update() {
   # fi
 
   if
-    [[ $PLAYING -eq 1 && "$IS_WHITELISTED" -eq 1 && ! -z $MEDIA ]]
+    [[ $PLAYING -eq 1 && $IS_WHITELISTED -eq 1 && ! -z $MEDIA ]]
   then
     sketchybar --set "$NAME" label="$MEDIA" drawing=on
     # sketchybar --set spotify.cover drawing=off
