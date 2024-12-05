@@ -34,7 +34,7 @@ for m in $(aerospace list-monitors | awk '{print $1}'); do
                --set space.$sid "${space[@]}" \
                --subscribe space.$sid mouse.clicked
 
-    apps=$(aerospace list-windows --workspace $sid | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
+    apps=$(aerospace list-windows --workspace $sid | awk -F'|' '$3 !~ /^ *$/ {gsub(/^ *| *$/, "", $2); print $2}')
 
     icon_strip=" "
     if [ "${apps}" != "" ]; then
