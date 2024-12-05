@@ -45,7 +45,7 @@ spotify=(
 
 spotify_cover=(
   script="$PLUGIN_DIR/spotify.sh"
-  click_script="open -a 'Spotify';"
+  click_script="open -a 'Spotify'; $POPUP_OFF;"
   label.drawing=false
   icon.drawing=false
   background.image.scale=0.04
