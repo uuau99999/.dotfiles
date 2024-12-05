@@ -6,13 +6,13 @@ POPUP_CLICK_SCRIPT='sketchybar --set $NAME popup.drawing=toggle'
 spotify_prev=(
   icon=$SPOTIFY_BACK
   padding_left=10
-  click_script="osascript -e 'tell application \"Spotify\" to previous track'; "
+  click_script="osascript -e 'tell application \"Spotify\" to previous track'; $POPUP_OFF;"
 )
 
 spotify_next=(
   icon=$SPOTIFY_NEXT
   padding_right=10
-  click_script="osascript -e 'tell application \"Spotify\" to next track'; "
+  click_script="osascript -e 'tell application \"Spotify\" to next track'; $POPUP_OFF;"
 )
 
 spotify_play=(
