@@ -27,12 +27,12 @@ for m in $(aerospace list-monitors | awk '{print $1}'); do
       label.y_offset=-1
       background.color=$BACKGROUND_1
       background.border_color=$BACKGROUND_2
-      script="$PLUGIN_DIR/space.sh"
+      script="$PLUGIN_DIR/space.sh $sid"
     )
 
     sketchybar --add space space.$sid left \
                --set space.$sid "${space[@]}" \
-               --subscribe space.$sid mouse.clicked
+               --subscribe space.$sid mouse.clicked aerospace_workspace_change
 
     apps=$(aerospace list-windows --workspace $sid | awk -F'|' '$3 !~ /^ *$/ {gsub(/^ *| *$/, "", $2); print $2}')
 
