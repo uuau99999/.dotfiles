@@ -84,14 +84,15 @@
 
     '';
     shellAliases = {
-      d = "nr dev";
-      t = "nr test";
-      rmvc = "rm -rf node_modules/.vite";
       b = "nr build";
+      c = "bat";
+      d = "nr dev";
       i = "ni";
       f = "pnpm install --force";
-      ii = "npm i -g @antfu/ni";
+      t = "nr test";
       v = "nvim";
+      rmvc = "rm -rf node_modules/.vite";
+      ii = "npm i -g @antfu/ni";
       python = "python3";
       pip = "pip3";
       ktmux = "pkill -f tmux";
