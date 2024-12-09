@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#echo space.sh $'FOCUSED_WORKSPACE': $FOCUSED_WORKSPACE, $'SELECTED': $SELECTED, NAME: $NAME, SENDER: $SENDER  >> ~/aaaa
-
 sid=$1
 
 update() {
@@ -43,14 +41,11 @@ mouse_clicked() {
         fi
       fi
     else
-      #yabai -m space --focus $SID 2>/dev/null
-      #echo space.sh BUTTON: $BUTTON, $'SELECTED': $SELECTED, MODIFIER: $MODIFIER, NAME: $NAME, SENDER: $SENDER, INFO: $INFO, TEST: ${NAME#*.}, ${NAME:6} >> ~/aaaa
       aerospace workspace ${NAME#*.}
     fi
   fi
 }
 
-# echo plugin_space.sh $SENDER >> ~/aaaa
 case "$SENDER" in
 "mouse.clicked")
   mouse_clicked
