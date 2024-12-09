@@ -70,8 +70,8 @@ inner.horizontal = 16
 inner.vertical =   16
 outer.left =       16
 outer.bottom =     16
-outer.top =        48
 outer.right =      16
+outer.top = [{monitor."Built-in Retina Display" = 20}, 48]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
