@@ -42,23 +42,28 @@ if [ "$SENDER" = "aerospace_workspace_change" ]; then
   #   icon_strip=" —"
   # fi
 
-  # if [[ ! -z $AEROSPACE_PREV_WORKSPACE && "$AEROSPACE_PREV_WORKSPACE" != "$FOCUSED_WORKSPACE" ]]; then
-  #   reload_workspace_icon "$AEROSPACE_PREV_WORKSPACE"
-  #   # prev workspace space border color
-  #   sketchybar --set space.$AEROSPACE_PREV_WORKSPACE icon.highlight=false \
-  #     label.highlight=false \
-  #     background.border_color=$BACKGROUND_2
-  # fi
-  # AEROSPACE_PREV_WORKSPACE=$FOCUSED_WORKSPACE
+  if [ -z "$FOCUSED_WORKSPACE" ]; then
+    FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
+  fi
+
+  AEROSPACE_PREV_WORKSPACE=$(cat /tmp/aerospace_prev_workspace)
+  if [[ ! -z $AEROSPACE_PREV_WORKSPACE && "$AEROSPACE_PREV_WORKSPACE" != "$FOCUSED_WORKSPACE" ]]; then
+    reload_workspace_icon "$AEROSPACE_PREV_WORKSPACE"
+    # prev workspace space border color
+    # sketchybar --set space.$AEROSPACE_PREV_WORKSPACE icon.highlight=false \
+    #   label.highlight=false \
+    #   background.border_color=$BACKGROUND_2
+  fi
+  echo "$FOCUSED_WORKSPACE" >/tmp/aerospace_prev_workspace
 
   reload_workspace_icon "$FOCUSED_WORKSPACE"
 
   #sketchybar --animate sin 10 --set space.$space label="$icon_strip"
 
   # current workspace space border color
-  sketchybar --set space.$FOCUSED_WORKSPACE icon.highlight=true \
-    label.highlight=true \
-    background.border_color=$GREY
+  # sketchybar --set space.$FOCUSED_WORKSPACE icon.highlight=true \
+  #   label.highlight=true \
+  #   background.border_color=$GREY
 
   # if [ "$FOCUSED_WORKSPACE" -gt 3 ]; then
   #   sketchybar --animate sin 10 --set space.$FOCUSED_WORKSPACE display=1
