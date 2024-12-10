@@ -31,7 +31,7 @@ update() {
   then
     sketchybar --set "$NAME" label="$MEDIA" drawing=on
     # sketchybar --set spotify.cover drawing=off
-    if [ ! -z $COVER ]; then
+    if [[ ! -z $COVER ]]; then
       # curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
       sketchybar --set spotify.cover background.image="/tmp/cover.jpg" \
         drawing=on \

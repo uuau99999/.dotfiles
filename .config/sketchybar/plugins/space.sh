@@ -7,9 +7,9 @@ update() {
   # 현재 forced, space_change 이벤트가 동시에 발생하고 있다.
   source "$CONFIG_DIR/colors.sh"
   focused=$FOCUSED_WORKSPACE
-  if [ -z "$focused" ]; then
-    focused=$(aerospace list-workspaces --focused)
-  fi
+  # if [ -z "$focused" ]; then
+  #   focused=$(aerospace list-workspaces --focused)
+  # fi
   SHOW=false
   COLOR=$BACKGROUND_2
 
