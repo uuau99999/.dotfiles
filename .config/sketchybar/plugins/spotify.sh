@@ -6,6 +6,8 @@ update() {
   STATE="$(echo "$INFO" | jq -r '.state')"
   APP="$(echo "$INFO" | jq -r '.app')"
 
+  echo "$APP" >/tmp/sketchybar_spotify_app
+
   PLAYING=0
   if [[ "$(echo "$INFO" | jq -r '.["Player State"]')" -eq "Playing" ]]; then
     PLAYING=1
@@ -46,7 +48,8 @@ update() {
 
 case "$SENDER" in
 "mouse.entered")
-  if [[ $APP = "Spotify" ]]; then
+  SKETCHYBAR_APP=$(cat /tmp/sketchybar_spotify_app)
+  if [[ $SKETCHYBAR_APP = "Spotify" ]]; then
     sketchybar --set "$NAME" popup.drawing=on
   fi
   ;;
