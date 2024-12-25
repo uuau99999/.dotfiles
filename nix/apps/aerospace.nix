@@ -199,9 +199,9 @@ alt-shift-l = ['join-with right', 'mode main']
 
 # float windows
 
-[[on-window-detected]]
-if.app-name-regex-substring = '音乐'
-run = 'layout floating'
+# [[on-window-detected]]
+# if.app-name-regex-substring = '音乐'
+# run = 'layout floating'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'

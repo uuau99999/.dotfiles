@@ -31,7 +31,11 @@ update() {
   if
     [[ $PLAYING -eq 1 && $IS_WHITELISTED -eq 1 && ! -z $MEDIA ]]
   then
-    sketchybar --set "$NAME" label="$MEDIA" drawing=on
+    icon_strip="$($CONFIG_DIR/plugins/icon_map.sh "$APP")"
+    if [ "$icon_strip" = ":default:" ]; then
+      icon_strip=":music:"
+    fi
+    sketchybar --animate sin 10 --set "$NAME" label="$MEDIA" drawing=on icon="$icon_strip"
     # sketchybar --set spotify.cover drawing=off
     if [[ ! -z $COVER && "$APP" = "Spotify" ]]; then
       # curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg

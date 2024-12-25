@@ -22,8 +22,9 @@ spotify_play=(
 
 spotify=(
   scroll_texts=on
-  icon=󰎆
+  icon=":music:"
   icon.color="$GREEN"
+  icon.font="sketchybar-app-font:Regular:16.0"
   icon.padding_left=10
   background.color="$BAR_COLOR"
   background.height=26
