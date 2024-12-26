@@ -115,6 +115,12 @@ end, "Goto harpoon file 3")
 nmap("<leader>4", function()
   harpoon:list():select(4)
 end, "Goto harpoon file 4")
+nmap("<leader>p", function()
+  harpoon:list():prev()
+end, "Goto harpoon prev")
+nmap("<leader>n", function()
+  harpoon:list():next()
+end, "Goto harpoon next")
 
 nmap("<leader>gc", function()
   vim.cmd.Git({ "commit" })
@@ -153,7 +159,7 @@ vim.keymap.set("n", "s", "<Plug>(leap)", { desc = "Leap from window" })
 keymap.set("n", "S", '"_S')
 
 --floaterm
-keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")
+-- keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")
 
 -- ast_grep
 keymap.set("n", "<leader>as", "<cmd>Telescope ast_grep<cr>")
@@ -169,5 +175,5 @@ keymap.set("n", "<leader>df", "<cmd>DiffviewFileHistory --follow %<cr>", { desc 
 --   expr = true,
 --   replace_keycodes = false,
 -- })
-vim.g.copilot_no_tab_map = true
-vim.keymap.set("n", "<leader>n", "<cmd>CopilotChat<cr>", { desc = "Open Copilot chat" })
+-- vim.g.copilot_no_tab_map = true
+-- vim.keymap.set("n", "<leader>n", "<cmd>CopilotChat<cr>", { desc = "Open Copilot chat" })
