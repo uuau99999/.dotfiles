@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+source "$CONFIG_DIR/icons.sh"  # Loads all defined icons
+source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
 update() {
   STATE="$(echo "$INFO" | jq -r '.state')"
@@ -39,10 +40,12 @@ update() {
     # sketchybar --set spotify.cover drawing=off
     if [[ ! -z $COVER && "$APP" = "Spotify" ]]; then
       # curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
+      sketchybar --set "$NAME" icon.color="$SPOTIFY_GREEN"
       sketchybar --set spotify.cover background.image="/tmp/cover.jpg" \
         drawing=on \
         background.color=0x00000000
     else
+      sketchybar --set "$NAME" icon.color="$GREEN"
       sketchybar --set spotify.cover drawing=off
     fi
   else

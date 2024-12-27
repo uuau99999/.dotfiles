@@ -47,3 +47,6 @@ export LABEL_COLOR=$WHITE # Color of all labels
 export POPUP_BACKGROUND_COLOR=$BAR_COLOR
 export POPUP_BORDER_COLOR=$WHITE
 export SHADOW_COLOR=$BLACK
+
+# Spotify
+export SPOTIFY_GREEN=0xff1db954
