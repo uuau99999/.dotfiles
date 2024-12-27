@@ -82,6 +82,11 @@
     [[ ! -f ~/.config/nvim/lazy-lock.json ]] && ln -s ~/.dotfiles/.config/nvim/lazy-lock.json ~/.config/nvim/lazy-lock.json 
     [[ ! -f ~/.config/nvim/lazyvim.json ]] && ln -s ~/.dotfiles/.config/nvim/lazyvim.json ~/.config/nvim/lazyvim.json 
 
+    # carapace
+      export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+        zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+        source <(carapace _carapace)
+
     '';
     shellAliases = {
       b = "nr build";

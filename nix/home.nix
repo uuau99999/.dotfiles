@@ -27,6 +27,7 @@ in
     openssl
     nodejs_18
     glow
+    carapace
   ];
 
   fonts.fontconfig.enable = true;
