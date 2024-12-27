@@ -1,4 +1,6 @@
-font-family = "Fira Code Medium"
+# font-family = "Fira Code Medium"
+font-family = "Fira Code"
+font-style = "Medium"
 font-size = 22
 theme = catppuccin-mocha
 window-decoration = false
