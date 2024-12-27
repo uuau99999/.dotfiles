@@ -36,6 +36,7 @@ in
     ".config/yazi/theme.toml".source = ../.config/yazi/theme.toml;
     ".config/kitty".source = ../.config/kitty;
     ".config/wezterm".source = ../.config/wezterm;
+    ".config/ghostty".source = ../.config/ghostty;
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

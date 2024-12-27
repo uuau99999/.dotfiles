@@ -32,6 +32,7 @@ in
     "kitty"
     "wezterm"
     "nikitabobko/tap/aerospace"
+    "ghostty"
   ];
 
   homebrew.brews = [

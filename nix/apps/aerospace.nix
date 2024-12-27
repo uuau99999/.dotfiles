@@ -228,6 +228,10 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = "move-node-to-workspace I"
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'Ghostty'
+run = "move-node-to-workspace I"
+
+[[on-window-detected]]
 if.app-id = 'com.tencent.WeWorkMac'
 run = 'move-node-to-workspace W'
 
