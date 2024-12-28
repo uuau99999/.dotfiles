@@ -48,12 +48,25 @@ return {
   config = function()
     require("avante_lib").load()
     require("avante").setup({
-      provider = "openrouter",
+      provider = "custom",
+      -- provider = "openrouter",
+      -- provider = "gemini",
+      gemini = {
+        endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+        model = "gemini-2.0-flash-exp",
+        timeout = 30000, -- Timeout in milliseconds
+        temperature = 0,
+        max_tokens = 8192,
+        api_key_name = "GEMINI_API_KEY",
+      },
       vendors = {
-        openrouter = {
-          endpoint = "https://openrouter.ai/api/v1/chat/completions",
-          model = "qwen/qwen-2.5-coder-32b-instruct",
-          api_key_name = "OPENROUTER_API_KEY",
+        custom = {
+          -- endpoint = "https://openrouter.ai/api/v1/chat/completions",
+          endpoint = "https://api.deepseek.com/chat/completions",
+          -- model = "qwen/qwen-2.5-coder-32b-instruct",
+          model = "deepseek-chat",
+          -- api_key_name = "OPENROUTER_API_KEY",
+          api_key_name = "DEEPSEEK_API_KEY",
           parse_curl_args = function(opts, code_opts)
             return {
               url = opts.endpoint,
