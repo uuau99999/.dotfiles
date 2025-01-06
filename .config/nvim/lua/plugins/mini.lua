@@ -9,7 +9,7 @@ return {
   },
   {
     "echasnovski/mini.jump",
-    enabled = false,
+    -- enabled = false,
     opts = function()
       require("mini.jump").setup()
     end,
