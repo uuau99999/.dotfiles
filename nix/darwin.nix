@@ -40,5 +40,6 @@ in
     "sqlite3"
     "koekeishiya/formulae/yabai"
     "FelixKratz/formulae/sketchybar"
+    "uv"
   ];
 }
