@@ -18,7 +18,7 @@ after-login-command = []
 # after-startup-command = []
 
 # Start AeroSpace at login
-start-at-login = true
+start-at-login = false
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -124,15 +124,15 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
-alt-a = 'workspace A'
-alt-i = 'workspace I'
-alt-s = 'workspace S'
-alt-c = 'workspace C'
-alt-w = 'workspace W'
-alt-q = 'workspace Q'
-alt-v = 'workspace V'
-alt-d = 'workspace D'
-alt-n = 'workspace N'
+# alt-a = 'workspace A'
+# alt-i = 'workspace I'
+# alt-s = 'workspace S'
+# alt-c = 'workspace C'
+# alt-w = 'workspace W'
+# alt-q = 'workspace Q'
+# alt-v = 'workspace V'
+# alt-d = 'workspace D'
+# alt-n = 'workspace N'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = 'move-node-to-workspace 1'
