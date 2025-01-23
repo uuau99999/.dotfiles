@@ -148,6 +148,7 @@ return {
           -- "tsserver",
           "eslint",
           "cssls",
+          "clangd",
           "tailwindcss",
           "lua_ls",
           "html",
@@ -162,6 +163,9 @@ return {
         },
         astro = {
           filetypes = { "astro" },
+        },
+        clangd = {
+          filetypes = { "c", "cpp", "objc", "objcpp" },
         },
       }
       masonLsp.setup_handlers({
