@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+  echo "tmux is not running"
+  exit 0
+fi
+
 selected=$(tmux list-sessions -F '#S' | fzf --preview "tmux capture-pane -ep -t {}")
 
 if [[ -z $selected ]]; then
   exit 0
 fi
 
-tmux switch-client -t $selected
+tmux list-sessions -F '#{session_attached}' | grep -q 1 && tmux switch-client -t $selected || tmux attach-session -t $selected
