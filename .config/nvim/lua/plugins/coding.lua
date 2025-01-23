@@ -112,10 +112,18 @@ return {
   },
   {
     "nvimdev/lspsaga.nvim",
-    enabled = false,
+    -- enabled = false,
     dependencies = { "nvim-tree/nvim-web-devicons", "nvim-treesitter/nvim-treesitter" },
     config = function()
-      require("lspsaga").setup({})
+      require("lspsaga").setup({
+        symbol_in_winbar = {
+          enable = false,
+        },
+        lightbulb = {
+          sign = false,
+          virtual_text = false,
+        },
+      })
     end,
   },
   {

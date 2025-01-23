@@ -100,6 +100,8 @@ nmap("<leader>fb", "<cmd>Telescope buffers<cr>")
 nmap("<leader>fj", "<cmd>Telescope jumplist<cr>", "Jumplist")
 
 -- nmap("<leader>o", "<cmd>Lspsaga outline<cr>", "Open Outline")
+nmap("<leader>]", "<cmd>Lspsaga outline<cr>", "Open Outline")
+nmap("<leader>e", "<cmd>Lspsaga code_action<cr>", "Code Action")
 
 -- harpoon keymap
 local harpoon = require("harpoon")
@@ -147,9 +149,9 @@ end, "Restart LSP")
 
 --nvim-tree keymap
 local api = require("nvim-tree.api")
-nmap("<leader>e", function()
-  api.tree.toggle({})
-end, "Toggle Nvim tree")
+-- nmap("<leader>e", function()
+--   api.tree.toggle({})
+-- end, "Toggle Nvim tree")
 
 --mini-files keymap
 nmap("<leader>o", require("mini.files").open, "Open mini-files")
