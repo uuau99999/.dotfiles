@@ -41,6 +41,9 @@ require("telescope").setup({
     layout_strategy = "horizontal",
     layout_config = {
       prompt_position = "bottom",
+      horizontal = {
+        preview_cutoff = 0,
+      },
     },
   },
   pickers = {
