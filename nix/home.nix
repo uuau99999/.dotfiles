@@ -28,6 +28,7 @@ in
     nodejs_18
     glow
     carapace
+    xh
   ];
 
   fonts.fontconfig.enable = true;
