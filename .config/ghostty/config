@@ -10,6 +10,7 @@ background-opacity = 0.6
 background-blur-radius = 20
 cursor-style = block
 cursor-style-blink = false
+cursor-color = #c6a0f6
 
 macos-icon = custom-style
 macos-icon-frame = beige
