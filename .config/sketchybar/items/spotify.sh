@@ -53,7 +53,7 @@ spotify_cover=(
   background.color=$TRANSPARENT
   drawing=on
   background.image.corner_radius=20
-  background.image.rotate_rate=0.0
+  background.image.rotate_rate=45.0
   shadow=on
   ignore_association=on
 )
