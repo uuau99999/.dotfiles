@@ -31,7 +31,7 @@ spotify=(
   background.corner_radius="$CORNER_RADIUS"
   background.border_width=1
   background.border_color="$SHADOW_COLOR"
-  background.padding_right=-5
+  background.padding_right=5
   background.drawing=on
   label.padding_right=10
   label.max_chars=50
@@ -49,15 +49,16 @@ spotify_cover=(
   click_script="open -a 'Spotify'; $POPUP_OFF;"
   label.drawing=false
   icon.drawing=false
-  background.image.scale=0.04
+  background.image.scale=0.03
   background.color=$TRANSPARENT
   drawing=on
-  background.image.corner_radius=9
+  background.image.corner_radius=20
+  background.image.rotate_rate=0.0
   shadow=on
   ignore_association=on
 )
 
-sketchybar --add item spotify right \
+sketchybar --add item spotify left \
   --set spotify "${spotify[@]}" \
   --subscribe spotify media_change mouse.entered mouse.exited.global \
   --add item spotify.prev popup.spotify \
@@ -66,5 +67,5 @@ sketchybar --add item spotify right \
   --set spotify.play "${spotify_play[@]}" \
   --add item spotify.next popup.spotify \
   --set spotify.next "${spotify_next[@]}" \
-  --add item spotify.cover right \
+  --add item spotify.cover left \
   --set spotify.cover "${spotify_cover[@]}"
