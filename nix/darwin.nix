@@ -41,5 +41,6 @@ in
     "koekeishiya/formulae/yabai"
     "FelixKratz/formulae/sketchybar"
     "uv"
+    "fnm"
   ];
 }

@@ -22,11 +22,6 @@
       bindkey -s ^f "~/.dotfiles/.config/tmux/tmux-sessionizer\n"
       bindkey -s ^p "~/.dotfiles/.config/tmux/tmux-fzf\n"
       bindkey -s ^x "~/.dotfiles/.config/tmux/tmux-clear\n"
-      #nvm
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-      # nvm use >/dev/null 18.18.0
       # fzf
         [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
           export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
