@@ -28,6 +28,23 @@ hs.hotkey.bind({ "alt" }, "D", function()
 	hs.application.launchOrFocus("wechatwebdevtools.app")
 end)
 
+local function resizeApp()
+	-- send keyStroke to raycast to resize it.
+	hs.eventtap.keyStroke({ "alt" }, "m")
+end
+
+local function applicationWatcher(appName, eventType)
+	if eventType == hs.application.watcher.launched then
+		resizeApp()
+	end
+	if eventType == hs.application.watcher.activated and appName == "Preview" then
+		resizeApp()
+	end
+end
+
+local appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
+
 local function reloadConfig(files)
 	local doReload = false
 	for _, file in pairs(files) do
@@ -39,5 +56,5 @@ local function reloadConfig(files)
 		hs.reload()
 	end
 end
-myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
+hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 hs.alert.show("Config loaded")

@@ -20,7 +20,7 @@ local app2Ime = {
 	{ "/Applications/Arc.app", "English" },
 }
 
-function updateFocusAppInputMethod()
+local function updateFocusAppInputMethod()
 	local ime = "English"
 	local focusAppPath = hs.window.frontmostWindow():application():path()
 	for index, app in pairs(app2Ime) do
@@ -55,13 +55,13 @@ hs.hotkey.bind({ "ctrl", "cmd" }, ".", function()
 	)
 end)
 
--- Handle cursor focus and application's screen manage.
--- 窗口激活时自动切换输入法
-function applicationWatcher(appName, eventType, appObject)
+local function applicationWatcher(appName, eventType, appObject)
 	if eventType == hs.application.watcher.activated or eventType == hs.application.watcher.launched then
+		-- Handle cursor focus and application's screen manage.
+		-- 窗口激活时自动切换输入法
 		updateFocusAppInputMethod()
 	end
 end
 
-appWatcher = hs.application.watcher.new(applicationWatcher)
+local appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
