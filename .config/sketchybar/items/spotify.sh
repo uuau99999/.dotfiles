@@ -49,11 +49,11 @@ spotify_cover=(
   click_script="open -a 'Spotify'; $POPUP_OFF;"
   label.drawing=false
   icon.drawing=false
-  background.image.scale=0.03
+  background.image.scale=0.04
   background.color=$TRANSPARENT
   drawing=on
   background.image.corner_radius=20
-  background.image.rotate_rate=45.0
+  background.image.rotate_rate=0.0
   shadow=on
   ignore_association=on
 )
