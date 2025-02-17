@@ -62,11 +62,14 @@ return {
       vendors = {
         custom = {
           -- endpoint = "https://openrouter.ai/api/v1/chat/completions",
-          endpoint = "https://api.deepseek.com/chat/completions",
+          -- endpoint = "https://api.deepseek.com/chat/completions",
+          endpoint = "https://api.lkeap.cloud.tencent.com/v1/chat/completions",
           -- model = "qwen/qwen-2.5-coder-32b-instruct",
-          model = "deepseek-chat",
+          -- model = "deepseek-chat",
+          model = "deepseek-r1",
           -- api_key_name = "OPENROUTER_API_KEY",
-          api_key_name = "DEEPSEEK_API_KEY",
+          -- api_key_name = "DEEPSEEK_API_KEY",
+          api_key_name = "TENCENT_API_KEY",
           parse_curl_args = function(opts, code_opts)
             return {
               url = opts.endpoint,
