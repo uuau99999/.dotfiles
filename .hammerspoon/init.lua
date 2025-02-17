@@ -42,8 +42,8 @@ local function applicationWatcher(appName, eventType)
 	end
 end
 
-local appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
+appResizeWatcher = hs.application.watcher.new(applicationWatcher)
+appResizeWatcher:start()
 
 local function reloadConfig(files)
 	local doReload = false
