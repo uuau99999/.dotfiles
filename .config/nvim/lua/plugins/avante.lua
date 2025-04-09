@@ -47,7 +47,7 @@ return {
   config = function()
     require("avante_lib").load()
     require("avante").setup({
-      provider = "deepseek",
+      provider = "custom",
       -- provider = "openrouter",
       -- provider = "gemini",
       gemini = {
@@ -61,12 +61,12 @@ return {
       vendors = {
         custom = {
           -- endpoint = "https://openrouter.ai/api/v1/chat/completions",
-          -- endpoint = "https://api.deepseek.com/chat/completions",
+          -- endpoint = "https://api.deepseek.com",
           endpoint = "https://api.lkeap.cloud.tencent.com/v1",
           -- model = "qwen/qwen-2.5-coder-32b-instruct",
           -- model = "deepseek-chat",
           __inherited_from = "openai",
-          model = "deepseek-r1",
+          model = "deepseek-v3",
           -- api_key_name = "OPENROUTER_API_KEY",
           -- api_key_name = "DEEPSEEK_API_KEY",
           api_key_name = "TENCENT_API_KEY",

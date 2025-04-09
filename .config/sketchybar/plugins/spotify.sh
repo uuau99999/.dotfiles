@@ -49,6 +49,7 @@ update() {
       sketchybar --set spotify.cover background.image="/tmp/cover.jpg" \
         background.color=0x00000000
       sketchybar --set spotify.cover background.image.rotate_rate=45.0
+      # sketchybar --set spotify.cover background.image.rotate_degrees=45.0
       sketchybar --set spotify.cover drawing=on
     fi
     if [[ -z $COVER || "$APP" != "Spotify" ]]; then
