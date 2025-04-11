@@ -4,10 +4,10 @@ let
   homeDirectory = env.home;
 in 
 {
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true;
   nix.settings.experimental-features = "nix-command flakes";
-  system.stateVersion = 4;
-  security.pam.enableSudoTouchIdAuth = true;
+  system.stateVersion = 5;
+  security.pam.services.sudo_local.touchIdAuth = true;
   users.users.${user}.home = homeDirectory;
   home-manager.backupFileExtension = "backup";
 
@@ -38,7 +38,7 @@ in
   homebrew.brews = [
     "coreutils"
     "sqlite3"
-    "koekeishiya/formulae/yabai"
+    # "koekeishiya/formulae/yabai"
     "FelixKratz/formulae/sketchybar"
     "uv"
     "fnm"
