@@ -47,10 +47,10 @@ require("telescope").setup({
     },
     mappings = {
       i = {
-        ["<C-b>"] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
+        ["<C-Q>"] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
       },
       n = {
-        ["<C-b>"] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
+        ["<C-Q>"] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
       },
     },
   },
