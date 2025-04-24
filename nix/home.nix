@@ -34,6 +34,7 @@ in
   fonts.fontconfig.enable = true;
 
   home.file = {
+    ".vimrc".source = ../.vimrc;
     ".config/starship.toml".source = ../.config/starship.toml;
     ".config/yazi/yazi.toml".source = ../.config/yazi/yazi.toml;
     ".config/yazi/theme.toml".source = ../.config/yazi/theme.toml;
