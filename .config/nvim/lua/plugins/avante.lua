@@ -1,7 +1,7 @@
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
-  enable = false,
+  enabled = false,
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
   tag = "v0.0.19",
