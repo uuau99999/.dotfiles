@@ -12,6 +12,9 @@
     initExtra = ''
       # load local zshrc
       [ -s "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+      # default editor
+      export EDITOR=vim
       
       # Add any additional configurations here
       export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
