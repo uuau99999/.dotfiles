@@ -25,10 +25,11 @@ in
     rustup
     pkg-config
     openssl
-    nodejs_18
+    # nodejs_18
     glow
     carapace
     xh
+    fnm
   ];
 
   fonts.fontconfig.enable = true;
