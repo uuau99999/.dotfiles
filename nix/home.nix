@@ -60,6 +60,7 @@ in
   programs.bat.enable = true;
   programs.ripgrep.enable = true;
   programs.fd.enable = true;
+  programs.lazydocker.enable = true;
 
   imports = [
     ./apps/zsh.nix
