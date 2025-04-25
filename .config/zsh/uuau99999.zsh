@@ -71,7 +71,7 @@ alias ltmux="tmux ls"
 alias tma="tmux a"
 
 # tmux fzf keymapping
-bindkey -s ^f "~/.config/tmux/tmux-sessionizer\n"
-bindkey -s ^p "~/.config/tmux/tmux-fzf\n"
+bindkey -s ^p "~/.config/tmux/tmux-sessionizer\n"
+bindkey -s ^f "~/.config/tmux/tmux-fzf\n"
 bindkey -s ^x "~/.config/tmux/tmux-clear\n"
 

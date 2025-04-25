@@ -22,8 +22,8 @@
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
       # tmux fzf keymapping
-      bindkey -s ^f "~/.dotfiles/.config/tmux/tmux-sessionizer\n"
-      bindkey -s ^p "~/.dotfiles/.config/tmux/tmux-fzf\n"
+      bindkey -s ^p "~/.dotfiles/.config/tmux/tmux-sessionizer\n"
+      bindkey -s ^f "~/.dotfiles/.config/tmux/tmux-fzf\n"
       bindkey -s ^x "~/.dotfiles/.config/tmux/tmux-clear\n"
       # fzf
         [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
