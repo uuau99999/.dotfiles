@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 
 if [[ ! -f ~/.tmux-repo ]]; then
-	echo "~/.tmux-repo file not found"
-	exit 0
+  echo "~/.tmux-repo file not found"
+  exit 0
 fi
 
 if [[ ! -f ~/.tmux-repo.history ]]; then
-	touch ~/.tmux-repo.history
+  touch ~/.tmux-repo.history
+fi
+
+if [[ ! -f ~/.tmux-fzf.lastsession ]]; then
+  touch ~/.tmux-fzf.lastsession
 fi
 
 history_map=($(cat ~/.tmux-repo.history | awk '{print $1}'))
@@ -18,38 +22,36 @@ search_paths=$(find $to_find_path -mindepth 0 -maxdepth 2 -type d -exec [ -e '{}
 filtered_search_paths=()
 
 for path in $search_paths; do
-	if [[ ! " ${history_map[@]} " =~ " ${path} " ]]; then
-		filtered_search_paths+=($path)
-	fi
+  if [[ ! " ${history_map[@]} " =~ " ${path} " ]]; then
+    filtered_search_paths+=($path)
+  fi
 done
 
 selected=$(
-	{
-		cat ~/.tmux-repo.history | sort -k 2 -r | awk '{print $1}'
-		echo ${filtered_search_paths[@]} | tr ' ' '\n'
-	} | fzf --preview "~/.config/tmux/tmux-preview {}"
+  {
+    cat ~/.tmux-repo.history | sort -k 2 -r | awk '{print $1}'
+    echo ${filtered_search_paths[@]} | tr ' ' '\n'
+  } | fzf --preview "~/.config/tmux/tmux-preview {}"
 )
 
 if [[ -z $selected ]]; then
-	exit 0
+  exit 0
 fi
 
 if [[ ! -d $selected ]]; then
-	echo "$selected not found"
-	echo $(awk '{ if($1!=selected) print }' selected="$selected" ~/.tmux-repo.history) >~/.tmux-repo.history
-	exit 0
+  echo "$selected not found"
+  echo $(awk '{ if($1!=selected) print }' selected="$selected" ~/.tmux-repo.history) >~/.tmux-repo.history
+  exit 0
 fi
 
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-	tmux new-session -s $selected_name -c $selected
-	exit 0
-fi
-
-if ! tmux has-session -t=$selected_name 2>/dev/null; then
-	tmux new-session -ds $selected_name -c $selected
+  tmux new-session -s $selected_name -c $selected
+elif ! tmux has-session -t=$selected_name 2>/dev/null; then
+  current=$(tmux display-message -p '#S')
+  tmux new-session -ds $selected_name -c $selected
 fi
 
 tmux list-sessions -F '#{session_attached}' | grep -q 1 && tmux switch-client -t $selected_name || tmux attach-session -t $selected_name
@@ -57,9 +59,13 @@ tmux list-sessions -F '#{session_attached}' | grep -q 1 && tmux switch-client -t
 nowtime=$(date +%s)
 
 if
-	grep "$selected\s" -q ~/.tmux-repo.history
+  grep "$selected\s" -q ~/.tmux-repo.history
 then
-	echo "$(awk '{ time=$2; if($1==selected) {time=nowtime;  print $1,time} else print $1,time }' selected="$selected" nowtime="$nowtime" ~/.tmux-repo.history)" >~/.tmux-repo.history
+  echo "$(awk '{ time=$2; if($1==selected) {time=nowtime;  print $1,time} else print $1,time }' selected="$selected" nowtime="$nowtime" ~/.tmux-repo.history)" >~/.tmux-repo.history
 else
-	echo "$selected $nowtime" >>~/.tmux-repo.history
+  echo "$selected $nowtime" >>~/.tmux-repo.history
+fi
+
+if [ ! -z $current ]; then
+  echo $current >~/.tmux-fzf.lastsession
 fi

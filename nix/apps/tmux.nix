@@ -7,6 +7,7 @@
     ".config/tmux/tmux-fzf".source = ../../.config/tmux/tmux-fzf;
     ".config/tmux/tmux-preview".source = ../../.config/tmux/tmux-preview;
     ".config/tmux/tmux-sessionizer".source = ../../.config/tmux/tmux-sessionizer;
+    ".config/tmux/tmux-lastsession".source = ../../.config/tmux/tmux-lastsession;
     ".config/tmux/tmux-tldr".source = ../../.config/tmux/tmux-tldr;
     ".tmux/plugins/tpm".source = pkgs.fetchFromGitHub {
       owner = "tmux-plugins";

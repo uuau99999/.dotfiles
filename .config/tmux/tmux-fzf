@@ -3,14 +3,23 @@
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  echo "tmux is not running"
+  ~/.config/tmux/tmux-sessionizer
   exit 0
 fi
 
+if [[ ! -f ~/.tmux-fzf.lastsession ]]; then
+  touch ~/.tmux-fzf.lastsession
+fi
+
 selected=$(tmux list-sessions -F '#S' | fzf --preview "tmux capture-pane -ep -t {}")
+current=$(tmux display-message -p '#S')
 
 if [[ -z $selected ]]; then
   exit 0
 fi
 
 tmux list-sessions -F '#{session_attached}' | grep -q 1 && tmux switch-client -t $selected || tmux attach-session -t $selected
+
+if [ ! -z $current ]; then
+  echo $current >~/.tmux-fzf.lastsession
+fi

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+if [[ ! -f ~/.tmux-fzf.lastsession ]]; then
+  touch ~/.tmux-fzf.lastsession
+fi
+
+selected=$(cat ~/.tmux-fzf.lastsession)
+current=$(tmux display-message -p '#S')
+
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+  echo "tmux not running"
+  exit 0
+fi
+
+if [[ -z $selected ]]; then
+  tmux display-message "no previous session"
+fi
+
+if [[ $selected == $current ]]; then
+  tmux display-message "cannot switch to current session"
+  exit 0
+fi
+
+if ! tmux has-session -t=$selected 2>/dev/null; then
+  tmux display-message "session $selected doesn't exist, will delete it in history"
+  echo $current >~/.tmux-fzf.lastsession
+  exit 0
+fi
+
+tmux switch-client -t $selected
+
+echo $current >~/.tmux-fzf.lastsession
