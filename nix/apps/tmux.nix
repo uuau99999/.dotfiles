@@ -18,8 +18,8 @@
     ".config/tmux/plugins/catppuccin/tmux".source = pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "tmux";
-      rev = "e7cd05f";
-      sha256 = "sha256-Sz5o4redRQYNiniwTeFhndGXerVBNGrza6GcKziLdQc=";
+      rev = "b2f219c";
+      sha256 = "sha256-Is0CQ1ZJMXIwpDjrI5MDNHJtq+R3jlNcd9NXQESUe2w=";
     };
   };
 }

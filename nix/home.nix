@@ -30,6 +30,7 @@ in
     carapace
     xh
     fnm
+    yq
   ];
 
   fonts.fontconfig.enable = true;
