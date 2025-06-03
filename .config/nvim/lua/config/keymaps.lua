@@ -150,7 +150,7 @@ nmap("<leader>lr", function()
 end, "Restart LSP")
 
 --nvim-tree keymap
-local api = require("nvim-tree.api")
+-- local api = require("nvim-tree.api")
 -- nmap("<leader>e", function()
 --   api.tree.toggle({})
 -- end, "Toggle Nvim tree")
