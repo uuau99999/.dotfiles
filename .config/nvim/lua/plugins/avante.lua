@@ -1,10 +1,8 @@
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
-  enabled = false,
+  enabled = true,
   lazy = false,
-  version = false, -- set this if you want to always pull the latest change
-  tag = "v0.0.19",
   opts = {
     -- add any opts here
   },
@@ -49,17 +47,7 @@ return {
     require("avante_lib").load()
     require("avante").setup({
       provider = "custom",
-      -- provider = "openrouter",
-      -- provider = "gemini",
-      gemini = {
-        endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-        model = "gemini-2.0-flash-exp",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 8192,
-        api_key_name = "GEMINI_API_KEY",
-      },
-      vendors = {
+      providers = {
         custom = {
           -- endpoint = "https://openrouter.ai/api/v1/chat/completions",
           -- endpoint = "https://api.deepseek.com",
@@ -72,6 +60,14 @@ return {
           -- api_key_name = "DEEPSEEK_API_KEY",
           api_key_name = "TENCENT_API_KEY",
         },
+        gemini = {
+          endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+          model = "gemini-2.0-flash-exp",
+          timeout = 30000, -- Timeout in milliseconds
+          temperature = 0,
+          max_tokens = 8192,
+          api_key_name = "GEMINI_API_KEY",
+        },
         deepseek = {
           __inherited_from = "openai",
           api_key_name = "DEEPSEEK_API_KEY",
@@ -79,6 +75,30 @@ return {
           model = "deepseek-coder",
         },
       },
+      -- system_prompt as function ensures LLM always has latest MCP server state
+      -- This is evaluated for every message, even in existing chats
+      system_prompt = function()
+        local hub = require("mcphub").get_hub_instance()
+        return hub and hub:get_active_servers_prompt() or ""
+      end,
+      -- Using function prevents requiring mcphub before it's loaded
+      custom_tools = function()
+        return {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+      end,
+      -- disabled_tools = {
+      --   "list_files", -- Built-in file operations
+      --   "search_files",
+      --   "read_file",
+      --   "create_file",
+      --   "rename_file",
+      --   "delete_file",
+      --   "create_dir",
+      --   "rename_dir",
+      --   "delete_dir",
+      --   "bash", -- Built-in terminal access
+      -- },
       behaviour = {
         auto_suggestions = true, -- Experimental stage
         auto_set_highlight_group = true,
