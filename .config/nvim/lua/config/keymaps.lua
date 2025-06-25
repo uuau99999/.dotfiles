@@ -56,6 +56,9 @@ keymap.set("n", "<leader>sv", ":vsplit<Return>", opts)
 keymap.set("n", "<M-UP>", ":m-2<CR>")
 keymap.set("n", "<M-DOWN>", ":m+1<CR>")
 
+-- Buffer toggle between last 2 buffers
+keymap.set("n", "<C-n>", "<cmd>b#<CR>", opts)
+
 -- keymap.set("n", "<leader>e", "<cmd>Lex<cr>", opts)
 
 -- -- Tab close
