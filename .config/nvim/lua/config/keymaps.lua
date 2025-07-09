@@ -87,11 +87,12 @@ nmap("<leader>fg", "<cmd>Telescope git_files<cr>", "Find Git files")
 nmap("<leader>ff", "<cmd>Telescope find_files hidden=true no_ignore=false<cr>", "Find files")
 -- nmap("<leader><leader>", "<cmd>Telescope find_files hidden=true no_ignore=false<cr>", "Find files")
 nmap("<leader><leader>", function()
-  require("telescope").extensions.smart_open.smart_open({
-    cwd_only = true,
-    filename_first = false,
-  })
-end, "Find files")
+  require("snacks").picker.smart()
+  -- require("telescope").extensions.smart_open.smart_open({
+  --   cwd_only = true,
+  --   filename_first = false,
+  -- })
+end, "Smart Find files")
 nmap("<leader>fr", function()
   require("telescope.builtin").lsp_references()
 end, "Find lsp references")
