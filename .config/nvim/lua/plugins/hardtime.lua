@@ -6,6 +6,7 @@ return {
     restricted_keys = {
       ["w"] = { "n", "x" },
       ["b"] = { "n", "x" },
+      ["e"] = { "n", "x" },
     },
   },
 }
