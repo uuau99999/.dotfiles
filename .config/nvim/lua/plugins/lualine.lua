@@ -150,7 +150,7 @@ return {
             symbols = { added = " ", modified = " ", removed = " " },
             source = nil,
           },
-          { require("mcphub.extensions.lualine") },
+          -- { require("mcphub.extensions.lualine") },
         },
         lualine_y = {
           {
