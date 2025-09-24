@@ -38,5 +38,6 @@
    > macOS, run
 
    ```bash
-   nix run nix-darwin -- switch --flake ~/.dotfiles/nix/#dev --impure
+   # nix run nix-darwin -- switch --flake ~/.dotfiles/nix/#dev --impure
+   sudo nix run --extra-experimental-features nix-command --extra-experimental-features flakes --access-tokens github.com=your_github_access_token nix-darwin -- switch --flake ~/.dotfiles/nix/#dev --impure
    ```
