@@ -2,13 +2,11 @@ source "$CONFIG_DIR/icons.sh"  # Loads all defined icons
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
 SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
-POPUP_SCRIPT="sketchybar -m --set \$NAME popup.drawing=toggle"
-ePOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
-POPUP_SCRIPT="sketchybar -m --set \$NAME popup.drawing=toggle"
+# POPUP_SCRIPT="sketchybar -m --set \$NAME popup.drawing=toggle"
 
 sketchybar --add event spotify_change $SPOTIFY_EVENT \
   --add item spotify.name left \
-  --set spotify.name click_script="$POPUP_SCRIPT" \
+  --set spotify.name script="$PLUGIN_DIR/spotify.sh" \
   popup.horizontal=on \
   popup.align=center \
   associated_display=active \
@@ -18,6 +16,7 @@ sketchybar --add event spotify_change $SPOTIFY_EVENT \
   icon.font="sketchybar-app-font:Regular:16.0" \
   icon.color="$SPOTIFY_GREEN" \
   ignore_association=on \
+  --subscribe spotify.name mouse.entered mouse.exited.global \
   \
   --add item spotify.cover left \
   --set spotify.cover icon.drawing=off \

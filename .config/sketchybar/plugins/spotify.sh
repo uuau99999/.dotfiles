@@ -98,8 +98,20 @@ mouse_clicked () {
   esac
 }
 
+mouse_hover_enter() {
+  sketchybar -m --set "$NAME" popup.drawing=on
+}
+
+mouse_hover_exit() {
+  sketchybar -m --set "$NAME" popup.drawing=off
+}
+
 case "$SENDER" in
   "mouse.clicked") mouse_clicked
+  ;;
+  "mouse.entered") mouse_hover_enter
+  ;;
+  "mouse.exited.global") mouse_hover_exit
   ;;
   "forced") exit
   ;;
