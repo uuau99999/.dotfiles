@@ -9,7 +9,7 @@
       plugins = [ "vi-mode" "z" "colored-man-pages" "last-working-dir" "git" ];
     };
     autosuggestion.enable = true;
-    initExtra = ''
+    initContent = ''
       # load local zshrc
       [ -s "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 

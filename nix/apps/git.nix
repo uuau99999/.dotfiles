@@ -2,7 +2,7 @@
 {
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       init.defaultBranch = "master";
       pull.rebase = true;
       pull.ff = "only";

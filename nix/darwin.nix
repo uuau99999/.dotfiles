@@ -10,6 +10,7 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
   users.users.${user}.home = homeDirectory;
   home-manager.backupFileExtension = "backup";
+  system.primaryUser = user;
 
   system.defaults = {
     dock.autohide = true;
