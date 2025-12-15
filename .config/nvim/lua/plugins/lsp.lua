@@ -138,20 +138,6 @@ return {
     },
   },
   {
-    "hrsh7th/cmp-nvim-lsp",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      -- import cmp from 'cmp-nvim-lsp'
-      local cmp = require("cmp_nvim_lsp")
-
-      -- used to enable autocompletion
-      local capabilities = cmp.default_capabilities()
-      vim.lsp.config("*", {
-        capabilities = capabilities,
-      })
-    end,
-  },
-  {
     "williamboman/mason-lspconfig.nvim",
     opts = function()
       local masonLsp = require("mason-lspconfig")
@@ -170,27 +156,27 @@ return {
           "astro",
         },
       })
-      -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      -- local servers = {
-      --   volar = {
-      --     filetypes = { "vue" },
-      --   },
-      --   astro = {
-      --     filetypes = { "astro" },
-      --   },
-      --   clangd = {
-      --     filetypes = { "c", "cpp", "objc", "objcpp" },
-      --   },
-      -- }
-      -- masonLsp.setup_handlers({
-      --   function(server_name)
-      --     require("lspconfig")[server_name].setup({
-      --       capabilities = capabilities,
-      --       settings = servers[server_name],
-      --       filetypes = (servers[server_name] or {}).filetypes,
-      --     })
-      --   end,
-      -- })
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local servers = {
+        volar = {
+          filetypes = { "vue" },
+        },
+        astro = {
+          filetypes = { "astro" },
+        },
+        clangd = {
+          filetypes = { "c", "cpp", "objc", "objcpp" },
+        },
+      }
+      masonLsp.setup_handlers({
+        function(server_name)
+          require("lspconfig")[server_name].setup({
+            capabilities = capabilities,
+            settings = servers[server_name],
+            filetypes = (servers[server_name] or {}).filetypes,
+          })
+        end,
+      })
     end,
   },
 }
