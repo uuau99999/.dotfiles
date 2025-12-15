@@ -82,3 +82,9 @@ lspconfig.volar.setup({
 
 vim.cmd.colorscheme("catppuccin")
 -- vim.cmd.colorscheme("nightfly")
+
+vim.lsp.enable({
+  "volar",
+  "vtsls",
+  "eslint",
+})
