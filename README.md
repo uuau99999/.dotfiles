@@ -25,9 +25,7 @@
 ## Nix Configuration
 
 1. Install Nix: (Instructions for your system here)
-2. Copy the configuration template: `cp ~/.dotfiles/nix/nix-config-template.toml ~/.dotfiles/nix/nix-config.toml`
-3. Update the configuration file: `~/.dotfiles/nix/nix-config.toml`
-4. use nix to switch to the dev environment
+2. Use nix to switch to the dev environment (user/home/platform are auto-detected from environment)
 
    > Linux/WSL, run
 

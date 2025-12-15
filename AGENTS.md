@@ -72,7 +72,11 @@ cd ~/.dotfiles/.config/tmux
 ## Key Configuration Patterns
 
 ### Nix Configuration Flow
-1. `env.nix` auto-detects user/home/platform from environment variables (requires `--impure`)
+
+1. `env.nix` auto-detects user/home/platform from environment variables (requires `--impure`):
+   - Uses `SUDO_USER` when running with sudo, falls back to `USER`
+   - Determines home path based on platform: `/Users/<user>` on macOS, `/root` on Linux
+   - Detects platform via `builtins.currentSystem`
 2. `flake.nix` creates two configurations:
    - `homeConfigurations.dev` for Linux/WSL (home-manager only)
    - `darwinConfigurations.dev` for macOS (nix-darwin + home-manager)
@@ -80,11 +84,13 @@ cd ~/.dotfiles/.config/tmux
 4. `home.nix` manages dotfile symlinks and user packages
 
 ### Dotfile Management
+
 - GNU Stow creates symlinks from `~/.dotfiles` to `~`
 - Nix home-manager also manages some dotfiles via `home.file` in `home.nix`
 - Some configs (like aerospace) are generated inline in nix modules
 
 ### Tmux Prefix and Key Bindings
+
 - Prefix: `C-q` (not default `C-b`)
 - `prefix + r` - Reload config
 - `prefix + p` - Session picker
@@ -93,18 +99,21 @@ cd ~/.dotfiles/.config/tmux
 - `prefix + i` - Cheat sheet
 
 ### Neovim (LazyVim)
+
 - Based on LazyVim distribution
 - Telescope with harpoon, fzf, file_browser, ast_grep extensions
 - Vue/TypeScript focused with volar LSP
 - Catppuccin theme
 
 ### AeroSpace Window Management
+
 - Vim-style navigation: `alt+h/j/k/l` for focus, `alt+shift+h/j/k/l` for move
 - Workspaces: `alt+1-9`
 - Apps auto-assign to workspaces (Ghostty→I, Chrome→C, VS Code→V, etc.)
 - Integrates with sketchybar for workspace display
 
 ### Hammerspoon App Hotkeys
+
 - `alt+B` - Brave Browser
 - `alt+C` - Chrome
 - `alt+I` - Ghostty terminal
