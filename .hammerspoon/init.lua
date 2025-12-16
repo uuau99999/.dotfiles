@@ -33,6 +33,9 @@ end)
 hs.hotkey.bind({ "alt" }, "E", function()
 	hs.application.launchOrFocus("Simulator")
 end)
+hs.hotkey.bind({ "alt" }, "O", function()
+	hs.application.launchOrFocus("Obsidian")
+end)
 
 local function resizeApp()
 	-- send keyStroke to raycast to resize it.
