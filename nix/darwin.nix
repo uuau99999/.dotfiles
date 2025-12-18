@@ -43,5 +43,6 @@ in
     "FelixKratz/formulae/sketchybar"
     "uv"
     "fnm"
+    "serie"
   ];
 }
