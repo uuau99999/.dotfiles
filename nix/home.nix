@@ -31,6 +31,9 @@ in
     xh
     fnm
     yq
+    btop
+    duf
+    delta
   ];
 
   fonts.fontconfig.enable = true;
