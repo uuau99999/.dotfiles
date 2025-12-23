@@ -3,3 +3,7 @@ source $VIMRUNTIME/defaults.vim
 
 " Enable syntax highlighting.
 syntax on
+
+set number relativenumber
+
+set clipboard=unnamedplus
