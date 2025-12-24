@@ -109,6 +109,7 @@
       s = "serie";
       f = "bash ~/.config/tmux/tmux-fzf";
       p = "bash ~/.config/tmux/tmux-sessionizer";
+      x = "bash ~/.config/tmux/tmux-clear";
     };
   };
 
