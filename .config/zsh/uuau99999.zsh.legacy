@@ -58,7 +58,6 @@ alias t="nr test"
 alias rmvc="rm -rf node_modules/.vite"
 alias b="nr build"
 alias i="ni"
-alias f="pnpm install --force"
 alias ii="npm i -g @antfu/ni"
 alias v="nvim"
 
@@ -69,9 +68,10 @@ alias pip=pip3
 alias ktmux="pkill -f tmux"
 alias ltmux="tmux ls"
 alias tma="tmux a"
+alias f="bash ~/.config/tmux/tmux-fzf"
 
 # tmux fzf keymapping
-bindkey -s ^p "~/.config/tmux/tmux-sessionizer\n"
-bindkey -s ^f "~/.config/tmux/tmux-fzf\n"
-bindkey -s ^x "~/.config/tmux/tmux-clear\n"
+# bindkey -s ^p "~/.config/tmux/tmux-sessionizer\n"
+# bindkey -s ^f "~/.config/tmux/tmux-fzf\n"
+# bindkey -s ^x "~/.config/tmux/tmux-clear\n"
 

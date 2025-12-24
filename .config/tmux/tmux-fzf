@@ -2,7 +2,7 @@
 
 tmux_running=$(pgrep tmux)
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+if [[ -z $tmux_running ]]; then
   ~/.config/tmux/tmux-sessionizer
   exit 0
 fi

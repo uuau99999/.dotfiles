@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+tmux_running=$(pgrep tmux)
 
 if [[ ! -f ~/.tmux-repo ]]; then
   echo "~/.tmux-repo file not found"
@@ -45,7 +46,6 @@ if [[ ! -d $selected ]]; then
 fi
 
 selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
   tmux new-session -s $selected_name -c $selected

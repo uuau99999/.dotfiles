@@ -94,7 +94,6 @@
       c = "bat";
       d = "nr dev";
       i = "ni";
-      f = "pnpm install --force";
       t = "nr test";
       v = "nvim";
       rmvc = "rm -rf node_modules/.vite";
@@ -108,6 +107,8 @@
       up = "docker compose up";
       down = "docker compose down";
       s = "serie";
+      f = "bash ~/.config/tmux/tmux-fzf";
+      p = "bash ~/.config/tmux/tmux-sessionizer";
     };
   };
 
