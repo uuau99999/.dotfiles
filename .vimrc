@@ -6,4 +6,4 @@ syntax on
 
 set number relativenumber
 
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
