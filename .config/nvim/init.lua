@@ -80,5 +80,5 @@ lspconfig.volar.setup({
   },
 })
 
-vim.cmd.colorscheme("catppuccin")
--- vim.cmd.colorscheme("nightfly")
+-- vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("nightfly")

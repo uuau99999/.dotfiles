@@ -104,66 +104,72 @@ end
 -- }
 
 local macchiato = require("catppuccin.palettes").get_palette("macchiato")
+local lualine_nightfly = require("lualine.themes.nightfly")
 local function customFilenameColor()
   return { fg = vim.bo.modified and macchiato.red or macchiato.text }
 end
-
-local catppuccin = require("lualine.themes.catppuccin")
-
-catppuccin.normal.c.bg = macchiato.base
+--
+-- local catppuccin = require("lualine.themes.catppuccin")
+--
+-- catppuccin.normal.c.bg = macchiato.base
 
 return {
   "nvim-lualine/lualine.nvim",
   config = function()
     require("lualine").setup({
       options = {
-        -- theme = lualine_nightfly,
+        theme = lualine_nightfly,
         -- theme = "ayu_mirage",
         -- theme = "catppuccin",
-        theme = catppuccin,
+        -- theme = catppuccin,
       },
       sections = {
-        lualine_a = { { "mode", separator = { left = "", right = "" } } },
-        lualine_b = {
-          {
-            findCodebaseDir,
-            color = { fg = macchiato.base, bg = macchiato.peach },
-            icon = "",
-            separator = { left = "", right = "" },
-          },
-          { "branch", separator = { left = "", right = "" }, color = { fg = macchiato.base, bg = macchiato.green } },
-        },
         lualine_c = {
           { getFileRelativePath, color = customFilenameColor },
         },
-        lualine_x = {
-          {
-            "diagnostics",
-            separator = { right = "" },
-            sections = { "error", "warn", "info", "hint" },
-            colored = true,
-            color = { bg = macchiato.surface0 },
-          },
-          {
-            "diff",
-            colored = true,
-            symbols = { added = " ", modified = " ", removed = " " },
-            source = nil,
-          },
-          -- { require("mcphub.extensions.lualine") },
-        },
-        lualine_y = {
-          {
-            "filetype",
-            color = { bg = macchiato.base },
-            separator = { left = "" },
-          },
-        },
-        lualine_z = {
-          { "progress", separator = { left = "" } },
-          { "%l/%L" },
-        },
       },
+      -- sections = {
+      --   lualine_a = { { "mode", separator = { left = "", right = "" } } },
+      --   lualine_b = {
+      --     {
+      --       findCodebaseDir,
+      --       color = { fg = macchiato.base, bg = macchiato.peach },
+      --       icon = "",
+      --       separator = { left = "", right = "" },
+      --     },
+      --     { "branch", separator = { left = "", right = "" }, color = { fg = macchiato.base, bg = macchiato.green } },
+      --   },
+      --   lualine_c = {
+      --     { getFileRelativePath, color = customFilenameColor },
+      --   },
+      --   lualine_x = {
+      --     {
+      --       "diagnostics",
+      --       separator = { right = "" },
+      --       sections = { "error", "warn", "info", "hint" },
+      --       colored = true,
+      --       color = { bg = macchiato.surface0 },
+      --     },
+      --     {
+      --       "diff",
+      --       colored = true,
+      --       symbols = { added = " ", modified = " ", removed = " " },
+      --       source = nil,
+      --     },
+      --     -- { require("mcphub.extensions.lualine") },
+      --   },
+      --   lualine_y = {
+      --     {
+      --       "filetype",
+      --       color = { bg = macchiato.base },
+      --       separator = { left = "" },
+      --     },
+      --   },
+      --   lualine_z = {
+      --     { "progress", separator = { left = "" } },
+      --     { "%l/%L" },
+      --   },
+      -- },
     })
   end,
 }
