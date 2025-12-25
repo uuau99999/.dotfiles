@@ -1,7 +1,7 @@
 # font-family = "Fira Code Medium"
 # font-family = "Fira Code"
 font-family = "Ioskeley Mono"
-font-style = "Medium"
+# font-style = "Medium"
 font-size = 22
 # theme = catppuccin-mocha
 theme = Monokai Pro
