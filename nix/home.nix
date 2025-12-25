@@ -46,6 +46,7 @@ in
     ".config/kitty".source = ../.config/kitty;
     ".config/wezterm".source = ../.config/wezterm;
     ".config/ghostty".source = ../.config/ghostty;
+    ".claude/skills".source = ../.claude/skills;
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
