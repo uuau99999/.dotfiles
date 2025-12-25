@@ -42,7 +42,9 @@ in
     # "koekeishiya/formulae/yabai"
     "FelixKratz/formulae/sketchybar"
     "uv"
+    "pipx"
     "fnm"
     "serie"
+    "lazysql"
   ];
 }

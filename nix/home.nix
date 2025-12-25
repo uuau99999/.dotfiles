@@ -72,5 +72,7 @@ in
     ./apps/nvim.nix
     ./apps/tmux.nix
     ./apps/git.nix
+    ./apps/uv-packages.nix
+    ./apps/pipx-packages.nix
   ];
 }
