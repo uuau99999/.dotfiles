@@ -1,83 +1,85 @@
 ---
 name: git-commit
 
-description: Commit current workspace changes with auto-generated commit messages following conventional commit format.
+description: 使用中文提交当前工作区变更，遵循约定式提交格式
 ---
 
-# Git Commit Skill
+# Git Commit 技能
 
-Commit current workspace changes with auto-generated commit messages.
+使用中文提交当前工作区变更。
 
-## Usage
+## 使用方法
 
-Invoke with: `/git-commit`
+使用 `/git-commit` 调用
 
-## Instructions
+## 指令
 
-When this skill is invoked:
+调用此技能时：
 
-1. **Check working directory status**
+1. **检查工作区状态**
 
-   - Run `git status` to see all modified, added, and deleted files
-   - Run `git diff` to see unstaged changes
-   - Run `git diff --cached` to see staged changes
-   - Run `git log --oneline -5` to see recent commit message style
+   - 运行 `git status` 查看所有修改、添加和删除的文件
+   - 运行 `git diff` 查看未暂存的变更
+   - 运行 `git diff --cached` 查看已暂存的变更
+   - 运行 `git log --oneline -5` 查看最近的提交信息风格
 
-2. **Stage changes if needed**
+2. **暂存变更（如需要）**
 
-   - If there are unstaged changes, ask user whether to stage all changes or select specific files
-   - Use `git add .` for all changes or `git add <files>` for specific files
+   - 如果有未暂存的变更，询问用户是暂存所有变更还是选择特定文件
+   - 使用 `git add .` 暂存所有变更，或使用 `git add <files>` 暂存特定文件
 
-3. **Generate commit message**
+3. **生成提交信息（必须使用中文）**
 
-   - Analyze the changes using `git diff --cached`
-   - Generate a conventional commit message following this format:
-     - `feat:` for new features
-     - `fix:` for bug fixes
-     - `docs:` for documentation changes
-     - `style:` for formatting changes
-     - `refactor:` for code refactoring
-     - `test:` for adding tests
-     - `chore:` for maintenance tasks
-   - Keep the first line under 72 characters
-   - Add a blank line and detailed description if changes are complex
-   - Follow the repository's existing commit message style if detectable
+   - 使用 `git diff --cached` 分析变更
+   - 生成约定式提交信息，格式如下：
+     - `feat:` 新功能
+     - `fix:` 修复 bug
+     - `docs:` 文档变更
+     - `style:` 格式化变更
+     - `refactor:` 代码重构
+     - `test:` 添加测试
+     - `chore:` 维护任务
+   - 第一行不超过 72 字符
+   - 如果变更复杂，添加空行和详细描述
+   - **提交信息必须使用中文编写**
+   - 遵循仓库现有的提交信息风格（如果可检测）
 
-4. **Confirm and commit**
+4. **确认并提交**
 
-   - Show the generated commit message to the user
-   - Ask for confirmation or allow editing
-   - Execute `git commit -m "<message>"`
+   - 向用户展示生成的提交信息
+   - 询问确认或允许编辑
+   - 执行 `git commit -m "<message>"`
 
-5. **Optional: Push to remote**
+5. **可选：推送到远程仓库**
 
-   - Ask if user wants to push the commit
-   - If yes, run `git push`
+   - 询问用户是否要推送提交
+   - 如果是，运行 `git push`
 
-## Example Interaction
+## 示例交互
 
 ```
-Analyzing changes...
+分析变更...
 
-Staged changes:
+已暂存的变更：
 - Modified: src/components/Button.tsx
 - Added: src/utils/helpers.ts
 - Deleted: src/old/deprecated.ts
 
-Generated commit message:
+生成的提交信息：
 ---
-feat: add Button component and utility helpers
+feat: 添加按钮组件和工具函数
 
-- Add new Button component with hover effects
-- Create helpers.ts with common utility functions
-- Remove deprecated code
+- 添加新的按钮组件，包含悬停效果
+- 创建 helpers.ts 工具函数文件
+- 移除废弃代码
 ---
 
-Proceed with this commit? [Y/n/edit]
+确认提交？[Y/n/edit]
 ```
 
-## Notes
+## 注意事项
 
-- Always show changes before committing
-- Never commit without user confirmation
-- Do not commit files that may contain secrets (.env, credentials, etc.)
+- 提交前始终展示变更
+- 没有用户确认不得提交
+- 不要提交可能包含密钥的文件（.env、credentials 等）
+- **提交信息必须使用中文编写**
