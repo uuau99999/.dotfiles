@@ -67,6 +67,15 @@ in
   programs.fd.enable = true;
   programs.lazydocker.enable = true;
 
+  programs.lazydocker.settings = {
+    gui = {
+      returnImmediately = true;
+    };
+    commandTemplates = {
+      serviceLogs = "{{ .DockerCompose }} logs --since=120m --follow {{ .Service.Name }}";
+    };
+  };
+
   imports = [
     ./apps/zsh.nix
     ./apps/nvim.nix
