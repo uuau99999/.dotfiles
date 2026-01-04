@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ ! -f ~/.tmux-fzf.lastsession ]]; then
-  touch ~/.tmux-fzf.lastsession
-fi
-
-selected=$(cat ~/.tmux-fzf.lastsession)
 current=$(tmux display-message -p '#S')
 
 tmux_running=$(pgrep tmux)
@@ -14,21 +9,12 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
   exit 0
 fi
 
+# 获取按最后活动时间倒序排列的 session 列表，排除当前 session，取第一个
+selected=$(tmux list-sessions -F '#{session_last_attached} #{session_name}' | sort -rn | awk -v current="$current" '$2 != current {print $2; exit}')
+
 if [[ -z $selected ]]; then
   tmux display-message "no previous session"
-fi
-
-if [[ $selected == $current ]]; then
-  tmux display-message "cannot switch to current session"
-  exit 0
-fi
-
-if ! tmux has-session -t=$selected 2>/dev/null; then
-  tmux display-message "session $selected doesn't exist, will delete it in history"
-  echo $current >~/.tmux-fzf.lastsession
   exit 0
 fi
 
 tmux switch-client -t $selected
-
-echo $current >~/.tmux-fzf.lastsession

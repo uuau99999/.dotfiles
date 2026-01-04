@@ -11,7 +11,7 @@ if [[ ! -f ~/.tmux-fzf.lastsession ]]; then
   touch ~/.tmux-fzf.lastsession
 fi
 
-selected=$(tmux list-sessions -F '#S' | fzf --preview "tmux capture-pane -ep -t {}")
+selected=$(tmux list-sessions -F '#{session_last_attached} #{session_name}' | sort -rn | awk '{print $2}' | fzf --preview "tmux capture-pane -ep -t {}")
 current=$(tmux display-message -p '#S')
 
 if [[ -z $selected ]]; then
