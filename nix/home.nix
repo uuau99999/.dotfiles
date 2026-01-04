@@ -34,6 +34,8 @@ in
     btop
     duf
     delta
+    pipx
+    uv
   ];
 
   fonts.fontconfig.enable = true;

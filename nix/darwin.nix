@@ -41,9 +41,9 @@ in
     "sqlite3"
     # "koekeishiya/formulae/yabai"
     "FelixKratz/formulae/sketchybar"
-    "uv"
-    "pipx"
-    "fnm"
+    # "uv"
+    # "pipx"
+    # "fnm"
     "serie"
     "lazysql"
   ];

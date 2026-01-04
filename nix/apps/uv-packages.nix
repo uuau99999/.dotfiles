@@ -4,9 +4,10 @@
 # Usage: Add package names to the uvPackages list below.
 # Packages will be installed automatically during `home-manager switch`.
 
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 let
+  uv = pkgs.uv;
   # List of packages to install via `uv tool install`
   # These are typically Python CLI tools that should be globally available
   uvPackages = [
@@ -31,18 +32,10 @@ in
   home.activation.installUvPackages = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     # Only proceed if there are packages to install
     if [ ${toString (builtins.length uvPackages)} -gt 0 ]; then
-      # Ensure uv is available (installed via homebrew in darwin.nix)
-      # Check common paths for uv
-      UV_CMD=""
-      if command -v uv &> /dev/null; then
-        UV_CMD="uv"
-      elif [ -x "/opt/homebrew/bin/uv" ]; then
-        UV_CMD="/opt/homebrew/bin/uv"
-      elif [ -x "/usr/local/bin/uv" ]; then
-        UV_CMD="/usr/local/bin/uv"
-      fi
+      # Use uv installed via home.packages
+      UV_CMD="${lib.getExe uv}"
 
-      if [ -n "$UV_CMD" ]; then
+      if [ -x "$UV_CMD" ]; then
         echo "Syncing uv tool packages..."
 
         # Get list of installed tools (filter out warnings)
@@ -58,7 +51,7 @@ in
           fi
         done
       else
-        echo "Warning: uv not found, skipping uv tool packages installation"
+        echo "Warning: uv not found at $UV_CMD, skipping uv tool packages installation"
       fi
     fi
   '';
