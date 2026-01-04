@@ -40,6 +40,7 @@ let
       name ="sqlit-tui";
       inject = [ "psycopg2-binary" ];
     }
+    "pgcli"
   ];
 
   # Helper function to normalize package spec
