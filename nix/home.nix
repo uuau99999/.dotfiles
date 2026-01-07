@@ -36,6 +36,7 @@ in
     delta
     pipx
     uv
+    jq
   ];
 
   fonts.fontconfig.enable = true;
