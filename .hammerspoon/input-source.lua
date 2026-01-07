@@ -16,7 +16,7 @@ local app2Ime = {
 	{ "/Applications/Google Chrome.app", "English" },
 	{ "/System/Library/CoreServices/Finder.app", "English" },
 	{ "/Applications/System Preferences.app", "English" },
-	{ "/Applications/企业微信.app", "Chinese" },
+	{ "/Applications/企业微信.app", "English" },
 	{ "/Applications/Arc.app", "English" },
 }
 
