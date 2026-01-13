@@ -15,7 +15,19 @@
 
       # default editor
       export EDITOR=vim
-      
+
+      # Suffix aliases
+      alias -s {env,md,html,css,toml}=bat
+      alias -s {js,ts,py,go,yml,yaml,json,zshrc}=vim
+      alias -s git="git clone"
+
+      # Global aliases
+      alias -g JQ='| jq'
+      alias -g NE='2>/dev/null'
+
+      # zmv
+      autoload -U zmv
+
       # Add any additional configurations here
       export PATH=$HOME/.local/bin:/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
