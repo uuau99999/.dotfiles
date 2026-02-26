@@ -21,6 +21,6 @@ macos-icon-screen-color = #000000
 
 keybind = cmd+p=unbind
 
-auto-update-channel = tip
+# auto-update-channel = tip
 
 config-file = "vim.ghostty"
