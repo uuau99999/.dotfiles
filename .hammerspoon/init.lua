@@ -37,7 +37,7 @@ hs.hotkey.bind({ "alt" }, "O", function()
 	hs.application.launchOrFocus("Obsidian")
 end)
 hs.hotkey.bind({ "alt" }, "Z", function()
-	hs.application.launchOrFocus("Zen")
+	hs.application.launchOrFocus("Telegram")
 end)
 
 -- hs.hotkey.bind({ "ctrl" }, "F", function()

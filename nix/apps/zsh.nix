@@ -97,9 +97,15 @@
         zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
         source <(carapace _carapace)
 
-    # fnm
+    # fnm (--use-on-cd only works in interactive shells)
       eval "$(fnm env --use-on-cd --shell zsh)"
 
+    '';
+    envExtra = ''
+      # fnm: ensure node/npm available in non-interactive shells (e.g. OpenClaw, scripts)
+      if command -v fnm &>/dev/null; then
+        eval "$(fnm env --shell zsh)"
+      fi
     '';
     shellAliases = {
       b = "nr build";
