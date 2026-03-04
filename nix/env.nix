@@ -7,9 +7,9 @@ let
   platform = builtins.currentSystem;
   
   # Determine home directory based on platform
-  # macOS: /Users/<username>, Linux: /root
+  # macOS: /Users/<username>, Linux: /home/<username>
   isDarwin = builtins.match ".*-darwin" platform != null;
-  home = if isDarwin then "/Users/${user}" else "/root";
+  home = if isDarwin then "/Users/${user}" else "/home/${user}";
 in {
   inherit user home platform;
 }
