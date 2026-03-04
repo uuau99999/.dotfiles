@@ -37,6 +37,7 @@ in
     pipx
     uv
     jq
+    go
   ];
 
   fonts.fontconfig.enable = true;
