@@ -51,6 +51,9 @@ require("telescope").setup({
       },
       n = {
         ["<C-Q>"] = require("telescope.actions").send_to_qflist + require("telescope.actions").open_qflist,
+        ["<leader>ff"] = false,
+        ["<leader>fg"] = false,
+        ["<leader>fz"] = false,
       },
     },
   },

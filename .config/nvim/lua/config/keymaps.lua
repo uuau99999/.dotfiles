@@ -82,23 +82,30 @@ keymap.set("n", "<leader>?", function()
 end, { desc = "[/] Fuzzily search in current buffer" })
 -- nmap("<leader><leader>", "<Cmd>Telescope frecency workspace=CWD<CR>")
 -- nmap("<leader>fo", "<Cmd>Telescope oldfiles only_cwd=true<CR>", "Find Old files")
-nmap("<leader>/", require("telescope.builtin").live_grep, "Find Text")
-nmap("<leader>fg", "<cmd>Telescope git_files<cr>", "Find Git files")
-nmap("<leader>ff", "<cmd>Telescope find_files hidden=true no_ignore=false<cr>", "Find files")
+nmap("<leader>/", function()
+  return require("fff").live_grep({
+    grep = {
+      modes = { "fuzzy", "plain" },
+    },
+  })
+end, "Find Text")
+-- nmap("<leader>fg", "<cmd>Telescope git_files<cr>", "Find Git files")
+nmap("<leader>ff", function()
+  return require("fff").find_files()
+end, "Find files")
+nmap("<leader>fg", function()
+  return require("fff").find_in_git_root()
+end, "Find files")
 -- nmap("<leader><leader>", "<cmd>Telescope find_files hidden=true no_ignore=false<cr>", "Find files")
 nmap("<leader><leader>", function()
-  require("snacks").picker.smart()
-  -- require("telescope").extensions.smart_open.smart_open({
-  --   cwd_only = true,
-  --   filename_first = false,
-  -- })
+  require("fff").find_files()
 end, "Smart Find files")
 nmap("<leader>fr", function()
   require("telescope.builtin").lsp_references()
 end, "Find lsp references")
-nmap("<leader>fw", function()
-  require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>"), word_match = "-w" })
-end, "Find Words")
+-- nmap("<leader>fw", function()
+--   require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>"), word_match = "-w" })
+-- end, "Find Words")
 
 nmap("<leader>fh", "<cmd>Telescope help_tags<cr>", "Find Help tags")
 nmap("<leader>sr", "<cmd>Telescope lsp_references<cr>", "Search references")
