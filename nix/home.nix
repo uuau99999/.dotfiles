@@ -86,5 +86,6 @@ in
     ./apps/git.nix
     ./apps/uv-packages.nix
     ./apps/pipx-packages.nix
+    ./apps/claude-code.nix
   ];
 }
