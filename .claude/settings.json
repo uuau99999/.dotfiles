@@ -17,6 +17,31 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-edit-lint-smart.sh",
+            "timeout": 30,
+            "statusMessage": "Running lint checks..."
+          }
+        ]
+      }
+    ],
+    "TaskComplete": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/task-completion-notify.sh",
+            "timeout": 5,
+            "statusMessage": "Sending notification..."
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
