@@ -20,18 +20,18 @@ fi
 
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 
-# Only check JS/TS files
-if [[ ! "$FILE_PATH" =~ \.(js|ts|jsx|tsx)$ ]]; then
+# Only check JS/TS/Go files
+if [[ ! "$FILE_PATH" =~ \.(js|ts|jsx|tsx|go)$ ]]; then
   exit 0
 fi
 
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 
-# Find project root (where package.json exists)
+# Find project root (where package.json or go.mod exists)
 find_project_root() {
   local dir="$1"
   while [ "$dir" != "/" ]; do
-    if [ -f "$dir/package.json" ]; then
+    if [ -f "$dir/package.json" ] || [ -f "$dir/go.mod" ]; then
       echo "$dir"
       return 0
     fi
@@ -62,8 +62,19 @@ has_tool() {
 
 PROJECT_ROOT=$(find_project_root "$(dirname "$FILE_PATH")")
 if [ -z "$PROJECT_ROOT" ]; then
-  # No package.json found, skip linting
+  # No package.json or go.mod found, skip linting
   exit 0
+fi
+
+# Detect file type
+FILE_EXT="${FILE_PATH##*.}"
+IS_GO_FILE=false
+IS_JS_TS_FILE=false
+
+if [[ "$FILE_EXT" == "go" ]]; then
+  IS_GO_FILE=true
+elif [[ "$FILE_EXT" =~ ^(js|ts|jsx|tsx)$ ]]; then
+  IS_JS_TS_FILE=true
 fi
 
 ERRORS=""
@@ -72,7 +83,49 @@ ERRORS=""
 FILE_PATH=$(realpath "$FILE_PATH" 2>/dev/null || echo "$FILE_PATH")
 PROJECT_ROOT=$(realpath "$PROJECT_ROOT" 2>/dev/null || echo "$PROJECT_ROOT")
 
-# Run ESLint if available
+# Run Go formatters if this is a Go file
+if [ "$IS_GO_FILE" = true ]; then
+  # Run gofmt
+  if command -v gofmt &> /dev/null; then
+    # Check if file needs formatting
+    GOFMT_OUTPUT=$(gofmt -l "$FILE_PATH" 2>&1)
+    if [ -n "$GOFMT_OUTPUT" ]; then
+      # Auto-format
+      gofmt -w "$FILE_PATH" 2>&1 || true
+
+      # Verify formatting succeeded
+      GOFMT_VERIFY=$(gofmt -l "$FILE_PATH" 2>&1)
+      if [ -n "$GOFMT_VERIFY" ]; then
+        ERRORS+="=== gofmt Errors ===
+Failed to format file: $FILE_PATH
+
+"
+      fi
+    fi
+  fi
+
+  # Run goimports if available
+  if command -v goimports &> /dev/null; then
+    # Check if file needs import organization
+    GOIMPORTS_DIFF=$(goimports -l "$FILE_PATH" 2>&1)
+    if [ -n "$GOIMPORTS_DIFF" ]; then
+      # Auto-organize imports
+      goimports -w "$FILE_PATH" 2>&1 || true
+
+      # Verify imports organization succeeded
+      GOIMPORTS_VERIFY=$(goimports -l "$FILE_PATH" 2>&1)
+      if [ -n "$GOIMPORTS_VERIFY" ]; then
+        ERRORS+="=== goimports Errors ===
+Failed to organize imports: $FILE_PATH
+
+"
+      fi
+    fi
+  fi
+fi
+
+# Run ESLint/Prettier if this is a JS/TS file
+if [ "$IS_JS_TS_FILE" = true ]; then
 if has_tool "eslint" "$PROJECT_ROOT"; then
   # Calculate relative path safely
   if [[ "$FILE_PATH" == "$PROJECT_ROOT"/* ]]; then
@@ -125,6 +178,7 @@ Failed to format file: $RELATIVE_PATH
 "
     fi
   fi
+fi
 fi
 
 # If errors found, block and report
