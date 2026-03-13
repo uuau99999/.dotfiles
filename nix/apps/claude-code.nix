@@ -27,5 +27,11 @@
       source = ../../.claude/hooks/post-edit-lint-smart.sh;
       executable = true;
     };
+
+    # 任务完成通知 Hook（跨平台支持）
+    ".claude/hooks/task-completion-notify.sh" = {
+      source = ../../.claude/hooks/task-completion-notify.sh;
+      executable = true;
+    };
   };
 }
