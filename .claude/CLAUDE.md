@@ -67,6 +67,77 @@ When initializing or updating a JavaScript/TypeScript/Node.js project, automatic
 - When user asks to "set up hooks" or "configure code quality"
 - When you notice the project lacks automated linting/formatting
 
+## Hooks Configuration
+
+### Smart Lint Hook
+
+**Location**: `~/.claude/hooks/post-edit-lint-smart.sh`
+
+**Features**:
+- Automatically detects if project has eslint/prettier installed
+- Only runs on JS/TS/JSX/TSX files
+- Auto-fixes issues when possible
+- Skips linting if no package.json found (non-Node.js projects)
+- Blocks commits if unfixable errors remain
+
+**How it works**:
+1. Triggered on Edit/Write operations
+2. Searches for project root (package.json)
+3. Checks if eslint/prettier are installed
+4. Runs auto-fix first, then validates
+5. Reports errors if any remain
+
+### Task Completion Notification
+
+**Location**: `~/.claude/hooks/task-completion-notify.sh`
+
+**Features**:
+- Sends system notification when tasks complete
+- Cross-platform support (macOS, Linux, Windows)
+- Gracefully degrades if notification system unavailable
+- Non-blocking (won't fail if notification fails)
+
+**Supported platforms**:
+- macOS: Uses `osascript` (AppleScript)
+- Linux: Uses `notify-send`
+- Windows: Uses PowerShell toast notifications
+
+### Configuration in settings.json
+
+The hooks are configured in `.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/post-edit-lint-smart.sh",
+            "timeout": 30,
+            "statusMessage": "Running lint checks..."
+          }
+        ]
+      }
+    ],
+    "TaskComplete": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/task-completion-notify.sh",
+            "timeout": 5,
+            "statusMessage": "Sending notification..."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ## Documentation Management
 
 ### Project CLAUDE.md Synchronization
