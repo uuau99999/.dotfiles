@@ -27,7 +27,7 @@
         ]
       }
     ],
-    "TaskComplete": [
+    "Notification": [
       {
         "hooks": [
           {
