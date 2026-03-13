@@ -27,5 +27,11 @@
       source = ../../.claude/hooks/post-edit-lint.sh;
       executable = true;
     };
+
+    # 智能 Lint Hook（自动检测 eslint/prettier）
+    ".claude/hooks/post-edit-lint-smart.sh" = {
+      source = ../../.claude/hooks/post-edit-lint-smart.sh;
+      executable = true;
+    };
   };
 }
