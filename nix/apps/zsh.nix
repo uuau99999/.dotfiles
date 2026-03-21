@@ -43,6 +43,9 @@
             export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
             export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
+      # television
+      # eval "$(tv init zsh)"
+
       # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
       # - The first argument to the function ($1) is the base path to start traversal
       # - See the source code (completion.{bash,zsh}) for the details.
@@ -108,11 +111,11 @@
       fi
     '';
     shellAliases = {
-      b = "nr build";
+      b = "npm run build";
       c = "bat";
       d = "nr dev";
       i = "ni";
-      t = "nr test";
+      t = "tv";
       v = "nvim";
       rmvc = "rm -rf node_modules/.vite";
       ii = "npm i -g @antfu/ni";

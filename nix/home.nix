@@ -38,6 +38,7 @@ in
     uv
     jq
     go
+    television
   ];
 
   fonts.fontconfig.enable = true;

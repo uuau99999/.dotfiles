@@ -5,7 +5,16 @@ let
 in 
 {
   # services.nix-daemon.enable = true;
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    substituters = [
+      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+      "https://cache.nixos.org/"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
+  };
   system.stateVersion = 5;
   security.pam.services.sudo_local.touchIdAuth = true;
   users.users.${user}.home = homeDirectory;
