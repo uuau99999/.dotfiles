@@ -38,13 +38,14 @@
       # bindkey -s ^f "~/.dotfiles/.config/tmux/tmux-fzf\n"
       # bindkey -s ^x "~/.dotfiles/.config/tmux/tmux-clear\n"
       # fzf
-        [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-          export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-            export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-            export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+        # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+        #   export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+        #     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        #     export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+      export FZF_CTRL_T_COMMAND=""
 
       # television
-      # eval "$(tv init zsh)"
+      eval "$(tv init zsh)"
 
       # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
       # - The first argument to the function ($1) is the base path to start traversal
@@ -113,10 +114,12 @@
     shellAliases = {
       b = "npm run build";
       c = "bat";
+      ct = "bat $(tv files)";
       d = "nr dev";
       i = "ni";
       t = "tv";
       v = "nvim";
+      vt= "nvim $(tv files)";
       rmvc = "rm -rf node_modules/.vite";
       ii = "npm i -g @antfu/ni";
       python = "python3";
@@ -136,8 +139,8 @@
 
   programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
+    enableZshIntegration = false;
+    enableBashIntegration = false;
     # defaultOptions = [
     #   "--height=100%"
     #   "--layout=reverse"

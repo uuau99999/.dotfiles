@@ -21,7 +21,7 @@ in
     gnumake
     tmux
     python3
-    neofetch
+    fastfetch
     rustup
     pkg-config
     openssl
