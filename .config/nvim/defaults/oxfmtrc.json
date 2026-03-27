@@ -1,0 +1,26 @@
+{
+  "sortPackageJson": true,
+  "ignorePatterns": [
+    "coverage",
+    "**/node_modules",
+    "**/dist",
+    "**/package-lock.json",
+    "**/yarn.lock",
+    "**/pnpm-lock.yaml",
+    "**/vite.config.*.timestamp-*",
+    "**/__snapshots__",
+    "**/__fixtures__",
+    "**/*.min.*"
+  ],
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "strict",
+  "arrowParens": "always",
+  "insertFinalNewline": true
+}

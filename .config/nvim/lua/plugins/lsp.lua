@@ -12,9 +12,11 @@ return {
         "tailwindcss-language-server",
         -- "typescript-language-server",
         "css-lsp",
-        "eslint-lsp",
+        -- "eslint-lsp",
         "vue-language-server",
         "astro-language-server",
+        "oxlint",
+        "oxfmt",
       })
     end,
   },
@@ -183,9 +185,9 @@ return {
         ensure_installed = {
           "volar",
           -- "tsserver",
-          "eslint",
+          -- "eslint",
           "cssls",
-          "clangd",
+          -- "clangd",
           "tailwindcss",
           "lua_ls",
           "html",
@@ -206,9 +208,9 @@ return {
         astro = {
           filetypes = { "astro" },
         },
-        clangd = {
-          filetypes = { "c", "cpp", "objc", "objcpp" },
-        },
+        -- clangd = {
+        --   filetypes = { "c", "cpp", "objc", "objcpp" },
+        -- },
       }
       masonLsp.setup_handlers({
         function(server_name)
