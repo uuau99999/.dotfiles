@@ -6,7 +6,7 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "vi-mode" "z" "colored-man-pages" "last-working-dir" "git" ];
+      plugins = [ "vi-mode" "colored-man-pages" "last-working-dir" "git" ];
     };
     autosuggestion.enable = true;
     initContent = ''
@@ -81,6 +81,9 @@
     # ---- Eza (better ls) -----
 
     alias ll=$ll_shell
+
+    # zoxide
+    eval "$(zoxide init zsh)"
 
     # yazi
     function yy() {

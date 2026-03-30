@@ -1,0 +1,23 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+blacklist = ["scratch"]
+
+sort_order = ["zoxide"]
+
+[default_session]
+startup_command = "eza -l {}"
+preview_command = "eza -l {}"
+
+[[session]]
+name = "Downloads 📥"
+path = "~/Downloads"
+startup_command = "eza -l {}"
+preview_command = "eza -l --icons --color=always {}"
+
+# [[wildcard]]
+# pattern = "~/work/git/**"
+# startup_command = "nvim"
+
+# [[window]]
+# name = "nvim"
+# startup_script = "nvim"

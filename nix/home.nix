@@ -39,6 +39,7 @@ in
     jq
     go
     television
+    zoxide
   ];
 
   fonts.fontconfig.enable = true;
@@ -88,5 +89,6 @@ in
     ./apps/uv-packages.nix
     ./apps/pipx-packages.nix
     ./apps/claude-code.nix
+    ./apps/sesh.nix
   ];
 }

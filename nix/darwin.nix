@@ -55,5 +55,7 @@ in
     # "fnm"
     "serie"
     "lazysql"
+    "sesh"
+    "taplo"
   ];
 }
