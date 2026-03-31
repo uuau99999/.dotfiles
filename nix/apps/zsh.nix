@@ -116,7 +116,7 @@
     '';
     shellAliases = {
       b = "npm run build";
-      c = "bat";
+      c = "bat -p";
       ct = "bat $(tv files)";
       d = "nr dev";
       i = "ni";
