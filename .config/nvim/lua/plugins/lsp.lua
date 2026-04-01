@@ -17,6 +17,7 @@ return {
         "astro-language-server",
         "oxlint",
         "oxfmt",
+        "swiftformat",
       })
     end,
   },
@@ -135,6 +136,32 @@ return {
               },
             },
           },
+        },
+        sourcekit = {
+          cmd = { "sourcekit-lsp" },
+          filetypes = { "swift", "objective-c", "objective-cpp" },
+          root_dir = function(filename, _)
+            local lspconfig = require("lspconfig")
+            return lspconfig.util.root_pattern(
+              "buildServer.json",
+              "Package.swift",
+              "*.xcodeproj",
+              "*.xcworkspace",
+              ".git"
+            )(filename)
+          end,
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = { dynamicRegistration = true },
+            },
+            textDocument = {
+              diagnostic = {
+                dynamicRegistration = true,
+                relatedDocumentSupport = true,
+              },
+            },
+          },
+          settings = {},
         },
         gopls = {
           settings = {

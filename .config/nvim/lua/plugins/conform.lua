@@ -9,6 +9,7 @@ return {
       javascript = { "oxfmt" },
       javascriptreact = { "oxfmt" },
       vue = { "oxfmt" },
+      swift = { "swift_format" },
     },
     formatters = {
       oxfmt = {
