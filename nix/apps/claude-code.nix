@@ -33,5 +33,11 @@
       source = ../../.claude/hooks/task-completion-notify.sh;
       executable = true;
     };
+
+    # Session 结束自动生成 HANDOFF.md
+    ".claude/hooks/session-handoff.sh" = {
+      source = ../../.claude/hooks/session-handoff.sh;
+      executable = true;
+    };
   };
 }
