@@ -69,3 +69,27 @@
 - Include context about why certain technical decisions were made
 - Document non-obvious implementation details that future developers should know
 - Keep insights concise but informative
+
+## Insights
+
+### UI Verification
+
+- After making UI changes, always verify on a real device or simulator before committing
+- Pay special attention to: transparency/overlay effects, animation smoothness, color consistency, and text language (English vs Chinese)
+
+### SwiftUI Best Practices
+
+- When fixing SwiftUI bugs, prefer programmatic navigation over NavigationLink wrappers
+- Avoid using `.infinity` for concrete frame dimensions
+- Use opacity-based transitions instead of conditional rendering to prevent layout jitter
+
+### Text Processing
+
+- When implementing text processing (markdown stripping, tag removal, structured output), ensure the implementation handles ALL markup symbols (`##`, `**`, `` ` ``, etc.) not just some
+- Test with real streaming output before committing
+
+### Build Verification by Language
+
+- **Go projects**: always run `goimports` and `go build` after proto changes
+- **TypeScript/Vue projects**: run `oxlint` and type-check after changes
+- Always verify builds pass before committing
