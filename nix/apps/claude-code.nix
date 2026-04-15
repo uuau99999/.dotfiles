@@ -12,7 +12,7 @@
 
     # 全局开发指令
     ".claude/CLAUDE.md" = {
-      source = ../../.claude/CLAUDE.md;
+      source = ../../.claude/CLAUDE_GLOBAL.md;
     };
 
     # 权限审批钩子

@@ -16,13 +16,21 @@ GIT_PULL_REQUEST=􀙡
 GIT_COMMIT=􀡚
 GIT_INDICATOR=􀂓
 
-# Spotify Icons
+# Spotify Icons (kept for backward compat)
 SPOTIFY_BACK=􀊎
 SPOTIFY_PLAY=􀊄
 SPOTIFY_PALUSE=􀊆
 SPOTIFY_NEXT=􀊐
 SPOTIFY_SHUFFLE=􀊝
 SPOTIFY_REPEAT=􀊞
+
+# Media Icons
+MEDIA_BACK=􀊎
+MEDIA_PLAY=􀊄
+MEDIA_PAUSE=􀊆
+MEDIA_NEXT=􀊐
+MEDIA_SHUFFLE=􀊝
+MEDIA_REPEAT=􀊞
 
 # Yabai Icons
 YABAI_STACK=􀏭
