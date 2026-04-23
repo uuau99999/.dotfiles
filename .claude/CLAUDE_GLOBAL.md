@@ -1,3 +1,9 @@
+## Language Preference
+
+- **始终使用中文回答用户的问题**（Always respond in Chinese）
+- 代码注释、commit 消息、文档内容等仍可根据项目惯例使用英文
+- 技术术语可保留英文原文，避免生硬翻译
+
 ## Development Workflow
 
 ### Planning for Complex Tasks
