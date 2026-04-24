@@ -89,6 +89,7 @@ in
     ./apps/uv-packages.nix
     ./apps/pipx-packages.nix
     ./apps/claude-code.nix
+    ./apps/codex.nix
     ./apps/sesh.nix
   ];
 }
