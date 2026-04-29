@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/env python3 $HOME/.codex-internal/hooks/pre_tool_use_policy.py",
+            "command": "/usr/bin/env python3 $HOME/.codex/hooks/pre_tool_use_policy.py",
             "statusMessage": "Checking Bash command"
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/env python3 $HOME/.codex-internal/hooks/permission_request.py",
+            "command": "/usr/bin/env python3 $HOME/.codex/hooks/permission_request.py",
             "statusMessage": "Checking approval request"
           }
         ]
@@ -29,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/bash $HOME/.codex-internal/hooks/task_completion_notify.sh",
+            "command": "/bin/bash $HOME/.codex/hooks/task_completion_notify.sh",
             "timeout": 10
           }
         ]
