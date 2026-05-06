@@ -22,7 +22,7 @@ macos-icon-screen-color = #000000
 
 keybind = cmd+p=unbind
 
-keybind = global:cmd+backquote=toggle_quick_terminal
+# keybind = global:cmd+backquote=toggle_quick_terminal
 
 # auto-update-channel = tip
 
