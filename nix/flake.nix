@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-nvim.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,14 +12,15 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-nvim, home-manager, nix-darwin, ... }:
   let
     env = import ./env.nix;
     platform = env.platform;
     user = env.user;
     pkgs = nixpkgs.legacyPackages.${platform};
+    nvimPkgs = nixpkgs-nvim.legacyPackages.${platform};
     specialArgs = {
-      inherit env;
+      inherit env nvimPkgs;
     };
   in
   {

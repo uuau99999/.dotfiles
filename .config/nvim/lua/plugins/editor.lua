@@ -9,28 +9,104 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "Marskey/telescope-sg",
     },
-    opts = {
-      extensions = {
-        fzf = {
-          fuzzy = true,
-          override_generic_sorter = true,
-          override_file_sorter = true,
-          case_mode = "smart_case",
+    opts = function(_, opts)
+      local actions = require("telescope.actions")
+      local fzy = require("telescope.algos.fzy")
+      local sorters = require("telescope.sorters")
+
+      local custom_live_grep_sorter = sorters.Sorter:new({
+        scoring_function = function(_, _, line)
+          if line:find("vue") then
+            return 0
+          elseif line:find("lua") then
+            return 0
+          elseif line:find("ts") then
+            return 1
+          elseif line:find("js") then
+            return 2
+          elseif line:find("json") then
+            return 3
+          elseif line:find("html") then
+            return 4
+          elseif line:find("yml") then
+            return 5
+          elseif line:find("css") then
+            return 6
+          else
+            return 100
+          end
+        end,
+        highlighter = function(_, prompt, display)
+          return fzy.positions(prompt, display)
+        end,
+      })
+
+      return vim.tbl_deep_extend("force", opts or {}, {
+        defaults = {
+          layout_strategy = "horizontal",
+          layout_config = {
+            prompt_position = "bottom",
+            horizontal = {
+              preview_cutoff = 0,
+            },
+          },
+          mappings = {
+            i = {
+              ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
+            },
+            n = {
+              ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
+              ["<leader>ff"] = false,
+              ["<leader>fg"] = false,
+              ["<leader>fz"] = false,
+            },
+          },
         },
-        file_browser = {
-          hijack_netrw = false,
-          theme = "dropdown",
+        pickers = {
+          find_files = {
+            theme = "dropdown",
+          },
+          live_grep = {
+            theme = "dropdown",
+            sorter = custom_live_grep_sorter,
+          },
+          git_files = {
+            theme = "dropdown",
+          },
+          oldfiles = {
+            theme = "dropdown",
+          },
         },
-        ast_grep = {
-          command = {
-            "sg",
-            "--json=stream",
-          }, -- must have --json=stream
-          grep_open_files = false, -- search in opened files
-          lang = nil, -- string value, specify language for ast-grep `nil` for default
+        extensions = {
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
+          file_browser = {
+            hijack_netrw = false,
+            theme = "dropdown",
+          },
+          ast_grep = {
+            command = {
+              "sg",
+              "--json=stream",
+            },
+            grep_open_files = false,
+            lang = nil,
+          },
         },
-      },
-    },
+      })
+    end,
+    config = function(_, opts)
+      local telescope = require("telescope")
+      telescope.setup(opts)
+
+      for _, extension in ipairs({ "harpoon", "fzf", "file_browser", "ast_grep" }) do
+        pcall(telescope.load_extension, extension)
+      end
+    end,
   },
   {
     "folke/flash.nvim",

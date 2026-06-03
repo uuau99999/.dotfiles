@@ -4,6 +4,8 @@ return {
   opts = {
     showmode = false,
     restricted_keys = {
+      ["j"] = false,
+      ["k"] = false,
       ["w"] = { "n", "x" },
       ["b"] = { "n", "x" },
       ["e"] = { "n", "x" },

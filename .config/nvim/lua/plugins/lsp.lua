@@ -1,23 +1,112 @@
+local function source_action_keys()
+  return {
+    {
+      "<leader>co",
+      function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { "source.organizeImports" },
+            diagnostics = {},
+          },
+        })
+      end,
+      desc = "Organize Imports",
+    },
+    {
+      "<leader>cR",
+      function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { "source.fixAll" },
+            diagnostics = {},
+          },
+        })
+      end,
+      desc = "Remove Unused Imports",
+    },
+  }
+end
+
+local function find_upward_with_glob(filename, patterns)
+  local dir = vim.fs.dirname(filename)
+
+  while dir and dir ~= "" do
+    for _, pattern in ipairs(patterns) do
+      if #vim.fn.globpath(dir, pattern, false, true) > 0 then
+        return dir
+      end
+    end
+
+    local parent = vim.fs.dirname(dir)
+    if not parent or parent == dir then
+      return nil
+    end
+    dir = parent
+  end
+end
+
+local function sourcekit_root(arg, callback)
+  local filename = type(arg) == "number" and vim.api.nvim_buf_get_name(arg) or arg
+  local root = vim.fs.root(filename, { "buildServer.json", ".bsp" })
+    or find_upward_with_glob(filename, { "*.xcodeproj", "*.xcworkspace" })
+    or vim.fs.root(filename, { "compile_commands.json", "Package.swift", ".git" })
+
+  if type(callback) == "function" then
+    callback(root)
+  else
+    return root
+  end
+end
+
+local vue_language_server_package = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server"
+local vue_typescript_sdk = vue_language_server_package .. "/node_modules/typescript/lib"
+local js_lint = require("local.js_lint")
+
+local function find_typescript_sdk(root_dir)
+  local search_path = root_dir or vim.fn.getcwd()
+  local node_modules = vim.fs.find("node_modules", {
+    path = search_path,
+    upward = true,
+    limit = math.huge,
+  })
+
+  for _, node_module in ipairs(node_modules) do
+    local tsdk = vim.fs.joinpath(node_module, "typescript", "lib")
+    if vim.uv.fs_stat(tsdk) then
+      return tsdk
+    end
+  end
+
+  return vue_typescript_sdk
+end
+
 return {
   -- tools
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "stylua",
         "selene",
-        "luacheck",
         "shellcheck",
         "shfmt",
         "tailwindcss-language-server",
         -- "typescript-language-server",
         "css-lsp",
-        -- "eslint-lsp",
+        "eslint-lsp",
         "vue-language-server",
         "astro-language-server",
         "oxlint",
         "oxfmt",
         "swiftformat",
+        "goimports",
+        "gofumpt",
+        "gomodifytags",
+        "impl",
+        "golangci-lint",
       })
     end,
   },
@@ -36,80 +125,37 @@ return {
       servers = {
         tsserver = {
           enabled = false,
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Organize Imports",
-            },
-            {
-              "<leader>cR",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.fixAll" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Remove Unused Imports",
-            },
-          },
+        },
+        ts_ls = {
+          enabled = false,
         },
         volar = {
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Organize Imports",
-            },
-            {
-              "<leader>cR",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.fixAll" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Remove Unused Imports",
-            },
-          },
+          enabled = false,
+        },
+        eslint = {
+          root_dir = function(bufnr, callback)
+            local filename = vim.api.nvim_buf_get_name(bufnr)
+            if js_lint.should_use_eslint(filename) then
+              callback(js_lint.find_workspace_root(filename))
+            end
+          end,
+        },
+        vue_ls = {
+          filetypes = { "vue" },
           init_options = {
-            vue = {
-              -- hybridMode = false,
-              hybridMode = true,
+            typescript = {
+              tsdk = vue_typescript_sdk,
             },
           },
+          before_init = function(_, config)
+            config.init_options = config.init_options or {}
+            config.init_options.typescript = config.init_options.typescript or {}
+            config.init_options.typescript.tsdk = find_typescript_sdk(config.root_dir)
+          end,
+          keys = source_action_keys(),
         },
         vtsls = {
-          filetypes = {
-            "javascript",
-            "javascriptreact",
-            "javascript.jsx",
-            "typescript",
-            "typescriptreact",
-            "typescript.tsx",
-          },
+          keys = source_action_keys(),
           settings = {
             complete_function_calls = true,
             vtsls = {
@@ -140,16 +186,7 @@ return {
         sourcekit = {
           cmd = { "sourcekit-lsp" },
           filetypes = { "swift", "objective-c", "objective-cpp" },
-          root_dir = function(filename, _)
-            local lspconfig = require("lspconfig")
-            return lspconfig.util.root_pattern(
-              "buildServer.json",
-              "Package.swift",
-              "*.xcodeproj",
-              "*.xcworkspace",
-              ".git"
-            )(filename)
-          end,
+          root_dir = sourcekit_root,
           capabilities = {
             workspace = {
               didChangeWatchedFiles = { dynamicRegistration = true },
@@ -204,50 +241,20 @@ return {
     },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    opts = function()
-      local masonLsp = require("mason-lspconfig")
-      masonLsp.setup({
-        automatic_installation = true,
-        ensure_installed = {
-          "volar",
-          -- "tsserver",
-          -- "eslint",
-          "cssls",
-          -- "clangd",
-          "tailwindcss",
-          "lua_ls",
-          "html",
-          "jsonls",
-          "astro",
-          "goimports",
-          "gofumpt",
-          "gomodifytags",
-          "impl",
-          "golangci-lint",
-        },
-      })
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local servers = {
-        volar = {
-          filetypes = { "vue" },
-        },
-        astro = {
-          filetypes = { "astro" },
-        },
-        -- clangd = {
-        --   filetypes = { "c", "cpp", "objc", "objcpp" },
-        -- },
-      }
-      masonLsp.setup_handlers({
-        function(server_name)
-          require("lspconfig")[server_name].setup({
-            capabilities = capabilities,
-            settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes,
-          })
-        end,
-      })
-    end,
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "vue_ls",
+        "vtsls",
+        "cssls",
+        "eslint",
+        "tailwindcss",
+        "lua_ls",
+        "html",
+        "jsonls",
+        "astro",
+        "gopls",
+      },
+    },
   },
 }

@@ -1,9 +1,14 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-context",
-    },
+    init = function()
+      vim.filetype.add({
+        extension = {
+          mdx = "mdx",
+        },
+      })
+      vim.treesitter.language.register("markdown", "mdx")
+    end,
     opts = {
       ensure_installed = {
         "css",
@@ -24,22 +29,12 @@ return {
         "svelte",
       },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
-      local tsc = require("treesitter-context")
-      tsc.disable()
-
-      -- require("treesitter-context").setup({
-      --   separator = "-",
-      -- })
-
-      -- MDX
-      vim.filetype.add({
-        extension = {
-          mdx = "mdx",
-        },
-      })
-      vim.treesitter.language.register("markdown", "mdx")
-    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "LazyFile",
+    opts = {
+      enable = false,
+    },
   },
 }

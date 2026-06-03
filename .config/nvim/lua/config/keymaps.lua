@@ -156,9 +156,7 @@ nmap("<leader>gg", function()
   vim.cmd.Neogit()
 end, "Neogit")
 
-nmap("<leader>lr", function()
-  vim.cmd.LspRestart()
-end, "Restart LSP")
+nmap("<leader>lr", "<cmd>lsp restart<cr>", "Restart LSP")
 
 --nvim-tree keymap
 -- local api = require("nvim-tree.api")
@@ -170,8 +168,8 @@ end, "Restart LSP")
 nmap("<leader>o", require("mini.files").open, "Open mini-files")
 
 --leap
-vim.keymap.set("n", "s", "<Plug>(leap)", { desc = "Leap from window" })
-keymap.set("n", "S", '"_S')
+vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)", { desc = "Leap" })
+vim.keymap.set("n", "S", "<Plug>(leap-from-window)", { desc = "Leap from window" })
 
 --floaterm
 -- keymap.set("n", "<leader>p", "<cmd>FloatermToggle<cr>")

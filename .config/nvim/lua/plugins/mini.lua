@@ -4,18 +4,18 @@ return {
   --   version = "*",
   -- },
   {
-    "echasnovski/mini.surround",
+    "nvim-mini/mini.surround",
     enabled = false,
   },
   {
-    "echasnovski/mini.jump",
+    "nvim-mini/mini.jump",
     -- enabled = false,
     opts = function()
       require("mini.jump").setup()
     end,
   },
   {
-    "echasnovski/mini.files",
+    "nvim-mini/mini.files",
     opts = {
       -- Customization of shown content
       content = {
@@ -67,7 +67,7 @@ return {
     },
   },
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     -- opts = {
     --   mappings = {
     --     ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^%S][^%S]", register = { cr = false } },

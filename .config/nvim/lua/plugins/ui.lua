@@ -41,8 +41,7 @@ return {
       timeout = 5000,
       background_colour = "#000000",
       render = "compact",
-      stages = "slide",
-      fps = 60,
+      stages = "static",
     },
   },
   {
@@ -79,7 +78,7 @@ return {
     config = true,
   },
   {
-    "echasnovski/mini.animate",
+    "nvim-mini/mini.animate",
     enabled = false,
     event = "VeryLazy",
     opts = function(_, opts)
@@ -158,7 +157,24 @@ return {
   },
   {
     "folke/snacks.nvim",
+    init = function()
+      vim.g.snacks_animate = false
+      vim.g.snacks_animate_scroll = false
+      vim.g.snacks_scroll = false
+      vim.g.minianimate_disable = true
+    end,
     opts = {
+      animate = {
+        enabled = false,
+      },
+      indent = {
+        animate = {
+          enabled = false,
+        },
+      },
+      scroll = {
+        enabled = false,
+      },
       dashboard = {
         preset = {
           header = [[

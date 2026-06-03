@@ -1,6 +1,13 @@
-{ config, pkgs,...}: 
-{ 
-  home.packages = with pkgs; [lazygit];
+{ config, pkgs, nvimPkgs, ... }:
+{
+  home.packages = [
+    pkgs.lazygit
+    pkgs.lua51Packages.luacheck
+    (pkgs.writeShellScriptBin "sg" ''
+      exec ${pkgs.ast-grep}/bin/ast-grep "$@"
+    '')
+    nvimPkgs.tree-sitter
+  ];
 
   home.file = {
     # ".config/nvim".source = ../../.config/nvim;
@@ -14,6 +21,7 @@
 
   programs.neovim = {
     enable = true;
+    package = nvimPkgs.neovim-unwrapped;
     # viAlias = true;
     # vimAlias = true;
   };
