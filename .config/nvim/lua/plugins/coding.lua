@@ -15,15 +15,27 @@ return {
       local no_format = {
         fields = { "abbr" },
       }
+      local cmdline_mapping = cmp.mapping.preset.cmdline({
+        ["<Down>"] = {
+          c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        },
+        ["<Up>"] = {
+          c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        },
+        ["<CR>"] = {
+          c = cmp.mapping.confirm({ select = true }),
+        },
+      })
+
       cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmdline_mapping,
         formatting = no_format,
         sources = {
           { name = "buffer" },
         },
       })
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmdline_mapping,
         formatting = no_format,
         sources = cmp.config.sources({
           { name = "path" },
