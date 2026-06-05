@@ -152,11 +152,26 @@ return {
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async" },
     config = function()
-      require("ufo").setup({
-        provider_selector = function()
-          return { "treesitter", "indent" }
-        end,
-      })
+      local ufo_tmpdir = vim.fn.stdpath("state") .. "/ufo-tmp"
+      vim.fn.mkdir(ufo_tmpdir, "p")
+
+      -- nvim-ufo stores a tempname() path at module init and later passes it
+      -- to :mkview. Keep that path out of Neovim's volatile run directory.
+      local previous_tmpdir = vim.env.TMPDIR
+      vim.env.TMPDIR = ufo_tmpdir
+
+      local ok, err = pcall(function()
+        require("ufo").setup({
+          provider_selector = function()
+            return { "treesitter", "indent" }
+          end,
+        })
+      end)
+
+      vim.env.TMPDIR = previous_tmpdir
+      if not ok then
+        error(err)
+      end
     end,
   },
   {
