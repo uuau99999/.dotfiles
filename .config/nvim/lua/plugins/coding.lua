@@ -15,6 +15,9 @@ return {
       local no_format = {
         fields = { "abbr" },
       }
+      local cmdline_completion = {
+        completeopt = "menu,menuone,noinsert,noselect",
+      }
       local cmdline_mapping = cmp.mapping.preset.cmdline({
         ["<Down>"] = {
           c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -23,12 +26,17 @@ return {
           c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         },
         ["<CR>"] = {
+          c = cmp.mapping.confirm({ select = false }),
+        },
+        ["<C-y>"] = {
           c = cmp.mapping.confirm({ select = true }),
         },
       })
 
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmdline_mapping,
+        completion = cmdline_completion,
+        preselect = cmp.PreselectMode.None,
         formatting = no_format,
         sources = {
           { name = "buffer" },
@@ -36,6 +44,8 @@ return {
       })
       cmp.setup.cmdline(":", {
         mapping = cmdline_mapping,
+        completion = cmdline_completion,
+        preselect = cmp.PreselectMode.None,
         formatting = no_format,
         sources = cmp.config.sources({
           { name = "path" },
