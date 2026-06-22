@@ -105,13 +105,27 @@
         source <(carapace _carapace)
 
     # fnm (--use-on-cd only works in interactive shells)
-      eval "$(fnm env --use-on-cd --shell zsh)"
+      __dotfiles_eval_fnm_env --use-on-cd
 
     '';
     envExtra = ''
       # fnm: ensure node/npm available in non-interactive shells (e.g. OpenClaw, scripts)
+      __dotfiles_eval_fnm_env() {
+        if [[ -n "''${CODEX_SANDBOX:-}" || -n "''${CODEX_CI:-}" ]]; then
+          local fnm_state_home="''${TMPDIR:-/tmp}/codex-fnm-state"
+          mkdir -p "$fnm_state_home" 2>/dev/null || return 0
+
+          local fnm_env
+          if fnm_env="$(XDG_STATE_HOME="$fnm_state_home" fnm env --shell zsh "$@")"; then
+            eval "$fnm_env"
+          fi
+        else
+          eval "$(fnm env --shell zsh "$@")"
+        fi
+      }
+
       if command -v fnm &>/dev/null; then
-        eval "$(fnm env --shell zsh)"
+        __dotfiles_eval_fnm_env
       fi
     '';
     shellAliases = {
