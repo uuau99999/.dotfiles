@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
+"""Codex pre_tool_use hook: 仅做危险命令黑名单拦截(deny)。
+
+黑名单须与 permission_request.py 保持一致。
+"""
 import json
 import re
 import sys
 
 DANGEROUS_PATTERNS = [
-    r'rm\s+(-[a-zA-Z]*f[a-zA-Z]*\s+|--force\s+)*(\/|~|\$HOME|\*)',
-    r'rm\s+-[a-zA-Z]*r[a-zA-Z]*f',
+    # rm 作用于根级目标(/ ~ $HOME 裸* /*),目标后须紧跟空白/行尾;
+    # 因此 `rm -rf /` 命中,而 `rm -rf node_modules`、`rm -f /tmp/x` 放行
+    r'rm\s+(-[a-zA-Z]+\s+|--[a-z-]+\s+)*(/\*|~/\*|/|~|\$HOME|\*)(\s|$)',
     r'git\s+push\s+.*(-f|--force)',
     r'git\s+reset\s+--hard',
     r'git\s+clean\s+-[a-zA-Z]*f',

@@ -12,9 +12,11 @@ message=${last_message:-"Turn completed"}
 
 case "$(uname -s)" in
   Darwin*)
-    /usr/bin/osascript <<OSA >/dev/null 2>&1 || true
-display notification "${message//"/\"}" with title "$title"
-OSA
+    /usr/bin/osascript \
+      -e 'on run argv' \
+      -e 'display notification (item 2 of argv) with title (item 1 of argv)' \
+      -e 'end run' \
+      "$title" "$message" >/dev/null 2>&1 || true
     ;;
 esac
 
