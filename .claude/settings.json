@@ -2,8 +2,9 @@
   "includeCoAuthoredBy": false,
   "model": "opus[1m]",
   "hooks": {
-    "PermissionRequest": [
+    "PreToolUse": [
       {
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
