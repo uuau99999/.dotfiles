@@ -52,11 +52,6 @@
 - 如果 `.claude/HANDOFF.md` 存在，先用 Read 工具读取它以恢复上次工作上下文
 - 根据 HANDOFF 中的信息继续工作或等待用户指示
 
-### Session 结束时（自动）
-
-- SessionEnd hook 会自动调用 Claude CLI 生成 `.claude/HANDOFF.md`
-- 包含：本次工作摘要、关键决策、未完成事项、近期 git 提交
-
 ## Documentation Management
 
 ### Project CLAUDE.md Synchronization

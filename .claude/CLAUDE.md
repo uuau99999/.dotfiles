@@ -10,7 +10,7 @@ Nix + home-manager dotfiles for macOS, managed with nix-darwin.
 - `.claude/` - Claude Code configuration (deployed globally via `nix/apps/claude-code.nix`)
   - `CLAUDE_GLOBAL.md` - Global CLAUDE.md injected to `~/.claude/CLAUDE.md` by home-manager
   - `settings.json` - Global Claude Code settings
-  - `hooks/` - Hook scripts (lint, notify, handoff, etc.)
+  - `hooks/` - Hook scripts (lint, notify, etc.)
   - `skills/` - Custom skill definitions
 
 ## Key Convention
