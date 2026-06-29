@@ -85,7 +85,8 @@ end, { desc = "[/] Fuzzily search in current buffer" })
 nmap("<leader>/", function()
   return require("fff").live_grep({
     grep = {
-      modes = { "fuzzy", "plain" },
+      -- modes = { "plain", "fuzzy" },
+      modes = { "plain", "regex" },
     },
   })
 end, "Find Text")
