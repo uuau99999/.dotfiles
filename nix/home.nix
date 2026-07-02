@@ -91,5 +91,6 @@ in
     ./apps/claude-code.nix
     ./apps/codex.nix
     ./apps/sesh.nix
+    ./apps/herdr.nix
   ];
 }

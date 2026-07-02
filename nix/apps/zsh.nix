@@ -151,6 +151,12 @@
       f = "bash ~/.config/tmux/tmux-fzf";
       p = "bash ~/.config/tmux/tmux-sessionizer";
       x = "bash ~/.config/tmux/tmux-clear";
+      # herdr: 在 agent panes 间循环切换焦点
+      an = "bash ~/.config/herdr/herdr-cycle-agent.sh next";
+      ap = "bash ~/.config/herdr/herdr-cycle-agent.sh prev";
+      # herdr: 在当前 workspace 内的 tab 间循环切换焦点
+      tn = "bash ~/.config/herdr/herdr-cycle-tab.sh next";
+      tp = "bash ~/.config/herdr/herdr-cycle-tab.sh prev";
     };
   };
 
