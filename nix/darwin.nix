@@ -57,5 +57,6 @@ in
     "lazysql"
     "sesh"
     "taplo"
+    "herdr"
   ];
 }
