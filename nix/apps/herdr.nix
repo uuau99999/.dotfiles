@@ -10,5 +10,9 @@
     ".config/herdr/config.toml".source = ../../.config/herdr/config.toml;
     ".config/herdr/herdr-cycle-agent.sh".source = ../../.config/herdr/herdr-cycle-agent.sh;
     ".config/herdr/herdr-cycle-tab.sh".source = ../../.config/herdr/herdr-cycle-tab.sh;
+    ".config/herdr/herdr-clear".source = ../../.config/herdr/herdr-clear;
+    ".config/herdr/herdr-fzf".source = ../../.config/herdr/herdr-fzf;
+    ".config/herdr/herdr-lastworkspace".source = ../../.config/herdr/herdr-lastworkspace;
+    ".config/herdr/herdr-sessionizer".source = ../../.config/herdr/herdr-sessionizer;
   };
 }

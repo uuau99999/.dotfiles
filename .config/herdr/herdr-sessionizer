@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+#
+# Pick a Git repository from configured roots and focus or create its Herdr
+# workspace. The root list defaults to ~/.tmux-repo for parity with
+# tmux-sessionizer; set HERDR_REPO_FILE to point at another newline-delimited
+# file. Lines starting with # are ignored.
+
+set -euo pipefail
+
+repo_file="${HERDR_REPO_FILE:-$HOME/.tmux-repo}"
+max_depth="${HERDR_REPO_MAX_DEPTH:-2}"
+history_file="${HERDR_WORKSPACE_HISTORY:-$HOME/.config/herdr/workspace-history.tsv}"
+
+if [[ ! -f "$repo_file" ]]; then
+  echo "$repo_file file not found" >&2
+  exit 0
+fi
+
+for dep in fzf herdr jq; do
+  if ! command -v "$dep" >/dev/null 2>&1; then
+    echo "herdr-sessionizer: '$dep' not found in PATH" >&2
+    exit 127
+  fi
+done
+
+trim() {
+  local value="$1"
+  value="${value#"${value%%[![:space:]]*}"}"
+  value="${value%"${value##*[![:space:]]}"}"
+  printf '%s\n' "$value"
+}
+
+expand_path() {
+  local path="$1"
+  case "$path" in
+    "~") printf '%s\n' "$HOME" ;;
+    "~/"*) printf '%s/%s\n' "$HOME" "${path#"~/"}" ;;
+    "\$HOME") printf '%s\n' "$HOME" ;;
+    "\$HOME/"*) printf '%s/%s\n' "$HOME" "${path#"\$HOME/"}" ;;
+    *) printf '%s\n' "$path" ;;
+  esac
+}
+
+record_workspace() {
+  local id="$1"
+  local name="$2"
+  local cwd="$3"
+
+  [[ -n "$id" ]] || return 0
+  mkdir -p "$(dirname "$history_file")"
+  printf '%s\t%s\t%s\t%s\n' \
+    "$(date +%s)" \
+    "${id//$'\t'/ }" \
+    "${name//$'\t'/ }" \
+    "${cwd//$'\t'/ }" >>"$history_file"
+}
+
+find_workspace_id() {
+  local json="$1"
+  jq -r --arg cwd "$selected" --arg physical "$selected_physical" --arg label "$label" '
+    (.result.workspaces // []) as $workspaces
+    | (
+        $workspaces
+        | map(select((.cwd // "") == $cwd or (.cwd // "") == $physical))
+        | .[0].workspace_id // .[0].id // ""
+      ) as $cwd_match
+    | if $cwd_match != "" then
+        $cwd_match
+      else
+        $workspaces
+        | map(select((.label // .name // .title // "") == $label))
+        | .[0].workspace_id // .[0].id // empty
+      end
+  ' <<<"$json"
+}
+
+roots=()
+while IFS= read -r raw_line || [[ -n "$raw_line" ]]; do
+  line="$(trim "$raw_line")"
+  [[ -z "$line" || "$line" == \#* ]] && continue
+
+  path="$(expand_path "$line")"
+  if [[ -d "$path" ]]; then
+    roots+=("$path")
+  fi
+done <"$repo_file"
+
+if [[ ${#roots[@]} -eq 0 ]]; then
+  echo "herdr-sessionizer: no existing directories listed in $repo_file" >&2
+  exit 0
+fi
+
+repos=()
+while IFS= read -r repo; do
+  [[ -n "$repo" ]] && repos+=("$repo")
+done < <(
+  find "${roots[@]}" \
+    -mindepth 0 \
+    -maxdepth "$max_depth" \
+    -type d \
+    -exec test -e '{}/.git' ';' \
+    -prune \
+    -print 2>/dev/null | sort -u
+)
+
+if [[ ${#repos[@]} -eq 0 ]]; then
+  echo "herdr-sessionizer: no Git directories found" >&2
+  exit 0
+fi
+
+preview='git -C {} status --short --branch 2>/dev/null; printf "\n"; if command -v eza >/dev/null 2>&1; then eza -A -l --header --icons --git --git-ignore --color=always --no-permissions --no-user --no-filesize {}; else ls -la {}; fi'
+selected="$(
+  printf '%s\n' "${repos[@]}" |
+    fzf --prompt='herdr workspace> ' --preview "$preview"
+)" || exit 0
+
+[[ -n "$selected" ]] || exit 0
+
+if [[ ! -d "$selected" ]]; then
+  echo "$selected not found" >&2
+  exit 0
+fi
+
+if [[ "$selected" != /* ]]; then
+  selected="$(cd "$selected" && pwd)"
+fi
+selected_physical="$(cd "$selected" && pwd -P)"
+label="$(basename "$selected")"
+
+workspaces_json="$(herdr workspace list 2>/dev/null || true)"
+workspace_id="$(find_workspace_id "$workspaces_json")"
+
+if [[ -n "$workspace_id" ]]; then
+  herdr workspace focus "$workspace_id" >/dev/null
+  record_workspace "$workspace_id" "$label" "$selected"
+else
+  create_json="$(herdr workspace create --cwd "$selected" --label "$label" --focus)"
+  workspace_id="$(
+    jq -r '
+      .result.workspace.workspace_id
+      // .result.workspace.id
+      // .result.workspace_id
+      // .result.id
+      // .workspace_id
+      // .id
+      // empty
+    ' <<<"$create_json" 2>/dev/null || true
+  )"
+  if [[ -z "$workspace_id" ]]; then
+    workspaces_json="$(herdr workspace list 2>/dev/null || true)"
+    workspace_id="$(find_workspace_id "$workspaces_json")"
+  fi
+  record_workspace "$workspace_id" "$label" "$selected"
+fi

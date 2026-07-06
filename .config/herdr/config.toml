@@ -126,6 +126,30 @@ focus_agent = "prefix+shift+1..9"
 # type = "pane"
 # command = "lazygit"
 
+[[keys.command]]
+key = "prefix+p"
+type = "pane"
+command = "~/.config/herdr/herdr-sessionizer"
+description = "pick Git workspace"
+
+[[keys.command]]
+key = "prefix+f"
+type = "pane"
+command = "~/.config/herdr/herdr-fzf"
+description = "pick existing workspace"
+
+[[keys.command]]
+key = "prefix+l"
+type = "shell"
+command = "~/.config/herdr/herdr-lastworkspace"
+description = "previous workspace"
+
+[[keys.command]]
+key = "prefix+x"
+type = "pane"
+command = "~/.config/herdr/herdr-clear"
+description = "close workspaces"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]

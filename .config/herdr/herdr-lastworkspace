@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+#
+# Focus the most recent workspace recorded by herdr-sessionizer/herdr-fzf,
+# excluding the currently focused workspace. Mirrors tmux-lastsession without
+# relying on Herdr workspace metadata that the CLI does not expose.
+
+set -euo pipefail
+
+for dep in herdr jq; do
+  if ! command -v "$dep" >/dev/null 2>&1; then
+    echo "herdr-lastworkspace: '$dep' not found in PATH" >&2
+    exit 127
+  fi
+done
+
+history_file="${HERDR_WORKSPACE_HISTORY:-$HOME/.config/herdr/workspace-history.tsv}"
+
+if [[ ! -f "$history_file" ]]; then
+  echo "no previous workspace" >&2
+  exit 0
+fi
+
+workspaces_json="$(herdr workspace list 2>/dev/null)" || {
+  echo "herdr not running" >&2
+  exit 0
+}
+
+selected="$(
+  awk -F '\t' '
+    NF >= 2 && $2 != "" {
+      lines[++count] = $0
+    }
+    END {
+      for (i = count; i >= 1; i--) {
+        print lines[i]
+      }
+    }
+  ' "$history_file" |
+    jq -Rrs --argjson workspaces "$workspaces_json" '
+    . as $history
+    | ($workspaces.result.workspaces // [])
+    | map(.workspace_id // .id // empty) as $valid_ids
+    | (
+        $workspaces.result.workspaces // []
+        | map(select(.focused == true) | (.workspace_id // .id // empty))
+        | .[0] // ""
+      ) as $focused
+    | $history
+    | split("\n")
+    | map(select(length > 0))
+    | map(split("\t"))
+    | map(.[1])
+    | map(select(. != "" and . != $focused and ($valid_ids | index(.))))
+    | .[0] // empty
+  '
+)"
+
+if [[ -z "$selected" ]]; then
+  echo "no previous workspace" >&2
+  exit 0
+fi
+
+herdr workspace focus "$selected" >/dev/null
