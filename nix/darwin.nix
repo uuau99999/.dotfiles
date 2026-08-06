@@ -58,5 +58,6 @@ in
     "sesh"
     "taplo"
     "herdr"
+    "terminal-notifier"
   ];
 }
