@@ -31,13 +31,21 @@ workspace_rows="$(
 
 [[ -n "$workspace_rows" ]] || exit 0
 
+# Preview the representative pane's visible screen (same as herdr-fzf).
+# Prefer focused pane, then first agent pane, then first pane in the workspace.
 preview='
 workspace_id="$(printf "%s" {} | cut -f1)"
-herdr workspace get "$workspace_id" 2>/dev/null | jq -C . 2>/dev/null
-printf "\nTabs:\n"
-herdr tab list --workspace "$workspace_id" 2>/dev/null | jq -r "(.result.tabs // [])[] | \"- \" + (.label // .name // .title // .tab_id // \"tab\")" 2>/dev/null
-printf "\nPanes:\n"
-herdr pane list --workspace "$workspace_id" 2>/dev/null | jq -r "(.result.panes // [])[] | \"- \" + (.label // .title // .pane_id // .terminal_id // \"pane\")" 2>/dev/null
+pane_id="$(
+  herdr pane list --workspace "$workspace_id" 2>/dev/null | jq -r "
+    (.result.panes // []) as \$p
+    | (\$p | map(select(.focused == true))[0].pane_id)
+      // (\$p | map(select(.agent != null))[0].pane_id)
+      // \$p[0].pane_id
+      // empty
+  "
+)"
+[[ -n "$pane_id" ]] || exit 0
+herdr pane read "$pane_id" --source visible --lines 50 2>/dev/null
 '
 
 selected="$(
