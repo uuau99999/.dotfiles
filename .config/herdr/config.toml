@@ -224,10 +224,10 @@ description = "close workspaces"
 # delivery = "off"
 # delay_seconds = 1
 
-delivery = "system" # system | herdr | terminal
+delivery = "herdr" # system | herdr | terminal
 [ui.toast.herdr]
 # position = "bottom-right"
-delay_seconds = 1
+# delay_seconds = 1
 
 [ui.toast.clipboard]
 # enabled = true
