@@ -14,10 +14,5 @@
       source = ../../.codex/hooks/pre_tool_use_policy.py;
       executable = true;
     };
-
-    ".codex/hooks/task_completion_notify.sh" = {
-      source = ../../.codex/hooks/task_completion_notify.sh;
-      executable = true;
-    };
   };
 }

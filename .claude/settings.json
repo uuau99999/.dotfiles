@@ -27,18 +27,6 @@
           }
         ]
       }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/task-completion-notify.sh",
-            "timeout": 5,
-            "statusMessage": "Sending notification..."
-          }
-        ]
-      }
     ]
   },
   "enabledPlugins": {

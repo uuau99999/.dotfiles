@@ -173,7 +173,7 @@ Local overrides: `~/.zshrc.local` is sourced if present.
 | `.claude/CLAUDE_GLOBAL.md` | Global rules deployed to `~/.claude/CLAUDE.md` |
 | `.claude/CLAUDE.md` | **This repo only** — project structure notes |
 | `.claude/settings.json` | Global Claude settings |
-| `.claude/hooks/` | permission-guard, post-edit-lint-smart, task-completion-notify |
+| `.claude/hooks/` | permission-guard, post-edit-lint-smart |
 | `.claude/skills/` | bash-helper, create-skill, git-commit |
 
 After any `.claude/` change: user must run `darwin-rebuild switch` (or equivalent) to deploy.
