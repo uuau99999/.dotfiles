@@ -124,6 +124,8 @@ cd ~/.dotfiles && stow .
 - Config + scripts live in `.config/herdr/`
 - Deployed as **read-only** symlinks — herdr cannot write `config.toml` at runtime
 - Aliases: `an`/`ap` cycle agent panes; `tn`/`tp` cycle tabs
+- `herdr-cycle-agent.sh`: if any other agent is `blocked` (needs input/approval), jump to the nearest one in direction; otherwise normal next/prev. Current focus is excluded so a sole blocked agent does not trap the cycle. No local seen file — herdr’s own status model covers that.
+- Workspace fzf/clear previews use `herdr pane read --source visible` on a representative pane
 - Edit in-repo, then rebuild
 
 ### Neovim (LazyVim)
