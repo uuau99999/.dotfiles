@@ -37,7 +37,8 @@ fi
 # 拉取 agent 列表。命令失败(如 herdr 未运行)时视为无 agent,静默退出。
 list_json="$(herdr agent list 2>/dev/null)" || exit 0
 
-# 用 jq 计算目标 terminal_id:
+# 用 jq 计算目标 pane_id(herdr 0.8+ 的 `agent focus` 接受 pane_id,
+# 不再接受 terminal_id,传 term_* 会返回 agent_not_found)。
 #   - agents 为空 -> 输出空串(调用方据此静默退出)
 #   - 没有 focused pane -> 一律选第一个(与方向无关,符合需求)
 #   - 有 focused pane -> next: (idx + 1) % n ;prev: (idx - 1 + n) % n(首尾循环)
@@ -55,7 +56,7 @@ target="$(
            else
              ($f - 1 + $n) % $n
            end) as $t
-        | $a[$t].terminal_id
+        | $a[$t].pane_id
       end
   ' <<<"$list_json"
 )"
