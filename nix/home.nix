@@ -1,7 +1,7 @@
 # home.nix
 # home-manager switch 
 
-{ config, pkgs, env, ... }:
+{ config, pkgs, env, gituPackage, ... }:
 
 let 
   user = env.user;
@@ -13,7 +13,7 @@ in
   home.homeDirectory = "${homeDirectory}";
   home.stateVersion = "23.05"; # Please read the comment before changing.
   # Makes sense for user specific applications that shouldn't be available system-wide
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     # (nerdfonts.override { fonts = [ "FiraCode" ]; })
     fira-code
     ast-grep
@@ -40,6 +40,9 @@ in
     go
     television
     zoxide
+  ]) ++ [
+    # Magit-inspired TUI git client from flake input (github:altsem/gitu)
+    gituPackage
   ];
 
   fonts.fontconfig.enable = true;

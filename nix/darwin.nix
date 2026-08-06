@@ -10,9 +10,12 @@ in
     substituters = [
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
+      # gitu flake binary cache — https://github.com/altsem/gitu/blob/master/docs/installing.md
+      "https://gitu.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "gitu.cachix.org-1:iUIaNys1l3W1LF/M8OXzaTl7N/OinGOlzdUJUSc+5eY="
     ];
   };
   system.stateVersion = 5;

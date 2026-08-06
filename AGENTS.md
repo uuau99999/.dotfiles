@@ -86,8 +86,9 @@ cd ~/.dotfiles && stow .
 2. **`flake.nix`**
    - `homeConfigurations.dev` → Linux/WSL
    - `darwinConfigurations.dev` → macOS (darwin.nix + home-manager user modules)
-3. **`darwin.nix`** — dock/finder, hide menu bar, Touch ID for sudo, Homebrew casks/brews, substituters
-4. **`home.nix`** — CLI packages (`eza`, `bat`, `fd`, `ripgrep`, `fnm`, `go`, `uv`, `pipx`, `television`, …) and shared `home.file`
+   - Extra flake inputs: `gitu` (`github:altsem/gitu`) → exposed as `gituPackage` in specialArgs
+3. **`darwin.nix`** — dock/finder, hide menu bar, Touch ID for sudo, Homebrew casks/brews, substituters (incl. gitu.cachix.org)
+4. **`home.nix`** — CLI packages (`eza`, `bat`, `fd`, `ripgrep`, `fnm`, `go`, `uv`, `pipx`, `television`, `gitu`, …) and shared `home.file`
 5. **`home-darwin.nix`** — AeroSpace, SketchyBar, Hammerspoon, fonts; yabai module present, skhd commented out
 
 ### Where configs are managed
@@ -98,6 +99,7 @@ cd ~/.dotfiles && stow .
 | Neovim package + files | `nix/apps/nvim.nix` → `.config/nvim/` |
 | tmux + helper scripts | `nix/apps/tmux.nix` → `.config/tmux/` |
 | Git + delta | `nix/apps/git.nix` |
+| gitu (TUI git) | flake input `gitu` → `home.packages` via `gituPackage` |
 | Claude Code | `nix/apps/claude-code.nix` → `.claude/` |
 | Codex hooks | `nix/apps/codex.nix` → `.codex/` |
 | herdr | `nix/apps/herdr.nix` → `.config/herdr/` |

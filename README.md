@@ -8,7 +8,7 @@ macOS-focused development environment managed with **Nix** ([nix-darwin](https:/
 |------|--------|
 | Package / system | Nix flakes, nix-darwin, home-manager, Homebrew (casks/brews) |
 | Shell | zsh + oh-my-zsh, fzf, zoxide, starship, carapace, television |
-| Editor | Neovim (LazyVim), lazygit, delta |
+| Editor | Neovim (LazyVim), lazygit, [gitu](https://github.com/altsem/gitu), delta |
 | Terminal | Ghostty (primary), Kitty, WezTerm, Alacritty |
 | Multiplexer | tmux (prefix `C-q`) + [sesh](https://github.com/joshmedeski/sesh) / [herdr](https://herdr.dev) |
 | Window mgmt | AeroSpace + SketchyBar + Hammerspoon |
