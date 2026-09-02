@@ -63,6 +63,7 @@ cd ~/.dotfiles && stow .
 │   ├── sketchybar/
 │   ├── ghostty/ kitty/ wezterm/ alacritty/
 │   ├── yazi/
+│   ├── zsh/                   # writable ~/.zshrc template (sources HM file)
 │   └── starship.toml
 ├── .claude/                   # Deployed to ~/.claude via claude-code.nix
 │   ├── CLAUDE_GLOBAL.md       # → ~/.claude/CLAUDE.md (global agent rules)
@@ -95,7 +96,7 @@ cd ~/.dotfiles && stow .
 
 | Concern | Module / path |
 |---------|----------------|
-| Shell | `nix/apps/zsh.nix` |
+| Shell | `nix/apps/zsh.nix` → `~/.zshrc.home-manager`; writable `~/.zshrc` sources it (template `.config/zsh/zshrc`) |
 | Neovim package + files | `nix/apps/nvim.nix` → `.config/nvim/` |
 | tmux + helper scripts | `nix/apps/tmux.nix` → `.config/tmux/` |
 | Git + delta | `nix/apps/git.nix` |
@@ -166,7 +167,13 @@ s          # serie
 an ap tn tp  # herdr navigation
 ```
 
-Local overrides: `~/.zshrc.local` is sourced if present.
+### zsh
+
+- home-manager writes **`~/.zshrc.home-manager`** (read-only store symlink), not `~/.zshrc`.
+- **`~/.zshrc` is a regular writable file** so CLI installers can append to it. It sources `~/.zshrc.home-manager`.
+- Template: `.config/zsh/zshrc` (deployed to `~/.config/zsh/zshrc` as a copyable reference).
+- First activation: if `~/.zshrc` is missing (or still an HM symlink), bootstrap it and prepend the source line. Existing `~/.zshrc.local` is copied in when present.
+- Machine-local customizations belong in `~/.zshrc`. Do not re-manage `~/.zshrc` via `home.file`. The old `~/.zshrc.local` path is no longer sourced by Nix.
 
 ### Claude Code conventions
 
@@ -252,6 +259,7 @@ Edit `system.defaults` in `darwin.nix`.
 
 - Commit `.claude/settings.local.json` (gitignored)
 - Hand-edit live HM symlinks under `~` for managed files
+- Manage `~/.zshrc` via `home.file` / `programs.zsh` output — it must stay a writable regular file that sources `~/.zshrc.home-manager`
 - Remove `--impure` from documented commands
 - Assume Linux has AeroSpace / SketchyBar / Hammerspoon modules applied (they are darwin-only)
 - Ship structural/workflow changes without checking AGENTS.md / README.md

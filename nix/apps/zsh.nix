@@ -1,4 +1,32 @@
-{...}:
+{ config, lib, pkgs, ... }:
+let
+  # First-activation helper: restore a writable ~/.zshrc that sources the
+  # home-manager file. Prefers existing ~/.zshrc.local (machine-local
+  # overrides / secrets) so CLI-installed PATH snippets are not lost.
+  bootstrapZshrc = pkgs.writeShellScript "bootstrap-zshrc" ''
+    set -euo pipefail
+    zshrc="$HOME/.zshrc"
+    localrc="$HOME/.zshrc.local"
+
+    if [ -L "$zshrc" ]; then
+      rm -f "$zshrc"
+    fi
+
+    if [ -e "$zshrc" ]; then
+      exit 0
+    fi
+
+    {
+      echo '# Writable ~/.zshrc — CLIs may append here.'
+      echo '# Nix/home-manager zsh config is sourced from ~/.zshrc.home-manager.'
+      echo '[ -s "$HOME/.zshrc.home-manager" ] && source "$HOME/.zshrc.home-manager"'
+      echo
+      if [ -f "$localrc" ]; then
+        cat "$localrc"
+      fi
+    } > "$zshrc"
+  '';
+in
 {
   programs.zsh = {
     enable = true;
@@ -10,8 +38,7 @@
     };
     autosuggestion.enable = true;
     initContent = ''
-      # load local zshrc
-      [ -s "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+      # Sourced from writable ~/.zshrc via ~/.zshrc.home-manager.
 
       # default editor
       export EDITOR=vim
@@ -159,6 +186,19 @@
       tp = "bash ~/.config/herdr/herdr-cycle-tab.sh prev";
     };
   };
+
+  # programs.zsh names this file "${home}/.zshrc" (absolute), target ~/.zshrc.
+  # Retarget so ~/.zshrc stays a writable regular file.
+  home.file."${config.home.homeDirectory}/.zshrc".target = ".zshrc.home-manager";
+  home.file.".config/zsh/zshrc".text = ''
+    # Writable ~/.zshrc — CLI installers may append here.
+    # Nix/home-manager writes the managed config to ~/.zshrc.home-manager (read-only).
+    [ -s "$HOME/.zshrc.home-manager" ] && source "$HOME/.zshrc.home-manager"
+  '';
+
+  home.activation.writableZshrc = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    $DRY_RUN_CMD ${bootstrapZshrc}
+  '';
 
   programs.fzf = {
     enable = true;

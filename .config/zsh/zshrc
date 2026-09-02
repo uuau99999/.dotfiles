@@ -1,0 +1,3 @@
+# Writable ~/.zshrc — CLI installers may append here.
+# Nix/home-manager writes the managed config to ~/.zshrc.home-manager (read-only).
+[ -s "$HOME/.zshrc.home-manager" ] && source "$HOME/.zshrc.home-manager"

@@ -108,6 +108,7 @@ home-manager switch --flake ~/.dotfiles/nix/#dev --impure
 │   ├── sketchybar/              # Status bar items/plugins/helper
 │   ├── ghostty/ kitty/ wezterm/ alacritty/
 │   ├── yazi/                    # File manager
+│   ├── zsh/                     # Writable ~/.zshrc template (sources HM file)
 │   └── starship.toml
 ├── .claude/                     # Claude Code (deployed to ~/.claude via HM)
 │   ├── CLAUDE_GLOBAL.md         # → ~/.claude/CLAUDE.md
@@ -202,6 +203,10 @@ s      # serie (git log TUI)
 - **Codex**: hooks under `.codex/` via `nix/apps/codex.nix`.
 - **herdr**: multi-agent terminal config + helper scripts under `.config/herdr/` (managed as read-only symlinks; edit in-repo then rebuild).
 
+### zsh
+
+home-manager writes `~/.zshrc.home-manager` (read-only). `~/.zshrc` is a regular writable file that sources it, so CLI installers can append PATH/completions. Template: `.config/zsh/zshrc`. On first activation, an existing `~/.zshrc.local` is copied into `~/.zshrc`.
+
 ### Neovim
 
 LazyVim-based setup under `.config/nvim/`. Deployed pieces: `init.lua`, `lua/`, `defaults/`, `stylua.toml`. `lazy-lock.json` / `lazyvim.json` are linked at shell init if missing.
@@ -215,6 +220,7 @@ LazyVim-based setup under `.config/nvim/`. Deployed pieces: `init.lua`, `lua/`, 
 | home-manager backup conflicts | Backups use extension `.backup` (set in `darwin.nix`). Move/remove `*.backup` files under `~` and rebuild. |
 | GitHub rate limits during flake eval | Set a token: `--access-tokens github.com=YOUR_TOKEN` or `nix.conf` `access-tokens`. |
 | Claude/Codex hooks not executable after edit | Ensure `executable = true` in the corresponding `nix/apps/*.nix` module, then rebuild. |
+| CLI installer fails to write `~/.zshrc` | `~/.zshrc` should be a regular file that sources `~/.zshrc.home-manager`. If it is still a Nix symlink, rebuild. |
 | herdr cannot write `config.toml` | Symlink is read-only by design. Edit `.config/herdr/config.toml` in this repo and rebuild. |
 | SketchyBar missing | Installed via Homebrew (`FelixKratz/formulae/sketchybar`); AeroSpace starts it on login. |
 | tmux plugins missing | Open tmux and run `prefix + I`. |
@@ -222,7 +228,7 @@ LazyVim-based setup under `.config/nvim/`. Deployed pieces: `init.lua`, `lua/`, 
 ## Contributing / personalizing
 
 1. Prefer adding new app modules under `nix/apps/` and importing them from `home.nix` or `home-darwin.nix`.
-2. Keep machine-local overrides in `~/.zshrc.local` (sourced automatically).
+2. Keep machine-local shell overrides in `~/.zshrc` (writable; it sources `~/.zshrc.home-manager`). Do not let home-manager manage `~/.zshrc` itself.
 3. Python CLI tools: declare in `nix/apps/uv-packages.nix` or `pipx-packages.nix`.
 4. **Docs follow code**: after any structural, install, keybinding, or module change, update **README.md** and/or **AGENTS.md** in the same change. Agents must treat this as mandatory (see AGENTS.md → *Documentation sync*).
 
