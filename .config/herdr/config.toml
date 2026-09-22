@@ -167,6 +167,14 @@ type = "plugin_action"
 command = "herdr-floax.toggle"
 description = "toggle floating pane"
 
+# zenbu-labs.terminal-browser: split a real Chromium pane to the right.
+# prefix+u is unused; quit inside the browser is ctrl+q (same as herdr prefix).
+[[keys.command]]
+key = "prefix+u"
+type = "plugin_action"
+command = "zenbu-labs.terminal-browser.open-split"
+description = "open terminal-browser split"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]

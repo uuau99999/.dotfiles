@@ -169,12 +169,13 @@ Shell shortcuts (outside tmux): `p` sessionizer · `f` tmux-fzf · `x` clear · 
 
 ### herdr
 
-Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work. Floax (`prefix+m`) is a per-workspace floating scratch shell.
+Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work. Floax (`prefix+m`) is a per-workspace floating scratch shell. Terminal Browser (`prefix+u`) splits a Chromium pane to the right.
 
 | Keys | Action |
 |------|--------|
 | `prefix + a` | Restart Auto Title (`herdr.auto-title.restart`) |
 | `prefix + m` | Toggle Floax floating shell (`herdr-floax.toggle`) |
+| `prefix + u` | Open Terminal Browser in a right split (`zenbu-labs.terminal-browser.open-split`) |
 | `prefix + p` | Git workspace picker |
 | `prefix + f` | Existing workspace picker |
 | `prefix + l` | Previous workspace |
@@ -217,7 +218,7 @@ s      # serie (git log TUI)
 
 - **Claude Code**: `.claude/` → `~/.claude/` via `nix/apps/claude-code.nix`. Global instructions live in `CLAUDE_GLOBAL.md`; this repo’s own notes are in `.claude/CLAUDE.md`.
 - **Codex**: hooks under `.codex/` via `nix/apps/codex.nix`.
-- **herdr**: multi-agent terminal config + helper scripts under `.config/herdr/` (managed as read-only symlinks; edit in-repo then rebuild). Tab titles come from the [herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) plugin (`herdr.auto-title`), installed at runtime with `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes` (needs Herdr 0.8.2+; not a home-manager symlink). Floating scratch shell is [herdr-floax](https://github.com/Tyru5/herdr-floax), installed with `CC=/usr/bin/clang herdr plugin install Tyru5/herdr-floax --ref d6b283110c2e455fb3782595549895a840585e2b --yes` (needs rustc 1.88+; bound to `prefix+m` because `prefix+f` is the workspace picker).
+- **herdr**: multi-agent terminal config + helper scripts under `.config/herdr/` (managed as read-only symlinks; edit in-repo then rebuild). Tab titles come from the [herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) plugin (`herdr.auto-title`), installed at runtime with `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes` (needs Herdr 0.8.2+; not a home-manager symlink). Floating scratch shell is [herdr-floax](https://github.com/Tyru5/herdr-floax), installed with `CC=/usr/bin/clang herdr plugin install Tyru5/herdr-floax --ref d6b283110c2e455fb3782595549895a840585e2b --yes` (needs rustc 1.88+; bound to `prefix+m` because `prefix+f` is the workspace picker). In-terminal Chromium is [terminal-browser](https://github.com/zenbu-labs/terminal-browser), installed with `herdr plugin install zenbu-labs/terminal-browser/herdr-plugin --ref v0.9.0 --yes` (binary lands in `~/.local/bin`; bound to `prefix+u`).
 
 ### zsh
 
@@ -240,6 +241,7 @@ LazyVim-based setup under `.config/nvim/`. Deployed pieces: `init.lua`, `lua/`, 
 | herdr cannot write `config.toml` | Symlink is read-only by design. Edit `.config/herdr/config.toml` in this repo and rebuild. |
 | herdr Auto Title missing on a new machine | `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes`. Plugin starts on the next Herdr server start. |
 | herdr Floax missing on a new machine | `rustup update stable` if rustc is below 1.88, then `CC=/usr/bin/clang herdr plugin install Tyru5/herdr-floax --ref d6b283110c2e455fb3782595549895a840585e2b --yes`. Nix `gcc` as `cc` fails with `library not found for -liconv`. Plugin starts on the next Herdr server start; `prefix+m` needs a config rebuild. |
+| herdr Terminal Browser missing on a new machine | `herdr plugin install zenbu-labs/terminal-browser/herdr-plugin --ref v0.9.0 --yes`. Plugin build installs the CLI to `~/.local/bin` (needs Ghostty/Kitty graphics). `prefix+u` needs a config rebuild; plugin starts on the next Herdr server start. |
 | herdr CLI says `protocol_mismatch` / Auto Title not renaming | Homebrew upgraded the binary, but the old server is still running. `herdr server stop` then reattach with `herdr` (this exits pane processes; supported agents resume). After that, `prefix+a` restarts Auto Title without another server stop. |
 | SketchyBar missing | Installed via Homebrew (`FelixKratz/formulae/sketchybar`); AeroSpace starts it on login. |
 | tmux plugins missing | Open tmux and run `prefix + I`. |
