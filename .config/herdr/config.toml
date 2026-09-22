@@ -150,6 +150,14 @@ type = "pane"
 command = "~/.config/herdr/herdr-clear"
 description = "close workspaces"
 
+# herdr.auto-title restart. Plugin docs use prefix+R, which collides with
+# the default reload_config binding (prefix+shift+r).
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "herdr.auto-title.restart"
+description = "restart auto title"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]

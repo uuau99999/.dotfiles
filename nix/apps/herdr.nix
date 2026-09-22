@@ -6,6 +6,9 @@
   # 注意:config.toml 部署为只读 symlink 后,herdr 无法自行写回该文件
   # (如 onboarding、`herdr config reset-keys`)。今后改配置请改本仓库中的
   # .config/herdr/config.toml 再 rebuild。
+  #
+  # GitHub plugins live in ~/.config/herdr/plugins/ (herdr-managed, not
+  # home.file). Reinstall with `herdr plugin install owner/repo --ref <tag> --yes`.
   home.file = {
     ".config/herdr/config.toml".source = ../../.config/herdr/config.toml;
     ".config/herdr/herdr-cycle-agent.sh".source = ../../.config/herdr/herdr-cycle-agent.sh;

@@ -167,6 +167,20 @@ Apps auto-route to workspaces (e.g. Ghostty/Kitty → `I`, Chrome → `C`, Spoti
 
 Shell shortcuts (outside tmux): `p` sessionizer · `f` tmux-fzf · `x` clear · `an`/`ap` herdr agent cycle · `tn`/`tp` herdr tab cycle.
 
+### herdr
+
+Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work.
+
+| Keys | Action |
+|------|--------|
+| `prefix + a` | Restart Auto Title (`herdr.auto-title.restart`) |
+| `prefix + p` | Git workspace picker |
+| `prefix + f` | Existing workspace picker |
+| `prefix + l` | Previous workspace |
+| `prefix + x` | Close workspaces |
+| `alt+h` / `alt+l` | Previous / next tab |
+| `alt+j` / `alt+k` | Next / previous agent |
+
 ### Shell aliases (selected)
 
 ```bash
@@ -201,7 +215,7 @@ s      # serie (git log TUI)
 
 - **Claude Code**: `.claude/` → `~/.claude/` via `nix/apps/claude-code.nix`. Global instructions live in `CLAUDE_GLOBAL.md`; this repo’s own notes are in `.claude/CLAUDE.md`.
 - **Codex**: hooks under `.codex/` via `nix/apps/codex.nix`.
-- **herdr**: multi-agent terminal config + helper scripts under `.config/herdr/` (managed as read-only symlinks; edit in-repo then rebuild).
+- **herdr**: multi-agent terminal config + helper scripts under `.config/herdr/` (managed as read-only symlinks; edit in-repo then rebuild). Tab titles come from the [herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) plugin (`herdr.auto-title`), installed at runtime with `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes` (needs Herdr 0.8.2+; not a home-manager symlink).
 
 ### zsh
 
@@ -222,6 +236,8 @@ LazyVim-based setup under `.config/nvim/`. Deployed pieces: `init.lua`, `lua/`, 
 | Claude/Codex hooks not executable after edit | Ensure `executable = true` in the corresponding `nix/apps/*.nix` module, then rebuild. |
 | CLI installer fails to write `~/.zshrc` | `~/.zshrc` should be a regular file that sources `~/.zshrc.home-manager`. If it is still a Nix symlink, rebuild. |
 | herdr cannot write `config.toml` | Symlink is read-only by design. Edit `.config/herdr/config.toml` in this repo and rebuild. |
+| herdr Auto Title missing on a new machine | `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes`. Plugin starts on the next Herdr server start. |
+| herdr CLI says `protocol_mismatch` / Auto Title not renaming | Homebrew upgraded the binary, but the old server is still running. `herdr server stop` then reattach with `herdr` (this exits pane processes; supported agents resume). After that, `prefix+a` restarts Auto Title without another server stop. |
 | SketchyBar missing | Installed via Homebrew (`FelixKratz/formulae/sketchybar`); AeroSpace starts it on login. |
 | tmux plugins missing | Open tmux and run `prefix + I`. |
 

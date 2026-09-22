@@ -103,7 +103,7 @@ cd ~/.dotfiles && stow .
 | gitu (TUI git) | flake input `gitu` → `home.packages` via `gituPackage` |
 | Claude Code | `nix/apps/claude-code.nix` → `.claude/` |
 | Codex hooks | `nix/apps/codex.nix` → `.codex/` |
-| herdr | `nix/apps/herdr.nix` → `.config/herdr/` |
+| herdr | `nix/apps/herdr.nix` → `.config/herdr/` (GitHub plugins stay in `~/.config/herdr/plugins/`, not HM) |
 | sesh | `nix/apps/sesh.nix` → `.config/sesh/` |
 | AeroSpace TOML | `nix/apps/aerospace.nix` (inline) |
 | Hammerspoon | `nix/apps/hammerspoon.nix` → `.hammerspoon/` |
@@ -129,6 +129,9 @@ cd ~/.dotfiles && stow .
 - Aliases: `an`/`ap` cycle agent panes; `tn`/`tp` cycle tabs
 - `herdr-cycle-agent.sh`: if any other agent is `blocked` (needs input/approval), jump to the nearest one in direction; otherwise normal next/prev. Current focus is excluded so a sole blocked agent does not trap the cycle. No local seen file — herdr’s own status model covers that.
 - Workspace fzf/clear previews use `herdr pane read --source visible` on a representative pane
+- Plugin: [herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) (`herdr.auto-title`), pinned with `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes`. Checkout lives under `~/.config/herdr/plugins/` (herdr-managed, not `home.file`)
+- Auto Title needs Herdr **0.8.2+**. After a Homebrew herdr upgrade, the old server keeps running until `herdr server stop`; plugins and `plugin_action` keybindings start on the next server. Restart the plugin in-place with `prefix+a` or `herdr plugin action invoke herdr.auto-title.restart` (not `prefix+R`, which is `reload_config`)
+- Claude/Codex/Grok integrations are already installed; Auto Title uses those transcripts when present
 - Edit in-repo, then rebuild
 
 ### Neovim (LazyVim)
