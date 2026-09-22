@@ -158,6 +158,15 @@ type = "plugin_action"
 command = "herdr.auto-title.restart"
 description = "restart auto title"
 
+# herdr-floax toggle. Plugin default is prefix+f, already used by herdr-fzf.
+# Match tmux-floax (prefix+m). Do not run install-keybinding.sh — config.toml
+# is a read-only home-manager symlink.
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "herdr-floax.toggle"
+description = "toggle floating pane"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]

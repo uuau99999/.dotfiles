@@ -131,6 +131,7 @@ cd ~/.dotfiles && stow .
 - Workspace fzf/clear previews use `herdr pane read --source visible` on a representative pane
 - Plugin: [herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) (`herdr.auto-title`), pinned with `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes`. Checkout lives under `~/.config/herdr/plugins/` (herdr-managed, not `home.file`)
 - Auto Title needs Herdr **0.8.2+**. After a Homebrew herdr upgrade, the old server keeps running until `herdr server stop`; plugins and `plugin_action` keybindings start on the next server. Restart the plugin in-place with `prefix+a` or `herdr plugin action invoke herdr.auto-title.restart` (not `prefix+R`, which is `reload_config`)
+- Plugin: [herdr-floax](https://github.com/Tyru5/herdr-floax) (`herdr-floax`), pinned with `herdr plugin install Tyru5/herdr-floax --ref d6b283110c2e455fb3782595549895a840585e2b --yes`. Cargo build needs **rustc 1.88+** (`rustup update stable`) and Apple `clang` on this machine (`CC=/usr/bin/clang`), because Nix `gcc` fails with `library not found for -liconv`. Toggle with `prefix+m` (`herdr-floax.toggle`); plugin default `prefix+f` is already herdr-fzf. Do not run `install-keybinding.sh` against the HM-managed `config.toml`. Optional size/hint: `~/.config/herdr/plugins/config/herdr-floax/floax.conf`. Session persistence uses `tmux -L herdr-floax` when dtach/abduco are absent
 - Claude/Codex/Grok integrations are already installed; Auto Title uses those transcripts when present
 - Edit in-repo, then rebuild
 
