@@ -196,6 +196,7 @@ d      # nr dev
 i      # ni
 tma    # tmux attach
 gup    # git pull --rebase
+git lg # colorful graph log (all branches)
 up     # docker compose up
 s      # serie (git log TUI)
 ```

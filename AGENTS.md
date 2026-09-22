@@ -99,7 +99,7 @@ cd ~/.dotfiles && stow .
 | Shell | `nix/apps/zsh.nix` → `~/.zshrc.home-manager`; writable `~/.zshrc` sources it (template `.config/zsh/zshrc`) |
 | Neovim package + files | `nix/apps/nvim.nix` → `.config/nvim/` |
 | tmux + helper scripts | `nix/apps/tmux.nix` → `.config/tmux/` |
-| Git + delta | `nix/apps/git.nix` |
+| Git + delta | `nix/apps/git.nix` (`git lg` graph log alias) |
 | gitu (TUI git) | flake input `gitu` → `home.packages` via `gituPackage` |
 | Claude Code | `nix/apps/claude-code.nix` → `.claude/` |
 | Codex hooks | `nix/apps/codex.nix` → `.codex/` |
@@ -166,6 +166,7 @@ t          # television
 b / d / i  # npm run build / nr dev / ni
 tma        # tmux attach
 gup        # git pull --rebase
+git lg     # colorful graph log (all branches)
 up / down  # docker compose
 s          # serie
 an ap tn tp  # herdr navigation
