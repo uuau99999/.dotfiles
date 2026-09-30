@@ -7,9 +7,9 @@ Nix + home-manager dotfiles for macOS, managed with nix-darwin.
 - `nix/` - Nix configuration files
   - `apps/` - Per-application home-manager modules (zsh, tmux, claude-code, etc.)
   - `darwin/` - nix-darwin system-level config
-- `.claude/` - Claude Code configuration (deployed globally via `nix/apps/claude-code.nix`)
+- `.claude/` - Claude Code configuration (`CLAUDE_GLOBAL.md` and hooks deployed via `nix/apps/claude-code.nix`)
   - `CLAUDE_GLOBAL.md` - Global CLAUDE.md injected to `~/.claude/CLAUDE.md` by home-manager
-  - `settings.json` - Global Claude Code settings
+  - `settings.json` - reference copy only; live `~/.claude/settings.json` is a writable file and is not a `home.file`
   - `hooks/` - Hook scripts (lint, notify, etc.)
   - `skills/` - Custom skill definitions
 
@@ -20,5 +20,5 @@ Nix + home-manager dotfiles for macOS, managed with nix-darwin.
 
 ## Development Notes
 
-- After changing any file under `.claude/`, run `darwin-rebuild switch` (or equivalent) to deploy
+- After changing deployed files under `.claude/` (`CLAUDE_GLOBAL.md`, hooks), run `darwin-rebuild switch` (or equivalent). `settings.json` is not deployed
 - Hooks must have `executable = true` in their nix module definition

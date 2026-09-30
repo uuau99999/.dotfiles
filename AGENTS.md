@@ -65,13 +65,15 @@ cd ~/.dotfiles && stow .
 │   ├── yazi/
 │   ├── zsh/                   # writable ~/.zshrc template (sources HM file)
 │   └── starship.toml
-├── .claude/                   # Deployed to ~/.claude via claude-code.nix
+├── .claude/                   # CLAUDE.md + hooks deployed via claude-code.nix;
+│                              # settings.json is a local writable file, not home.file
 │   ├── CLAUDE_GLOBAL.md       # → ~/.claude/CLAUDE.md (global agent rules)
 │   ├── CLAUDE.md              # Project-local rules for this repo only
-│   ├── settings.json
+│   ├── settings.json          # reference copy; not deployed
 │   ├── hooks/
 │   └── skills/
-├── .codex/                    # Deployed to ~/.codex via codex.nix
+├── .codex/                    # Hook scripts deployed via codex.nix;
+│                              # hooks.json is a local writable file, not home.file
 ├── .hammerspoon/
 ├── docs/
 ├── AGENTS.md
@@ -101,8 +103,8 @@ cd ~/.dotfiles && stow .
 | tmux + helper scripts | `nix/apps/tmux.nix` → `.config/tmux/` |
 | Git + delta | `nix/apps/git.nix` (`git lg` graph log alias) |
 | gitu (TUI git) | flake input `gitu` → `home.packages` via `gituPackage` |
-| Claude Code | `nix/apps/claude-code.nix` → `.claude/` |
-| Codex hooks | `nix/apps/codex.nix` → `.codex/` |
+| Claude Code | `nix/apps/claude-code.nix` → `~/.claude/CLAUDE.md` + hooks; `settings.json` is not a `home.file` |
+| Codex hook scripts | `nix/apps/codex.nix` → `~/.codex/hooks/*.py`; `hooks.json` is not a `home.file` |
 | herdr | `nix/apps/herdr.nix` → `.config/herdr/` (GitHub plugins stay in `~/.config/herdr/plugins/`, not HM) |
 | sesh | `nix/apps/sesh.nix` → `.config/sesh/` |
 | AeroSpace TOML | `nix/apps/aerospace.nix` (inline) |
@@ -133,6 +135,7 @@ cd ~/.dotfiles && stow .
 - Auto Title needs Herdr **0.8.2+**. After a Homebrew herdr upgrade, the old server keeps running until `herdr server stop`; plugins and `plugin_action` keybindings start on the next server. Restart the plugin in-place with `prefix+a` or `herdr plugin action invoke herdr.auto-title.restart` (not `prefix+R`, which is `reload_config`)
 - Plugin: [herdr-floax](https://github.com/Tyru5/herdr-floax) (`herdr-floax`), pinned with `herdr plugin install Tyru5/herdr-floax --ref d6b283110c2e455fb3782595549895a840585e2b --yes`. Cargo build needs **rustc 1.88+** (`rustup update stable`) and Apple `clang` on this machine (`CC=/usr/bin/clang`), because Nix `gcc` fails with `library not found for -liconv`. Toggle with `prefix+m` (`herdr-floax.toggle`); plugin default `prefix+f` is already herdr-fzf. Do not run `install-keybinding.sh` against the HM-managed `config.toml`. Optional size/hint: `~/.config/herdr/plugins/config/herdr-floax/floax.conf`. Session persistence uses `tmux -L herdr-floax` when dtach/abduco are absent
 - Plugin: [terminal-browser](https://github.com/zenbu-labs/terminal-browser) (`zenbu-labs.terminal-browser`), pinned with `herdr plugin install zenbu-labs/terminal-browser/herdr-plugin --ref v0.9.0 --yes`. Plugin build runs the official installer into `~/.local/share/terminal-browser` + `~/.local/bin` (already on zsh PATH). Open a right split with `prefix+u` (`zenbu-labs.terminal-browser.open-split`). Needs Herdr **0.8.2+** and a Kitty-graphics terminal (Ghostty). Browser quit is `ctrl+q`, same as the herdr prefix — send it twice or use `ctrl+c` if prefix mode eats the first. Run `terminal-browser setup` if trackpad/input capture was skipped
+- Yazi: `prefix+y` runs `herdr-yazi` in a 90%×90% popup. Yazi lives in a private tmux server (`tmux -L herdr-yazi`, config `herdr-yazi.tmux.conf`, prefix `C-q`). The popup consumes every key, so the same chord inside the popup is a tmux `detach-client`: the popup closes and Yazi, including nvim opened from it, keeps running. The next `prefix+y` attaches to that session. `q` in Yazi still quits Yazi and the session ends; the following `prefix+y` starts in `HERDR_ACTIVE_PANE_CWD`. Press the prefix twice to send `ctrl+q` into Yazi or nvim. Shell `yy` (cd-on-exit inside the current shell) is unchanged
 - Claude/Codex/Grok integrations are already installed; Auto Title uses those transcripts when present
 - Edit in-repo, then rebuild
 
@@ -187,15 +190,15 @@ an ap tn tp  # herdr navigation
 |------|------|
 | `.claude/CLAUDE_GLOBAL.md` | Global rules deployed to `~/.claude/CLAUDE.md` |
 | `.claude/CLAUDE.md` | **This repo only** — project structure notes |
-| `.claude/settings.json` | Global Claude settings |
+| `.claude/settings.json` | Reference copy only. Live file is writable `~/.claude/settings.json` and must not be added back to `home.file` |
 | `.claude/hooks/` | permission-guard, post-edit-lint-smart |
 | `.claude/skills/` | bash-helper, create-skill, git-commit |
 
-After any `.claude/` change: user must run `darwin-rebuild switch` (or equivalent) to deploy.
+After a deployed `.claude/` change (`CLAUDE_GLOBAL.md`, hooks): user must run `darwin-rebuild switch` (or equivalent). `settings.json` is not deployed.
 
 ### Codex
 
-Hooks under `.codex/hooks/` + `hooks.json`, deployed by `codex.nix`. Keep scripts executable in the nix module.
+Hook scripts under `.codex/hooks/` are deployed by `codex.nix`. Keep them executable in the nix module. `hooks.json` is a writable file at `~/.codex/hooks.json` and must not be added back to `home.file`. The in-repo `.codex/hooks.json` is a reference copy only.
 
 ## Documentation sync (mandatory)
 

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# Open Yazi in a Herdr popup, and hide that popup without killing Yazi.
+#
+# A Herdr popup receives every key until its command exits, so prefix+y cannot
+# reach Herdr while Yazi (or nvim launched from Yazi) is on screen. Yazi runs
+# in a private tmux server whose prefix is also C-q. prefix+y inside the popup
+# detaches the client: the popup closes and the session stays. The next
+# prefix+y attaches to the same session, including an editor Yazi had opened.
+#
+# q inside Yazi still quits Yazi. The tmux session ends with it, and the next
+# prefix+y starts a new Yazi in the focused pane's directory.
+
+set -euo pipefail
+
+socket="herdr-yazi"
+session="yazi"
+script_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+conf="${script_dir}/herdr-yazi.tmux.conf"
+if [[ ! -f "$conf" ]]; then
+  conf="${HOME}/.config/herdr/herdr-yazi.tmux.conf"
+fi
+
+cwd="${HERDR_ACTIVE_PANE_CWD:-$PWD}"
+if [[ ! -d "$cwd" ]]; then
+  cwd="${HOME}"
+fi
+
+for dep in tmux yazi; do
+  if ! command -v "$dep" >/dev/null 2>&1; then
+    echo "herdr-yazi: '$dep' not found in PATH" >&2
+    exit 127
+  fi
+done
+
+# exec cannot call a shell function, so the tmux binary is invoked directly.
+# The session command is one argument: tmux runs it with a shell, and exec
+# replaces that shell so the pane process is yazi. The session ends when yazi exits.
+if tmux -L "$socket" -f "$conf" has-session -t "$session" 2>/dev/null; then
+  exec tmux -L "$socket" -f "$conf" attach-session -t "$session"
+fi
+
+cmd="$(printf 'exec yazi %q' "$cwd")"
+exec tmux -L "$socket" -f "$conf" new-session -s "$session" -c "$cwd" "$cmd"

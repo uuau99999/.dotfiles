@@ -110,13 +110,13 @@ home-manager switch --flake ~/.dotfiles/nix/#dev --impure
 │   ├── yazi/                    # File manager
 │   ├── zsh/                     # Writable ~/.zshrc template (sources HM file)
 │   └── starship.toml
-├── .claude/                     # Claude Code (deployed to ~/.claude via HM)
+├── .claude/                     # Claude Code (CLAUDE.md + hooks via HM; settings.json stays local)
 │   ├── CLAUDE_GLOBAL.md         # → ~/.claude/CLAUDE.md
 │   ├── CLAUDE.md                # Project-local instructions for this repo
-│   ├── settings.json
+│   ├── settings.json            # reference copy; not linked
 │   ├── hooks/
 │   └── skills/
-├── .codex/                      # Codex CLI hooks
+├── .codex/                      # Codex hook scripts (hooks.json stays local)
 ├── .hammerspoon/                # App hotkeys + input method switching
 ├── docs/                        # Plans / migration notes
 ├── AGENTS.md                    # Guidance for AI coding agents
@@ -169,13 +169,14 @@ Shell shortcuts (outside tmux): `p` sessionizer · `f` tmux-fzf · `x` clear · 
 
 ### herdr
 
-Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work. Floax (`prefix+m`) is a per-workspace floating scratch shell. Terminal Browser (`prefix+u`) splits a Chromium pane to the right.
+Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work. Floax (`prefix+m`) is a per-workspace floating scratch shell. Terminal Browser (`prefix+u`) splits a Chromium pane to the right. Yazi (`prefix+y`) opens a popup; the same chord hides it and leaves the Yazi session running, including an editor opened from Yazi. `q` in Yazi quits that session.
 
 | Keys | Action |
 |------|--------|
 | `prefix + a` | Restart Auto Title (`herdr.auto-title.restart`) |
 | `prefix + m` | Toggle Floax floating shell (`herdr-floax.toggle`) |
 | `prefix + u` | Open Terminal Browser in a right split (`zenbu-labs.terminal-browser.open-split`) |
+| `prefix + y` | Toggle Yazi popup (hide keeps the session, including nvim; `q` in Yazi quits it) |
 | `prefix + p` | Git workspace picker |
 | `prefix + f` | Existing workspace picker |
 | `prefix + l` | Previous workspace |
@@ -216,8 +217,8 @@ s      # serie (git log TUI)
 
 ### AI tooling
 
-- **Claude Code**: `.claude/` → `~/.claude/` via `nix/apps/claude-code.nix`. Global instructions live in `CLAUDE_GLOBAL.md`; this repo’s own notes are in `.claude/CLAUDE.md`.
-- **Codex**: hooks under `.codex/` via `nix/apps/codex.nix`.
+- **Claude Code**: `CLAUDE_GLOBAL.md` and hooks under `.claude/` deploy to `~/.claude/` via `nix/apps/claude-code.nix`. `~/.claude/settings.json` is a writable local file and is not linked by home-manager. This repo’s own notes are in `.claude/CLAUDE.md`.
+- **Codex**: hook scripts under `.codex/hooks/` via `nix/apps/codex.nix`. `~/.codex/hooks.json` is a writable local file and is not linked by home-manager.
 - **herdr**: multi-agent terminal config + helper scripts under `.config/herdr/` (managed as read-only symlinks; edit in-repo then rebuild). Tab titles come from the [herdr-auto-title](https://github.com/kryptamine/herdr-auto-title) plugin (`herdr.auto-title`), installed at runtime with `herdr plugin install kryptamine/herdr-auto-title --ref v0.8.0 --yes` (needs Herdr 0.8.2+; not a home-manager symlink). Floating scratch shell is [herdr-floax](https://github.com/Tyru5/herdr-floax), installed with `CC=/usr/bin/clang herdr plugin install Tyru5/herdr-floax --ref d6b283110c2e455fb3782595549895a840585e2b --yes` (needs rustc 1.88+; bound to `prefix+m` because `prefix+f` is the workspace picker). In-terminal Chromium is [terminal-browser](https://github.com/zenbu-labs/terminal-browser), installed with `herdr plugin install zenbu-labs/terminal-browser/herdr-plugin --ref v0.9.0 --yes` (binary lands in `~/.local/bin`; bound to `prefix+u`).
 
 ### zsh

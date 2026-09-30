@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 {
+  # ~/.codex/hooks.json is a writable regular file and is not deployed.
+  # The in-repo .codex/hooks.json is a reference copy only.
   home.file = {
-    ".codex/hooks.json" = {
-      source = ../../.codex/hooks.json;
-    };
-
     ".codex/hooks/permission_request.py" = {
       source = ../../.codex/hooks/permission_request.py;
       executable = true;

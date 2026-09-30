@@ -17,5 +17,10 @@
     ".config/herdr/herdr-fzf".source = ../../.config/herdr/herdr-fzf;
     ".config/herdr/herdr-lastworkspace".source = ../../.config/herdr/herdr-lastworkspace;
     ".config/herdr/herdr-sessionizer".source = ../../.config/herdr/herdr-sessionizer;
+    ".config/herdr/herdr-yazi" = {
+      source = ../../.config/herdr/herdr-yazi;
+      executable = true;
+    };
+    ".config/herdr/herdr-yazi.tmux.conf".source = ../../.config/herdr/herdr-yazi.tmux.conf;
   };
 }

@@ -175,6 +175,19 @@ type = "plugin_action"
 command = "zenbu-labs.terminal-browser.open-split"
 description = "open terminal-browser split"
 
+# Yazi in a popup. The popup eats every key, so a second prefix+y cannot be a
+# Herdr binding: herdr-yazi runs Yazi in a private tmux (prefix C-q) and binds
+# prefix+y to detach. The popup closes; Yazi and an editor it opened keep
+# running. The next prefix+y attaches to that session. q inside Yazi still
+# quits it, and the following prefix+y starts fresh in the focused pane cwd.
+[[keys.command]]
+key = "prefix+y"
+type = "popup"
+command = "~/.config/herdr/herdr-yazi"
+description = "toggle yazi"
+width = "90%"
+height = "90%"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
