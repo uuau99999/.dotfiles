@@ -5,3 +5,13 @@ show_hidden = true
 edit = [
 	{ run = 'nvim "$@"', block = true },
 ]
+mdd = [
+	{ run = 'mdd %s1', block = true, desc = "View Markdown" },
+]
+
+[open]
+prepend_rules = [
+	# Enter opens Markdown in mdd; open-with still lists nvim via edit.
+	{ url = "*.{md,markdown}", use = [ "mdd", "edit" ] },
+	{ mime = "text/markdown", use = [ "mdd", "edit" ] },
+]

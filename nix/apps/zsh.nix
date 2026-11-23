@@ -44,7 +44,8 @@ in
       export EDITOR=vim
 
       # Suffix aliases
-      alias -s {env,md,html,css,toml}=bat
+      alias -s {env,html,css,toml}=bat
+      alias -s {md,markdown}=mdd
       alias -s {js,ts,py,go,yml,yaml,json,zshrc}=vim
       alias -s git="git clone"
 

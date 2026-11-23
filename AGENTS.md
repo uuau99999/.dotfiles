@@ -139,6 +139,11 @@ cd ~/.dotfiles && stow .
 - Claude/Codex/Grok integrations are already installed; Auto Title uses those transcripts when present
 - Edit in-repo, then rebuild
 
+### Yazi
+
+- Enter on `*.md` / `*.markdown` (or `text/markdown`) runs `mdd` in the foreground. The open-with menu still includes `nvim`.
+- Other text files keep the `edit` opener (`nvim`).
+
 ### Neovim (LazyVim)
 
 - Source: `.config/nvim/`
@@ -180,6 +185,7 @@ an ap tn tp  # herdr navigation
 
 - home-manager writes **`~/.zshrc.home-manager`** (read-only store symlink), not `~/.zshrc`.
 - **`~/.zshrc` is a regular writable file** so CLI installers can append to it. It sources `~/.zshrc.home-manager`.
+- Suffix aliases: typing `file.md` or `file.markdown` runs `mdd`. `.env` / `.html` / `.css` / `.toml` still open with `bat`.
 - Template: `.config/zsh/zshrc` (deployed to `~/.config/zsh/zshrc` as a copyable reference).
 - First activation: if `~/.zshrc` is missing (or still an HM symlink), bootstrap it and prepend the source line. Existing `~/.zshrc.local` is copied in when present.
 - Machine-local customizations belong in `~/.zshrc`. Do not re-manage `~/.zshrc` via `home.file`. The old `~/.zshrc.local` path is no longer sourced by Nix.

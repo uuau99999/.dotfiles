@@ -53,6 +53,7 @@ in
     "sqlite3"
     # "koekeishiya/formulae/yabai"
     "FelixKratz/formulae/sketchybar"
+    "qu8n/tap/mddog"
     # "uv"
     # "pipx"
     # "fnm"

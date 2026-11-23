@@ -190,7 +190,7 @@ Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agen
 v      # nvim
 vt     # nvim $(tv files)
 ll     # eza with icons
-yy     # yazi (cd on exit)
+yy     # yazi (cd on exit); Enter on .md / .markdown opens mdd
 c      # bat -p
 t      # television (tv)
 b      # npm run build
@@ -202,6 +202,8 @@ git lg # colorful graph log (all branches)
 up     # docker compose up
 s      # serie (git log TUI)
 ```
+
+Typing `file.md` or `file.markdown` in zsh opens it with `mdd`.
 
 ## Components in more detail
 
