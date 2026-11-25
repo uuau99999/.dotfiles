@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+#
+# Open Neovim in a Herdr popup, one session per workspace.
+#
+# A Herdr popup receives every key until this command exits, so prefix+n cannot
+# reach Herdr while Neovim is on screen. Neovim runs in a private tmux server
+# whose prefix is also C-q. prefix+n inside the popup detaches the client: the
+# popup closes and that workspace's Neovim stays. The next prefix+n in the same
+# workspace attaches to it. Quitting Neovim ends only that workspace's session.
+
+set -euo pipefail
+
+socket="herdr-nvim"
+script_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+conf="${script_dir}/herdr-nvim.tmux.conf"
+if [[ ! -f "$conf" ]]; then
+  conf="${HOME}/.config/herdr/herdr-nvim.tmux.conf"
+fi
+
+for dep in tmux nvim herdr jq; do
+  if ! command -v "$dep" >/dev/null 2>&1; then
+    echo "herdr-nvim: '$dep' not found in PATH" >&2
+    exit 127
+  fi
+done
+
+workspaces_json="$(herdr workspace list 2>/dev/null)" || {
+  echo "herdr-nvim: no focused workspace" >&2
+  exit 1
+}
+
+workspace_id="$(
+  jq -r '(.result.workspaces // []) | map(select(.focused == true)) | .[0].workspace_id // empty' \
+    <<<"$workspaces_json"
+)" || {
+  echo "herdr-nvim: no focused workspace" >&2
+  exit 1
+}
+if [[ -z "$workspace_id" ]]; then
+  echo "herdr-nvim: no focused workspace" >&2
+  exit 1
+fi
+
+# tmux session names cannot contain '.' or ':'. Map anything else outside the
+# safe alphabet the same way so the session name is a single tmux target.
+sanitize() {
+  printf '%s\n' "$1" | sed 's/[^A-Za-z0-9_-]/_/g'
+}
+
+suffix="$(sanitize "$workspace_id")"
+session="nvim-${suffix}"
+
+ids_raw="$(
+  jq -r '(.result.workspaces // []) | .[].workspace_id // empty' <<<"$workspaces_json"
+)" || {
+  echo "herdr-nvim: no focused workspace" >&2
+  exit 1
+}
+
+live_ids=""
+while IFS= read -r id || [[ -n "$id" ]]; do
+  [[ -n "$id" ]] || continue
+  live_ids+="$(sanitize "$id")"$'\n'
+done <<< "$ids_raw"
+live_ids+="${suffix}"$'\n'
+
+# A missing server is not an error. Never kill when the live set is empty,
+# and never kill the focused workspace's session.
+if [[ -n "${live_ids//$'\n'/}" ]]; then
+  session_names="$(tmux -L "$socket" list-sessions -F '#{session_name}' 2>/dev/null || true)"
+  while IFS= read -r name || [[ -n "$name" ]]; do
+    [[ -n "$name" ]] || continue
+    [[ "$name" == nvim-* ]] || continue
+    [[ "$name" == "$session" ]] && continue
+    name_suffix="${name#nvim-}"
+    [[ -n "$name_suffix" ]] || continue
+    live=0
+    while IFS= read -r id || [[ -n "$id" ]]; do
+      if [[ "$id" == "$name_suffix" ]]; then
+        live=1
+        break
+      fi
+    done <<< "$live_ids"
+    if [[ "$live" -eq 0 ]]; then
+      tmux -L "$socket" kill-session -t "=$name" 2>/dev/null || true
+    fi
+  done <<< "$session_names"
+fi
+
+cwd="${HERDR_ACTIVE_PANE_CWD:-$HOME}"
+if [[ ! -d "$cwd" ]]; then
+  cwd="${HOME}"
+fi
+
+# '=' forces an exact session match so nvim-ab does not attach to nvim-abc.
+if tmux -L "$socket" -f "$conf" has-session -t "=$session" 2>/dev/null; then
+  exec tmux -L "$socket" -f "$conf" attach-session -t "=$session"
+fi
+
+exec tmux -L "$socket" -f "$conf" new-session -s "$session" -c "$cwd" "exec nvim"

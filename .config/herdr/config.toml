@@ -20,10 +20,15 @@
 # Override individual color tokens on top of the base theme.
 # Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
 # [theme.custom]
-# panel_bg = "reset"
 # accent = "#f5c2e7"
 # red = "#ff6188"
 # green = "#a6e3a1"
+
+# Popup frames use panel_bg. reset follows Ghostty's translucent background
+# so the frame matches Neovim's transparent Normal highlight. The 1-cell
+# border glyphs stay; Herdr has no switch to remove them.
+[theme.custom]
+panel_bg = "reset"
 
 [terminal]
 # Executable used for new interactive panes.
@@ -187,6 +192,20 @@ command = "~/.config/herdr/herdr-yazi"
 description = "toggle yazi"
 width = "90%"
 height = "90%"
+
+# Neovim in a popup, one session per focused workspace. The popup eats every
+# key, so a second prefix+n cannot be a Herdr binding: herdr-nvim runs Neovim
+# in a private tmux (prefix C-q) and binds prefix+n to detach. The popup
+# closes; that workspace's Neovim keeps running. The next prefix+n in the
+# same workspace attaches. :qa ends only that session. A closed workspace's
+# session is killed on the next launch.
+[[keys.command]]
+key = "prefix+n"
+type = "popup"
+command = "~/.config/herdr/herdr-nvim"
+description = "toggle neovim"
+width = "100%"
+height = "100%"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.

@@ -22,5 +22,10 @@
       executable = true;
     };
     ".config/herdr/herdr-yazi.tmux.conf".source = ../../.config/herdr/herdr-yazi.tmux.conf;
+    ".config/herdr/herdr-nvim" = {
+      source = ../../.config/herdr/herdr-nvim;
+      executable = true;
+    };
+    ".config/herdr/herdr-nvim.tmux.conf".source = ../../.config/herdr/herdr-nvim.tmux.conf;
   };
 }

@@ -169,7 +169,7 @@ Shell shortcuts (outside tmux): `p` sessionizer · `f` tmux-fzf · `x` clear · 
 
 ### herdr
 
-Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work. Floax (`prefix+m`) is a per-workspace floating scratch shell. Terminal Browser (`prefix+u`) splits a Chromium pane to the right. Yazi (`prefix+y`) opens a popup; the same chord hides it and leaves the Yazi session running, including an editor opened from Yazi. `q` in Yazi quits that session.
+Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agent work. Floax (`prefix+m`) is a per-workspace floating scratch shell. Terminal Browser (`prefix+u`) splits a Chromium pane to the right. Yazi (`prefix+y`) opens a popup; the same chord hides it and leaves the Yazi session running, including an editor opened from Yazi. `q` in Yazi quits that session. Neovim (`prefix+n`) opens a popup scoped to the focused workspace; the same chord hides it and leaves that Neovim running. `:qa` quits only that workspace's session. Popup frames use the terminal background (`theme.custom.panel_bg = "reset"`) so they follow Ghostty's transparency.
 
 | Keys | Action |
 |------|--------|
@@ -177,6 +177,7 @@ Prefix is also `C-q`. Auto Title names tabs/panes from cwd, git branch, and agen
 | `prefix + m` | Toggle Floax floating shell (`herdr-floax.toggle`) |
 | `prefix + u` | Open Terminal Browser in a right split (`zenbu-labs.terminal-browser.open-split`) |
 | `prefix + y` | Toggle Yazi popup (hide keeps the session, including nvim; `q` in Yazi quits it) |
+| `prefix + n` | Toggle Neovim popup for this workspace (hide keeps the session; `:qa` quits it) |
 | `prefix + p` | Git workspace picker |
 | `prefix + f` | Existing workspace picker |
 | `prefix + l` | Previous workspace |
